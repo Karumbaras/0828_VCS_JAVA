@@ -104,8 +104,12 @@ public class MockZaidimas implements Zaidimas {
 	public boolean sauk(String x, int y, String zaidejoId) {
 		//zaidejo ID tas kuris sauna
 		if (zaidejoId == this.zaidejoId1) {
+
+		//	return this.zaidimoLenta2.getLangeliai().get(x).get(y-1).sauk();
+
 			this.zaidimoLenta2.getLangeliai().get(x).get(y-1).sauk();
 			return this.zaidimoLenta2.getLangeliai().get(x).get(y-1).arSauta();
+
 		}
 		return true;
 	}
@@ -133,7 +137,7 @@ public class MockZaidimas implements Zaidimas {
 
 	@Override
 	public void pridekLaiva(Laivas laivas, String zaidejoId) {
-		if (zaidejoId = this.zaidejoId1) {
+		/*if (zaidejoId = this.zaidejoId1) {
 			for (int i = 0; i < laivai1.size();i++) {
 				int laivoIlgis = laivai1.get(i).getLaivoIlgis() ;
 				List<Langelis> langeliai = new ArrayList(laivoIlgis);
@@ -142,7 +146,7 @@ public class MockZaidimas implements Zaidimas {
 				
 			}
 		
-		}
+		}*/
 		
 	}
 
