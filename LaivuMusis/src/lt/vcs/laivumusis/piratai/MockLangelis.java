@@ -5,6 +5,8 @@ import lt.vcs.laivumusis.common.Langelis;
 
 public class MockLangelis implements Langelis{
 	
+	// kometaras
+	
 	String x;
 	int y;
 	
