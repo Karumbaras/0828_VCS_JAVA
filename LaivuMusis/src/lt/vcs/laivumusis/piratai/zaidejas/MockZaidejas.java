@@ -20,5 +20,4 @@ public class MockZaidejas implements Zaidejas {
 	public Zaidimas getZaidimas() {
 		return this.zaidimas;
 	}
-
 }
