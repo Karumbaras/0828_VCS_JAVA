@@ -7,8 +7,10 @@ import java.util.Random;
 import lt.vcs.laivumusis.common.Busena;
 import lt.vcs.laivumusis.common.Laivas;
 import lt.vcs.laivumusis.common.Langelis;
+import lt.vcs.laivumusis.common.Zaidejas;
 import lt.vcs.laivumusis.common.Zaidimas;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
+import lt.vcs.laivumusis.piratai.zaidejas.MockZaidejas;
 
 public class MockZaidimas implements Zaidimas {
 	
@@ -55,7 +57,6 @@ public class MockZaidimas implements Zaidimas {
 		this.laivai2.add(new MockLaivas(1));
 		this.laivai2.add(new MockLaivas(1));
 		this.laivai2.add(new MockLaivas(1));
-
 	}
 	
 	public MockZaidimas(int lentosIlgis, int lentosPlotis ) {
@@ -89,10 +90,7 @@ public class MockZaidimas implements Zaidimas {
 			System.out.println("Jau uzregistruoti 2 zaidejai");
 			return null;
 		}
-		
-		
 		if (zaidejoId1 != null) {
-			
 			this.zaidejoId2 = "zaidejoId2"+new Random().nextInt(100);
 			zaidejuSkaicius++;
 			return this.zaidejoId2;

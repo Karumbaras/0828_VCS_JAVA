@@ -7,11 +7,11 @@ import lt.vcs.laivumusis.piratai.MockZaidimas;
 
 public class MockZaidejas implements Zaidejas {
 	MockZaidimas zaidimas;
-	public String zaidejoID;
+	private String zaidejoId;
 	
 	public MockZaidejas(MockZaidimas zaidimas) {
 		this.zaidimas = zaidimas;
-		zaidejoID = this.zaidimas.registruokZaideja();
+		zaidejoId = this.zaidimas.registruokZaideja();
 	}
 
 	@Override
@@ -29,5 +29,6 @@ public class MockZaidejas implements Zaidejas {
 		for (int i = 0; i < zaidimas.duokLaivus("1").size();i++) 
 		zaidimas.pridekLaiva(zaidimas.duokLaivus("1").get(i), "1");
 	}
+
 
 }
