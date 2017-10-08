@@ -6,9 +6,6 @@ public class Main {
 
 	public static void main(String[] args) {
 		MockZaidimoLenta a = new MockZaidimoLenta(10, 10);
-		
-		
-
 	}
 
 }
