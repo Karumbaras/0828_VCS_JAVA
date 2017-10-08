@@ -85,7 +85,7 @@ public class MockZaidimas implements Zaidimas {
 	@Override
 	public String registruokZaideja() {
 		
-		if (zaidejuSkaicius > 2) {
+		if (zaidejuSkaicius >= 2) {
 			System.out.println("Jau uzregistruoti 2 zaidejai");
 			return null;
 		}
@@ -94,8 +94,9 @@ public class MockZaidimas implements Zaidimas {
 		if (zaidejoId1 != null) {
 			
 			this.zaidejoId2 = "zaidejoId2"+new Random().nextInt(100);
+			zaidejuSkaicius++;
 			return this.zaidejoId2;
-		} 
+		} zaidejuSkaicius++;
 		return this.zaidejoId1 = "zaidejoId1"+new Random().nextInt(100);
 	}
 	
