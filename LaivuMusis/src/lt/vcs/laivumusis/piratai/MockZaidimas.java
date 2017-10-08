@@ -131,6 +131,11 @@ public class MockZaidimas implements Zaidimas {
 
 	@Override
 	public ZaidimoLenta duokZaidimoLenta(String zaidejoId) {
+		
+		
+		
+		
+		
 		//atiduoti lentos kopija zaidejui
 		return new MockZaidimoLenta(lentosIlgis,lentosPlotis);
 	}

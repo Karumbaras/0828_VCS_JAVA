@@ -7,10 +7,11 @@ import lt.vcs.laivumusis.piratai.MockZaidimas;
 
 public class MockZaidejas implements Zaidejas {
 	MockZaidimas zaidimas;
-	public int zaidejoID;
+	public String zaidejoID;
 	
 	public MockZaidejas(MockZaidimas zaidimas) {
 		this.zaidimas = zaidimas;
+		zaidejoID = this.zaidimas.registruokZaideja();
 	}
 
 	@Override
