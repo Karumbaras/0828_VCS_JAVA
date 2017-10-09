@@ -2,17 +2,15 @@ package lt.vcs.laivumusis.piratai;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import lt.vcs.laivumusis.common.Laivas;
 import lt.vcs.laivumusis.common.Langelis;
 
-public class MockLaivas implements Laivas {
+public class Laivas implements lt.vcs.laivumusis.common.Laivas {
 	int laivoIlgis;
 	boolean arNusautas;
 	List<Langelis> laivoKoordinates = new ArrayList<Langelis>();
 
 	
-	public MockLaivas(int laivoIlgis) {
+	public Laivas(int laivoIlgis) {
 		this.laivoIlgis = laivoIlgis;
 	}
 

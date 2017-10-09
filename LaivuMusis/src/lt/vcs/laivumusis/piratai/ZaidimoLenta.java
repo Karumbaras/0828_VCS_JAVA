@@ -1,15 +1,15 @@
 package lt.vcs.laivumusis.piratai;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import lt.vcs.laivumusis.common.Laivas;
 import lt.vcs.laivumusis.common.Langelis;
-import lt.vcs.laivumusis.common.ZaidimoLenta;
 
-public class MockZaidimoLenta implements ZaidimoLenta {
+
+public class ZaidimoLenta implements lt.vcs.laivumusis.common.ZaidimoLenta {
 
 	int ilgis;
 	int plotis;
@@ -17,13 +17,13 @@ public class MockZaidimoLenta implements ZaidimoLenta {
 	Map<String, List<Langelis>> zaidimoLenta = new HashMap<String, List<Langelis>>();
 	List<Laivas> laivai = new ArrayList<Laivas>();
 
-	public MockZaidimoLenta(int ilgis, int plotis) {
+	public ZaidimoLenta(int ilgis, int plotis) {
 
 		for (int i = 0; i < plotis; i++) {
 			String stulpelis = "" + abecele.charAt(i);
 			List<Langelis> listas = new ArrayList<Langelis>();
 			for (int sk = 1; sk <= ilgis; sk++) {
-				listas.add(new MockLangelis(stulpelis, sk));
+				listas.add(new lt.vcs.laivumusis.piratai.Langelis(stulpelis, sk));
 				
 			}
 			zaidimoLenta.put(stulpelis, listas);
