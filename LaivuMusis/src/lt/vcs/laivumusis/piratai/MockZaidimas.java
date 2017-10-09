@@ -104,18 +104,19 @@ public class MockZaidimas implements Zaidimas {
 		//zaidejo ID tas kuris sauna
 		if (zaidejoId == this.zaidejoId1) {
 
-		//	return this.zaidimoLenta2.getLangeliai().get(x).get(y-1).sauk();
-
 			this.zaidimoLenta2.getLangeliai().get(x).get(y-1).sauk();
 			return this.zaidimoLenta2.getLangeliai().get(x).get(y-1).arSauta();
-
-		}
-		return true;
+		} else if (zaidejoId == this.zaidejoId2) {
+				this.zaidimoLenta1.getLangeliai().get(x).get(y-1).sauk();
+				return this.zaidimoLenta1.getLangeliai().get(x).get(y-1).arSauta();
+			}
+		System.out.println("Tokio zaidejo nera");
+		return false;
 	}
 
 	@Override
 	public List<Laivas> duokLaivus(String zaidejoId) {
-		//zaidimas tikrina kad nelankstyti laivu
+		// TODO zaidimas tikrina kad nelankstyti laivu
 		
 	
 		if (zaidejoId == this.zaidejoId1) {

@@ -22,7 +22,7 @@ public class MockLangelis implements Langelis{
 	public void sauk() {
 		sautaKartu++;
 		arPasautasLangelis = true;
-		System.out.println("Pasautas langelis!");		
+		System.out.println("Pasautas langelis!");
 	}
 
 	@Override
