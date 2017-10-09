@@ -1,19 +1,17 @@
 package lt.vcs.laivumusis.piratai.zaidejas;
 
-import lt.vcs.laivumusis.common.Laivas;
-import lt.vcs.laivumusis.common.Zaidejas;
 import lt.vcs.laivumusis.common.Zaidimas;
-import lt.vcs.laivumusis.piratai.MockZaidimas;
 
-public class MockZaidejas implements Zaidejas {
-	MockZaidimas zaidimas;
+
+public class Zaidejas implements lt.vcs.laivumusis.common.Zaidejas {
+	Zaidimas zaidimas;
 	private String zaidejoId;
 	
-	public MockZaidejas(MockZaidimas zaidimas) {
+	public Zaidejas(Zaidimas zaidimas) {
 		this.zaidimas = zaidimas;
 		zaidejoId = this.zaidimas.registruokZaideja();
 	}
-
+	
 	@Override
 	public void run() {
 		System.out.println("kazakass");

@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import lt.vcs.laivumusis.common.Langelis;
-import lt.vcs.laivumusis.common.Vaizdas;
+
 import lt.vcs.laivumusis.common.ZaidimoLenta;
 
-public class MockVaizdas implements Vaizdas {
+public class Vaizdas implements lt.vcs.laivumusis.common.Vaizdas {
 	ZaidimoLenta zaidimoLenta;
 
-	public MockVaizdas(MockZaidimoLenta zaidimoLenta) {
+	public Vaizdas(ZaidimoLenta zaidimoLenta) {
 		this.zaidimoLenta = zaidimoLenta;
 
 	}

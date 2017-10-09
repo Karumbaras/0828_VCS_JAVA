@@ -1,11 +1,6 @@
 package lt.vcs.laivumusis.piratai;
 
-import lt.vcs.laivumusis.common.Laivas;
-import lt.vcs.laivumusis.common.Langelis;
-
-public class MockLangelis implements Langelis{
-	
-	// kometaras
+public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	
 	String x;
 	int y;
@@ -14,7 +9,7 @@ public class MockLangelis implements Langelis{
 	boolean arPasautasLangelis;
 	boolean arTalpinaLaiva;
 	
-	public MockLangelis(String x , int y ) {
+	public Langelis(String x , int y ) {
 		this.x = x;
 		this.y = y;
 	}
@@ -27,11 +22,10 @@ public class MockLangelis implements Langelis{
 	}
 
 	@Override
-	public Laivas getLaivas() {
-		
+	public Laivas getLaivas() {	
 		// Parodo kurio laivo dalis yra sitas langelis, grazina visa laiva, nesvarbu i kuria dali sauni
 		System.out.println("Laivas langelyje");
-		return new MockLaivas(4);
+		return new Laivas(4);
 	}
 
 	@Override
