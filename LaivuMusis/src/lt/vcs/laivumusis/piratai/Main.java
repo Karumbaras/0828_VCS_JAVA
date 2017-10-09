@@ -15,8 +15,9 @@ public class Main {
 		
 		
 
-		MockZaidimoLenta a = new MockZaidimoLenta(10, 10);
-		MockVaizdas vaizdas = new MockVaizdas(a);
+		ZaidimoLenta a = new ZaidimoLenta(10, 10);
+		Vaizdas vaizdas = new Vaizdas(a);
+		vaizdas.pieskVaizda();
 
 	}
 

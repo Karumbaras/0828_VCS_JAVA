@@ -17,6 +17,10 @@ public class Vaizdas implements lt.vcs.laivumusis.common.Vaizdas {
 
 	@Override
 	public void pieskVaizda() {
+		//Pirma eilute
+		for (Map.Entry<String, List<Langelis>> k : this.zaidimoLenta.getLangeliai().entrySet()) {
+			System.out.print(k.getKey());
+		}
 		for (Map.Entry<String, List<Langelis>> k : this.zaidimoLenta.getLangeliai().entrySet()) {
 			for (int i = 0; i < k.getValue().size(); i++) {
 				if (!k.getValue().get(i).arSauta()) {
