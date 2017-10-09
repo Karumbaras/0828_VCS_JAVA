@@ -8,8 +8,10 @@ public class Main {
 		MockZaidimas zaidimas = new MockZaidimas();
 		MockZaidejas zaid = new MockZaidejas(zaidimas);
 		
-		//System.out.println(zaid.getZaidimas().registruokZaideja());
-		//System.out.println(zaid.zaidejoID);
+		
+		String zaidejoID = zaid.getZaidimas().registruokZaideja();
+		System.out.println(zaid.getZaidimas().registruokZaideja());
+		
 		
 		
 

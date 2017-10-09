@@ -40,15 +40,9 @@ public class MockZaidimoLenta implements ZaidimoLenta {
 	@Override
 	public List<Laivas> getLaivai() {
 		
-		MockZaidimas.duokLaivus("zaidejoId");
+		//MockZaidimas.duokLaivus("zaidejoId");
 		
 		return this.laivai;
-	}
-
-	@Override
-	public void pridekLaiva(Laivas laivas) {
-		System.out.println("Laivas pridetas: " + laivas);
-
 	}
 
 	@Override
