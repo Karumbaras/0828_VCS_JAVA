@@ -12,6 +12,7 @@ public class MockLangelis implements Langelis{
 	
 	int sautaKartu ;
 	boolean arPasautasLangelis;
+	boolean arTalpinaLaiva;
 	
 	public MockLangelis(String x , int y ) {
 		this.x = x;
@@ -30,7 +31,7 @@ public class MockLangelis implements Langelis{
 		
 		// Parodo kurio laivo dalis yra sitas langelis, grazina visa laiva, nesvarbu i kuria dali sauni
 		System.out.println("Laivas langelyje");
-		return new MockLaivas();
+		return new MockLaivas(4);
 	}
 
 	@Override

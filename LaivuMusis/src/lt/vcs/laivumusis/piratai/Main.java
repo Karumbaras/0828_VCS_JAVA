@@ -8,13 +8,15 @@ public class Main {
 		MockZaidimas zaidimas = new MockZaidimas();
 		MockZaidejas zaid = new MockZaidejas(zaidimas);
 		
-		System.out.println(zaid.getZaidimas().registruokZaideja());
-		System.out.println(zaid.zaidejoID);
+		//System.out.println(zaid.getZaidimas().registruokZaideja());
+		//System.out.println(zaid.zaidejoID);
 		
 		
 
 
-		MockZaidimoLenta a = new MockZaidimoLenta(10, 10);
+		MockZaidimoLenta a = new MockZaidimoLenta(10, 20);
+		MockVaizdas vaizdas = new MockVaizdas(a);
+		vaizdas.pieskVaizda();
 
 	}
 
