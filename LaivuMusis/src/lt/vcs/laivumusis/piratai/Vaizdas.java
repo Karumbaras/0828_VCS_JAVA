@@ -17,18 +17,27 @@ public class Vaizdas implements lt.vcs.laivumusis.common.Vaizdas {
 
 	@Override
 	public void pieskVaizda() {
-		//Pirma eilute
-		for (Map.Entry<String, List<Langelis>> k : this.zaidimoLenta.getLangeliai().entrySet()) {
-			System.out.print(k.getKey());
+		// Pirma eilute
+		System.out.print("  ");
+		for (String k : this.zaidimoLenta.getLangeliai().keySet()) {
+			System.out.print(k + " ");
 		}
-		for (Map.Entry<String, List<Langelis>> k : this.zaidimoLenta.getLangeliai().entrySet()) {
-			for (int i = 0; i < k.getValue().size(); i++) {
-				if (!k.getValue().get(i).arSauta()) {
+		System.out.println("");
+		
+		
+		for (int i = 0; i < this.zaidimoLenta.getLangeliai().keySet().size(); i++) {
+			if (i>=this.zaidimoLenta.getLangeliai().get("A").size()) {
+				break;
+			}
+			System.out.print((i+1)+" ");
+			for (List<Langelis> l : this.zaidimoLenta.getLangeliai().values()) {
+				if (!l.get(i).arSauta()) {
+				//System.out.print(l.get(i).getX() + l.get(i).getY());
 					System.out.print("o ");
-					// System.out.print(k.getValue().get(i).getX()+k.getValue().get(i).getY());
 				} else {
 					System.out.print("x ");
 				}
+				
 			}
 			System.out.println("");
 		}
@@ -41,13 +50,25 @@ public class Vaizdas implements lt.vcs.laivumusis.common.Vaizdas {
 
 	@Override
 	public void isvalyk() {
-		for (Map.Entry<String, List<Langelis>> k : this.zaidimoLenta.getLangeliai().entrySet()) {
-			for (int i = 0; i < k.getValue().size(); i++) {
-				System.out.print("o ");
+		// Pirma eilute
+		System.out.print("  ");
+		for (String k : this.zaidimoLenta.getLangeliai().keySet()) {
+			System.out.print(k + " ");
+		}
+		System.out.println("");
+		
+		
+		for (int i = 0; i < this.zaidimoLenta.getLangeliai().keySet().size(); i++) {
+			if (i>=this.zaidimoLenta.getLangeliai().get("A").size()) {
+				break;
+			}
+			System.out.print((i+1)+" ");
+			for (List<Langelis> l : this.zaidimoLenta.getLangeliai().values()) {
+				//System.out.print(l.get(i).getX() + l.get(i).getY());
+					System.out.print("o ");
 			}
 			System.out.println("");
 		}
-
 	}
 
 }

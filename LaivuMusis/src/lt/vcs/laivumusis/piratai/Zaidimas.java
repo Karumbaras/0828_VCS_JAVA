@@ -18,6 +18,8 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	private List<Laivas> laivai2;
 	private int lentosIlgis = 10;
 	private int lentosPlotis = 10;
+	private int soveKartu1;
+	private int soveKartu2;
 	
 	@Override
 	public void run() {
@@ -63,12 +65,15 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	@Override
 	public List<ZaidimoLenta> getLentos() {
 		List <ZaidimoLenta> lenta = new ArrayList<ZaidimoLenta>();
+		lenta.add(zaidimoLenta1);
+		lenta.add(zaidimoLenta2);
 		return lenta;
 	}
 
 	@Override
 	public void skaiciuokStatistika() {
-		System.out.println("Rodau statistika");
+		System.out.println("Pirmasis zaidejas sove "+this.soveKartu1+" kartu");
+		System.out.println("Antrasis zaidejas sove "+this.soveKartu2+" kartu");
 		
 	}
 
@@ -98,10 +103,11 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	public boolean sauk(String x, int y, String zaidejoId) {
 		//zaidejo ID tas kuris sauna
 		if (zaidejoId == this.zaidejoId1) {
-
+			this.soveKartu1++;
 			this.zaidimoLenta2.getLangeliai().get(x).get(y-1).sauk();
 			return this.zaidimoLenta2.getLangeliai().get(x).get(y-1).arSauta();
 		} else if (zaidejoId == this.zaidejoId2) {
+				this.soveKartu2++;
 				this.zaidimoLenta1.getLangeliai().get(x).get(y-1).sauk();
 				return this.zaidimoLenta1.getLangeliai().get(x).get(y-1).arSauta();
 			}
