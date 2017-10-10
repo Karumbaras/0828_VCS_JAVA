@@ -46,7 +46,7 @@ public class Laivas implements lt.vcs.laivumusis.common.Laivas {
 			
 		}
 		
-		// pakeiciam kiekvieno langelio kintamaji arTalpinaLaiva i true
+		// kiekvienam langeliui esanciui koordinates perduodam laivo objekta
 		for (int i = 0; i < langeliai.size(); i++) {
 			((lt.vcs.laivumusis.piratai.Langelis) langeliai.get(i)).setLangelyjeEsantisLaivas(this);;
 		}
