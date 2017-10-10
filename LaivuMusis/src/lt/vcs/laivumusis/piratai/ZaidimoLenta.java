@@ -50,5 +50,17 @@ public class ZaidimoLenta implements lt.vcs.laivumusis.common.ZaidimoLenta {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public int getIlgis() {
+		return this.ilgis;
+	}
+	
+	public int getPlotis() {
+		return this.plotis;
+	}
+	
+	public String getAbecele() {
+		return abecele;
+	}
 
 }
