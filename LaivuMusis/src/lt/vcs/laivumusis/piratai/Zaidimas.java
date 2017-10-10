@@ -63,6 +63,8 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	@Override
 	public List<ZaidimoLenta> getLentos() {
 		List <ZaidimoLenta> lenta = new ArrayList<ZaidimoLenta>();
+		lenta.add(zaidimoLenta1);
+		lenta.add(zaidimoLenta2);
 		return lenta;
 	}
 
