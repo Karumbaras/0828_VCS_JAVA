@@ -30,28 +30,28 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		this.zaidimoLenta1 = new lt.vcs.laivumusis.piratai.ZaidimoLenta(lentosIlgis,lentosPlotis);
 		this.zaidimoLenta2 = new lt.vcs.laivumusis.piratai.ZaidimoLenta(lentosIlgis,lentosPlotis);
 		this.laivai1 = new ArrayList<Laivas>();
-		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(4));
-		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(3));
-		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(3));
-		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(2));
-		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(2));
-		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(2));
-		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(1));
-		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(1));
-		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(1));
-		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(1));
+		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(4, this));
+		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(3, this));
+		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(3, this));
+		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(2, this));
+		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(2, this));
+		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(2, this));
+		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(1, this));
+		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(1, this));
+		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(1, this));
+		this.laivai1.add(new lt.vcs.laivumusis.piratai.Laivas(1, this));
 		
 		this.laivai2 = new ArrayList<Laivas>();
-		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(4));
-		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(3));
-		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(3));
-		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(2));
-		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(2));
-		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(2));
-		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(1));
-		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(1));
-		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(1));
-		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(1));
+		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(4, this));
+		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(3, this));
+		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(3, this));
+		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(2, this));
+		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(2, this));
+		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(2, this));
+		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(1, this));
+		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(1, this));
+		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(1, this));
+		this.laivai2.add(new lt.vcs.laivumusis.piratai.Laivas(1, this));
 	}
 	
 	public Zaidimas(int lentosIlgis, int lentosPlotis ) {
@@ -133,8 +133,10 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 	@Override
 	public void pridekLaiva(lt.vcs.laivumusis.common.Laivas laivas, String zaidejoId) {
-		// TODO Auto-generated method stub
+		
+		if (zaidejoId == zaidejoId1) {
+			
+		}
 		
 	}
-
 }

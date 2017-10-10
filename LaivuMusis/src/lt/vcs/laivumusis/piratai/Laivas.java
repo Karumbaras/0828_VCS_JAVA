@@ -8,9 +8,10 @@ public class Laivas implements lt.vcs.laivumusis.common.Laivas {
 	int laivoIlgis;
 	boolean arNusautas;
 	List<Langelis> laivoKoordinates = new ArrayList<Langelis>();
-
+	Zaidimas zaidimas;
 	
-	public Laivas(int laivoIlgis) {
+	public Laivas(int laivoIlgis, Zaidimas zaidimas) {
+		this.zaidimas = zaidimas;
 		this.laivoIlgis = laivoIlgis;
 	}
 
@@ -35,15 +36,12 @@ public class Laivas implements lt.vcs.laivumusis.common.Laivas {
 		//TODO patikrinti, kad koordinates eitu is eiles ir nebutu uz zaidimo lentos ribu
 		
 		if (laivoIlgis != langeliai.size()) {
-			System.out.println("Laivas susideda is " + laivoIlgis + " langeliu");
+			System.out.println("Error: Laivas susideda is " + laivoIlgis + " langeliu");
 		}
 		
 		for (int i = 0; i < langeliai.size(); i++) {
-			if(langeliai.get(i).getY() == 0) {
-				
-			}
+			langeliai.get(i).setArTalpinaLaiva();
 		}
-		
 		
 		this.laivoKoordinates = langeliai;
 	}
