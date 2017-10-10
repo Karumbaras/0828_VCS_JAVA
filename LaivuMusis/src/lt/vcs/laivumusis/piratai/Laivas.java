@@ -38,7 +38,7 @@ public class Laivas implements lt.vcs.laivumusis.common.Laivas {
 		// patikrinam, ar paduotos koordinates atitinka laivo ilgi
 		if (laivoIlgis != langeliai.size()) {
 			System.out.println("Error: Laivas susideda is " + laivoIlgis + " langeliu");
-			break;
+			
 		}
 		
 		// 
@@ -48,7 +48,7 @@ public class Laivas implements lt.vcs.laivumusis.common.Laivas {
 		
 		// pakeiciam kiekvieno langelio kintamaji arTalpinaLaiva i true
 		for (int i = 0; i < langeliai.size(); i++) {
-			langeliai.get(i).setArTalpinaLaiva();
+			((lt.vcs.laivumusis.piratai.Langelis) langeliai.get(i)).setLangelyjeEsantisLaivas(this);;
 		}
 		
 		this.laivoKoordinates = langeliai;

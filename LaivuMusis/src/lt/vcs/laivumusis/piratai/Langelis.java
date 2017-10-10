@@ -10,8 +10,7 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	
 	int sautaKartu ;
 	boolean arPasautasLangelis;
-	boolean arTalpinaLaiva = false;
-	
+	Laivas laivas;
 	
 	
 	public Langelis(String x , int y ) {
@@ -28,7 +27,9 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 
 	@Override
 	public Laivas getLaivas() {	
-		
+		if(laivas!=null) { 
+		return laivas;
+		}
 		return null;
 	}
 
@@ -54,8 +55,9 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 		return this.y;
 	}
 	
-	public void setArTalpinaLaiva() {
-		this.arTalpinaLaiva = true;
+		
+	public void setLangelyjeEsantisLaivas(Laivas laivas) {
+		this.laivas = laivas;
 	}
 
 }

@@ -139,9 +139,12 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 	@Override
 	public void pridekLaiva(lt.vcs.laivumusis.common.Laivas laivas, String zaidejoId) {
-		
+		// ar zaidimas pats sugalvoja kur padeti laiva?
+		// ar cia prasome user input'o ir ji kaip langeliu lista perduodame laivo setKoordinatem?
 		if (zaidejoId == zaidejoId1) {
-			
+			for(int i =1;i<= laivas.getLaivoIlgis();i++ ) {
+				
+			}
 		}
 		
 	}
