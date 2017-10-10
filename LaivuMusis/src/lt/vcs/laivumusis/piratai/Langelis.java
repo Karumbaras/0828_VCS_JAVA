@@ -1,5 +1,8 @@
 package lt.vcs.laivumusis.piratai;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	
 	String x;
@@ -7,7 +10,9 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	
 	int sautaKartu ;
 	boolean arPasautasLangelis;
-	boolean arTalpinaLaiva;
+	boolean arTalpinaLaiva = false;
+	
+	
 	
 	public Langelis(String x , int y ) {
 		this.x = x;
@@ -23,9 +28,8 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 
 	@Override
 	public Laivas getLaivas() {	
-		// Parodo kurio laivo dalis yra sitas langelis, grazina visa laiva, nesvarbu i kuria dali sauni
-		System.out.println("Laivas langelyje");
-		return new Laivas(4);
+		
+		return null;
 	}
 
 	@Override
@@ -48,6 +52,10 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	@Override
 	public int getY() {
 		return this.y;
+	}
+	
+	public void setArTalpinaLaiva() {
+		this.arTalpinaLaiva = true;
 	}
 
 }
