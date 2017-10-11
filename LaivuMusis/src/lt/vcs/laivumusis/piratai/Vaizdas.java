@@ -16,7 +16,7 @@ public class Vaizdas implements lt.vcs.laivumusis.common.Vaizdas {
 	}
 
 	@Override
-	public void pieskVaizda() {
+	public synchronized void pieskVaizda() {
 		// Pirma eilute
 		System.out.print("  ");
 		for (String k : this.zaidimoLenta.getLangeliai().keySet()) {

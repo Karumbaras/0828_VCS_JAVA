@@ -18,7 +18,11 @@ public class ZaidimoLenta implements lt.vcs.laivumusis.common.ZaidimoLenta {
 	List<Laivas> laivai = new ArrayList<Laivas>();
 
 	public ZaidimoLenta(int ilgis, int plotis) {
-
+		
+		if (plotis >abecele.length()) {
+			System.out.println("Lentos plotis negali buti didesnis nei "+abecele.length());
+			return;
+		}
 		for (int i = 0; i < plotis; i++) {
 			String stulpelis = "" + abecele.charAt(i);
 			List<Langelis> listas = new ArrayList<Langelis>();
