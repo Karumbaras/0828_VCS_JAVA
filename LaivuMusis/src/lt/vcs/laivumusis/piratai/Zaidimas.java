@@ -152,6 +152,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 	@Override
 	public synchronized List<Laivas> duokLaivus(String zaidejoId) {
+		//sitas veiktu tik tam tiikroje zaidmo busenoje.
 		System.out.println("Zaidimas paduoda laivus zaidejui "+zaidejoId);
 		if (zaidejoId == this.zaidejoId1) {
 			List<Laivas> laivai = ((List) ((ArrayList) this.laivai1).clone());		
@@ -199,6 +200,9 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		// setKoordinatem?
 		// ODETA: manau, sitame metode turetu tikrinti, ar nelanksto laivu. Tikrintu
 		// aplink esancius langelelius.
+		
+		//Kai zaidejas paduoda laiva, patikriname kokio ilgio, ir is esamo saraso istriname 
+		//tokio ilgio laiva ir padedame zaidejo paduoto laivo kopija.
 		if (zaidejoId == zaidejoId1) {
 			
 		}
