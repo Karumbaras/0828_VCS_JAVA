@@ -142,7 +142,8 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 	@Override
 	public List<Laivas> duokLaivus(String zaidejoId) {
-		// TODO zaidimas tikrina kad nelankstyti laivu
+		// TODO zaidimas tikrina kad nelankstyti laivu.
+		//ODETA: AR TIKRAI sitoje vietoje turime tikrinti ar nelanksto laivu? Galbut per prideklaiva turetume?
 		
 	
 		if (zaidejoId == this.zaidejoId1) {
@@ -158,14 +159,21 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	@Override
 	public ZaidimoLenta duokZaidimoLenta(String zaidejoId) {
 		
-		//atiduoti lentos kopija zaidejui
-		return new lt.vcs.laivumusis.piratai.ZaidimoLenta(lentosIlgis,lentosPlotis);
+		if (zaidejoId == this.zaidejoId1) {
+			return this.zaidimoLenta1;
+		}
+		if (zaidejoId == this.zaidejoId2) {
+			return this.zaidimoLenta2;
+		}
+		System.out.println("Toks zaidejas nedalyvauja zaidime, lentos duoti negalime");
+		return null;
 	}
-
+	
 	@Override
 	public void pridekLaiva(lt.vcs.laivumusis.common.Laivas laivas, String zaidejoId) {
 		// ar zaidimas pats sugalvoja kur padeti laiva?
 		// ar cia prasome user input'o ir ji kaip langeliu lista perduodame laivo setKoordinatem?
+		// ODETA: manau, sitame metode turetu tikrinti, ar nelanksto laivu. Tikrintu aplink esancius langelelius.
 		if (zaidejoId == zaidejoId1) {
 			for(int i =1;i<= laivas.getLaivoIlgis();i++ ) {
 				

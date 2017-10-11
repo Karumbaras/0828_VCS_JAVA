@@ -26,6 +26,7 @@ public class Laivas implements lt.vcs.laivumusis.common.Laivas {
 	}
 
 	@Override
+	// ar sitas tikrai parodo laivo koordinates? Ar tik grazina langeliu lista?
 	public List<Langelis> getLaivoKoordinates() {
 		return laivoKoordinates;
 	}
