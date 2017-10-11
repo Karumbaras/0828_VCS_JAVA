@@ -31,11 +31,20 @@ public class Vaizdas implements lt.vcs.laivumusis.common.Vaizdas {
 			}
 			System.out.print((i+1)+" ");
 			for (List<Langelis> l : this.zaidimoLenta.getLangeliai().values()) {
-				if (!l.get(i).arSauta()) {
+				if (l.get(i).getLaivas()!=null & l.get(i).arSauta()) {
 				//System.out.print(l.get(i).getX() + l.get(i).getY());
-					System.out.print("o ");
-				} else {
+					System.out.print("N ");
+				} 
+				
+				if (l.get(i).getLaivas()!=null) {
+				//System.out.print(l.get(i).getX() + l.get(i).getY());
+					System.out.print("L ");
+				} 
+				
+				if (l.get(i).arSauta()){
 					System.out.print("x ");
+				}else {
+					System.out.print("o ");
 				}
 				
 			}

@@ -21,7 +21,9 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	@Override
 	public void sauk() {
 		sautaKartu++;
+		if (laivas!=null) {
 		arPasautasLangelis = true;
+		}
 		System.out.println("Pasautas langelis!");
 	}
 
@@ -36,7 +38,10 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	@Override
 	public boolean arSauta() {
 		// Ar buvo sauta i si langeli
-		return arPasautasLangelis;
+		if (sautaKartu>0) {
+			return true;	
+		}
+		return false;
 	}
 
 	@Override

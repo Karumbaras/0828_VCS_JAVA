@@ -42,14 +42,14 @@ public class Laivas implements lt.vcs.laivumusis.common.Laivas {
 			
 		}
 		
-		// 
+		// Patikrinti ar nelankstomi laivai
 		for (int i = 0; i < langeliai.size(); i++) {
 			
 		}
 		
 		// kiekvienam langeliui esanciui koordinates perduodam laivo objekta
 		for (int i = 0; i < langeliai.size(); i++) {
-			((lt.vcs.laivumusis.piratai.Langelis) langeliai.get(i)).setLangelyjeEsantisLaivas(this);;
+			((lt.vcs.laivumusis.piratai.Langelis) langeliai.get(i)).setLangelyjeEsantisLaivas(this);
 		}
 		
 		this.laivoKoordinates = langeliai;
