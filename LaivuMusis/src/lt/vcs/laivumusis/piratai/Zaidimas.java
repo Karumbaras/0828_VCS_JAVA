@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Random;
 import lt.vcs.laivumusis.common.Busena;
 import lt.vcs.laivumusis.common.Laivas;
+import lt.vcs.laivumusis.common.Langelis;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
+import sun.security.action.GetLongAction;
 
 public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	
@@ -20,6 +22,8 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	private int lentosPlotis = 10;
 	private int soveKartu1;
 	private int soveKartu2;
+	private int taiklusSuviai1;
+	private int taiklusSuviai2;
 	
 	@Override
 	public void run() {
@@ -74,6 +78,8 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	public void skaiciuokStatistika() {
 		System.out.println("Pirmasis zaidejas sove "+this.soveKartu1+" kartu");
 		System.out.println("Antrasis zaidejas sove "+this.soveKartu2+" kartu");
+		System.out.println("Pirmo zaidejo taikliu suviu skaicius "+this.taiklusSuviai1);
+		System.out.println("Pirmo zaidejo taikliu suviu skaicius "+this.taiklusSuviai2);
 		
 	}
 
@@ -98,18 +104,37 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		return this.zaidejoId1 = "zaidejoId1"+new Random().nextInt(100);
 	}
 	
-	
+	//Grazina ar pasautas laivas
 	@Override
 	public boolean sauk(String x, int y, String zaidejoId) {
+		 Langelis soveId1 = this.zaidimoLenta2.getLangeliai().get(x).get(y-1);
+		 Langelis soveId2 = this.zaidimoLenta1.getLangeliai().get(x).get(y-1);
 		//zaidejo ID tas kuris sauna
 		if (zaidejoId == this.zaidejoId1) {
 			this.soveKartu1++;
-			this.zaidimoLenta2.getLangeliai().get(x).get(y-1).sauk();
-			return this.zaidimoLenta2.getLangeliai().get(x).get(y-1).arSauta();
+			//einam per langeliu masyva tikrindami ar sutampa koordinates
+			//kur sauta su esasnciu laivu langelyje
+			for (Laivas a : laivai2) {
+				for (Langelis b : a.getLaivoKoordinates()) {
+					if (b == soveId1)	{		
+						System.out.println("Laivas pasautas");
+						this.taiklusSuviai1++;
+						return true;
+			
+					}
+				}
+			}
 		} else if (zaidejoId == this.zaidejoId2) {
 				this.soveKartu2++;
-				this.zaidimoLenta1.getLangeliai().get(x).get(y-1).sauk();
-				return this.zaidimoLenta1.getLangeliai().get(x).get(y-1).arSauta();
+				for (Laivas a : laivai1) {
+					for (Langelis b : a.getLaivoKoordinates()) {
+						if (b == soveId2)	{
+							System.out.println("Laivas pasautas");
+							this.taiklusSuviai2++;
+							return true;
+						}
+					}
+				}
 			}
 		System.out.println("Tokio zaidejo nera");
 		return false;
