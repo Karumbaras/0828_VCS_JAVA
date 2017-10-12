@@ -163,16 +163,22 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	@Override
 	public synchronized List<Laivas> duokLaivus(String zaidejoId) {
 		// Kolas nera kopija, o nurodo i tuos paciu objektus - reikia pakeisti!
+		
+		if (zaidejoId != this.zaidejoId1 & zaidejoId != this.zaidejoId2) {
+			System.out.println("Toks zaidejas nedalyvauja zaidime!");
+			return null;
+		}
+		
 		System.out.println("Zaidimas paduoda laivus zaidejui " + zaidejoId);
+		List<Laivas> laivai = new ArrayList<Laivas>();
 		if (zaidejoId == this.zaidejoId1) {
-			List<Laivas> laivai = ((List) ((ArrayList) this.laivai1).clone());
-			return laivai;
+			laivai = ((List) ((ArrayList) this.laivai1).clone());		
 		}
+		
 		if (zaidejoId == this.zaidejoId2) {
-			List<Laivas> laivai = ((List) ((ArrayList) this.laivai2).clone());
-			return laivai;
+			laivai = ((List) ((ArrayList) this.laivai2).clone());		
 		}
-
+		
 		if (zaidejoId == this.zaidejoId1) {
 			arGavoLaivusId1 = true;
 		}
@@ -184,8 +190,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			zaidimoBusena = Busena.RikiuojamLaivus;
 		}
 
-		System.out.println("Toks zaidejas nedalyvauja zaidime!");
-		return null;
+		return laivai;
 	}
 
 	@Override
