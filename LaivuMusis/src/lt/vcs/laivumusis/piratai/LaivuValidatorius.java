@@ -108,6 +108,26 @@ public class LaivuValidatorius {
 		
 	}
 	
+	private boolean tikrinkArUzLentosRibu(Laivas laivas, int lentosIlgis, int lentosPlotis) {
+		
+		for (int i = 0; i < laivas.getLaivoIlgis(); i++) {
+			
+			if(laivas.getLaivoKoordinates().get(i).getY() < 1 || laivas.getLaivoKoordinates().get(i).getY() > lentosIlgis) {
+				System.out.println("Laivo Y koordinate uz lentos ribu");
+				return true;
+			}
+			
+			int laivoXKoordinate = laivas.getLaivoKoordinates().get(i).getX().charAt(0) - 64;
+			
+			if(laivoXKoordinate < 1 || laivoXKoordinate > 26) {
+				System.out.println("Laivo X koordinate uz lentos ribu");
+				return true;
+			}
+			
+		}
+		return false;
+	}
+	
 }	
 		
 
