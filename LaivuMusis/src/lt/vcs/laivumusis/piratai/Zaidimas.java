@@ -264,18 +264,12 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 				lt.vcs.laivumusis.piratai.Laivas naujasLaivas = new lt.vcs.laivumusis.piratai.Laivas(laivoIlgis, this);
 				naujasLaivas.setKordinates(koordinates);
 				laivuSarasas.add(naujasLaivas);
-				priskirkLangeliuiLaiva(koordinates, naujasLaivas);
+				
 				break;
 			}
 		}
 
 	}
 
-	private void priskirkLangeliuiLaiva(List<Langelis> langelis, lt.vcs.laivumusis.piratai.Laivas laivas) {
-		
-		for (int i = 0; i < langelis.size(); i++) {
-			lt.vcs.laivumusis.piratai.Langelis langas = (lt.vcs.laivumusis.piratai.Langelis)langelis.get(i);
-			langas.setLangelyjeEsantisLaivas(laivas);
-		}
-	}
+	
 }
