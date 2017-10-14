@@ -7,7 +7,7 @@ import lt.vcs.laivumusis.common.Langelis;
 public class Laivas implements lt.vcs.laivumusis.common.Laivas {
 	int laivoIlgis;
 	boolean arNusautas;
-	public List<Langelis> laivoKoordinates = new ArrayList<Langelis>();
+	public List<Langelis> laivoKoordinates = null;
 	private Zaidimas zaidimas;
 
 	public Laivas(int laivoIlgis, Zaidimas zaidimas) {
