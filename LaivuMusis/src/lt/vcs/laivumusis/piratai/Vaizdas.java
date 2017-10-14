@@ -54,29 +54,15 @@ public class Vaizdas implements lt.vcs.laivumusis.common.Vaizdas {
 
 	@Override
 	public void atnaujinkVaizda() {
+		isvalyk();
 		pieskVaizda();
 	}
 
 	@Override
 	public void isvalyk() {
-		// Pirma eilute
-		System.out.print("  ");
-		for (String k : this.zaidimoLenta.getLangeliai().keySet()) {
-			System.out.print(k + " ");
-		}
-		System.out.println("");
-		
-		
-		for (int i = 0; i < this.zaidimoLenta.getLangeliai().keySet().size(); i++) {
-			if (i>=this.zaidimoLenta.getLangeliai().get("A").size()) {
-				break;
-			}
-			System.out.print((i+1)+" ");
-			for (List<Langelis> l : this.zaidimoLenta.getLangeliai().values()) {
-				//System.out.print(l.get(i).getX() + l.get(i).getY());
-					System.out.print("o ");
-			}
-			System.out.println("");
+		for(int i = 0; i < 1000; i++)
+		{
+		    System.out.println(" ");
 		}
 	}
 

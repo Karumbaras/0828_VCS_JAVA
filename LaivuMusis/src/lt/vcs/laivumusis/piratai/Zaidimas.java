@@ -70,6 +70,8 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		// TODO turetu patikrinti, ar tilps laivai i lenta
 		this.lentosIlgis = lentosIlgis;
 		this.lentosPlotis = lentosPlotis;
+		this.laivai1 = new ArrayList<Laivas>();
+		this.laivai2 = new ArrayList<Laivas>();
 
 		for (int i = 0; i < laivuMasyvas.length; i++) {
 			int kiek = laivuMasyvas[i][0];
@@ -163,22 +165,22 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	@Override
 	public synchronized List<Laivas> duokLaivus(String zaidejoId) {
 		// Kolas nera kopija, o nurodo i tuos paciu objektus - reikia pakeisti!
-		
+
 		if (zaidejoId != this.zaidejoId1 & zaidejoId != this.zaidejoId2) {
 			System.out.println("Toks zaidejas nedalyvauja zaidime!");
 			return null;
 		}
-		
+
 		System.out.println("Zaidimas paduoda laivus zaidejui " + zaidejoId);
 		List<Laivas> laivai = new ArrayList<Laivas>();
 		if (zaidejoId == this.zaidejoId1) {
-			laivai = ((List) ((ArrayList) this.laivai1).clone());		
+			laivai = ((List) ((ArrayList) this.laivai1).clone());
 		}
-		
+
 		if (zaidejoId == this.zaidejoId2) {
-			laivai = ((List) ((ArrayList) this.laivai2).clone());		
+			laivai = ((List) ((ArrayList) this.laivai2).clone());
 		}
-		
+
 		if (zaidejoId == this.zaidejoId1) {
 			arGavoLaivusId1 = true;
 		}
@@ -214,61 +216,62 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			zaidimoBusena = Busena.DalinemesLaivus;
 		}
 		System.out.println("Paduota zaidimo lenta!");
-		System.out.println();
-		new Vaizdas(zl).pieskVaizda();
+
 		return zl;
 	}
 
 	@Override
-	public void pridekLaiva(lt.vcs.laivumusis.common.Laivas laivas, String zaidejoId) {
-		// ar zaidimas pats sugalvoja kur padeti laiva?
-		// ar cia prasome user input'o ir ji kaip langeliu lista perduodame laivo
-		// setKoordinatem?
-		// ODETA: manau, sitame metode turetu tikrinti, ar nelanksto laivu. Tikrintu
-		// aplink esancius langelelius.
+	public synchronized void pridekLaiva(lt.vcs.laivumusis.common.Laivas laivas, String zaidejoId) {
 
 		// Kai zaidejas paduoda laiva, patikriname kokio ilgio, ir is esamo saraso
-		// istriname
-		// tokio ilgio laiva ir padedame zaidejo paduoto laivo kopija.
+		// padedame zaidejo paduoto laivo kopija.
+
 		if (zaidejoId == zaidejoId1) {
-			int laivoIlgis = laivas.getLaivoIlgis();
-			//sukuriamas naujas listas tam, kad padaryti koordinaciu kopija
-			List<Langelis> koordinates = new ArrayList<Langelis>();
-			for (int i = 0; i < laivas.getLaivoKoordinates().size(); i++) {
-				String x = laivas.getLaivoKoordinates().get(i).getX();
-				int y = laivas.getLaivoKoordinates().get(i).getY();
-				koordinates.add(new lt.vcs.laivumusis.piratai.Langelis(x, y));
-			}
-			//zaidejo laivu list'e randamas laivas reikalingo ilgio, kuriam nepriskirtos koordinates
-			//ir priskiriama
-			for (int i = 0; i < laivai1.size(); i++) {
-				if (laivai1.get(i).getLaivoIlgis() == laivoIlgis & laivai1.get(i).getLaivoKoordinates() == null) {
-					laivai1.get(i).setKordinates(koordinates);
-
-					break;
-				}
-			}
+			padekZaidejoLaiva(laivas, zaidimoLenta1, laivai1);
 		}
-		
+
 		if (zaidejoId == zaidejoId2) {
-			int laivoIlgis = laivas.getLaivoIlgis();
-			//sukuriamas naujas listas tam, kad padaryti koordinaciu kopija
-			List<Langelis> koordinates = new ArrayList<Langelis>();
-			for (int i = 0; i < laivas.getLaivoKoordinates().size(); i++) {
-				String x = laivas.getLaivoKoordinates().get(i).getX();
-				int y = laivas.getLaivoKoordinates().get(i).getY();
-				koordinates.add(new lt.vcs.laivumusis.piratai.Langelis(x, y));
-			}
-			//zaidejo laivu list'e randamas laivas reikalingo ilgio, kuriam nepriskirtos koordinates
-			//ir priskiriama
-			for (int i = 0; i < laivai2.size(); i++) {
-				if (laivai2.get(i).getLaivoIlgis() == laivoIlgis & laivai2.get(i).getLaivoKoordinates() == null) {
-					laivai2.get(i).setKordinates(koordinates);
+			padekZaidejoLaiva(laivas, zaidimoLenta2, laivai2);
+		}
+		System.out.println();
+		new Vaizdas(zaidimoLenta1).pieskVaizda();
+		new Vaizdas(zaidimoLenta2).pieskVaizda();
 
-					break;
-				}
+	}
+
+	private void padekZaidejoLaiva(lt.vcs.laivumusis.common.Laivas laivas, ZaidimoLenta zaidimoLenta,
+			List<Laivas> laivuSarasas) {
+		int laivoIlgis = laivas.getLaivoIlgis();
+		// sukuriamas naujas listas tam, kad padaryti koordinaciu kopija
+		// koordinates i nauja list'a priskiraiamos is lentos
+		List<Langelis> koordinates = new ArrayList<Langelis>();
+		for (int i = 0; i < laivas.getLaivoKoordinates().size(); i++) {
+			String x = laivas.getLaivoKoordinates().get(i).getX();
+			int y = laivas.getLaivoKoordinates().get(i).getY();
+			koordinates.add(zaidimoLenta.getLangeliai().get(x).get(y - 1));
+		}
+
+		// zaidejo laivu list'e randamas laivas reikalingo ilgio, kuriam nepriskirtos
+		// koordinates ir jis istrinamas, o vietoje jo pridedamas naujas su naujom
+		// lentos koordinatemis
+		for (int i = 0; i < laivuSarasas.size(); i++) {
+			if (laivuSarasas.get(i).getLaivoIlgis() == laivoIlgis & laivuSarasas.get(i).getLaivoKoordinates() == null) {
+				laivuSarasas.remove(i);
+				lt.vcs.laivumusis.piratai.Laivas naujasLaivas = new lt.vcs.laivumusis.piratai.Laivas(laivoIlgis, this);
+				naujasLaivas.setKordinates(koordinates);
+				laivuSarasas.add(naujasLaivas);
+				priskirkLangeliuiLaiva(koordinates, naujasLaivas);
+				break;
 			}
 		}
 
+	}
+
+	private void priskirkLangeliuiLaiva(List<Langelis> langelis, lt.vcs.laivumusis.piratai.Laivas laivas) {
+
+		for (int i = 0; i < langelis.size(); i++) {
+			lt.vcs.laivumusis.piratai.Langelis langas = (lt.vcs.laivumusis.piratai.Langelis)langelis.get(i);
+			langas.setLangelyjeEsantisLaivas(laivas);
+		}
 	}
 }

@@ -61,7 +61,7 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	}
 	
 		
-	public void setLangelyjeEsantisLaivas(Laivas laivas) {
+	public void setLangelyjeEsantisLaivas(lt.vcs.laivumusis.piratai.Laivas laivas) {
 		this.laivas = laivas;
 	}
 
