@@ -39,10 +39,7 @@ public class Zaidejas implements lt.vcs.laivumusis.common.Zaidejas {
 					for (int i = 0; i < laivuListas.get(0).getLaivoIlgis(); i++) {
 						langeliai.add(new lt.vcs.laivumusis.piratai.Langelis("A", i+1));
 					}
-					
-					//for (int i =0;i<langeliai.size();i++) {
-					//	System.out.println(langeliai.get(i).getX()+" "+langeliai.get(i).getY());
-					//}
+	
 					laivuListas.get(0).setKordinates(langeliai);
 
 					zaidimas.pridekLaiva(laivuListas.get(0), this.zaidejoId);

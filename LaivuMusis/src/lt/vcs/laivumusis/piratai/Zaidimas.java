@@ -258,11 +258,9 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		// koordinates ir jis istrinamas, o vietoje jo pridedamas naujas su naujom
 		// lentos koordinatemis
 		for (int i = 0; i < laivuSarasas.size(); i++) {
-				System.out.println(laivuSarasas.get(i).getLaivoIlgis());
-				System.out.println(laivuSarasas.get(i).getLaivoKoordinates());
+			
 			if (laivuSarasas.get(i).getLaivoIlgis() == laivoIlgis & laivuSarasas.get(i).getLaivoKoordinates() == null) {
 				laivuSarasas.remove(i);
-				System.out.println(5);
 				lt.vcs.laivumusis.piratai.Laivas naujasLaivas = new lt.vcs.laivumusis.piratai.Laivas(laivoIlgis, this);
 				naujasLaivas.setKordinates(koordinates);
 				laivuSarasas.add(naujasLaivas);

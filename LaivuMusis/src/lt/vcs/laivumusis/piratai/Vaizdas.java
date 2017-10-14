@@ -23,30 +23,29 @@ public class Vaizdas implements lt.vcs.laivumusis.common.Vaizdas {
 			System.out.print(k + " ");
 		}
 		System.out.println("");
-		
-		
+
 		for (int i = 0; i < this.zaidimoLenta.getLangeliai().keySet().size(); i++) {
-			if (i>=this.zaidimoLenta.getLangeliai().get("A").size()) {
+			if (i >= this.zaidimoLenta.getLangeliai().get("A").size()) {
 				break;
 			}
-			System.out.print((i+1)+" ");
+			System.out.print((i + 1) + " ");
 			for (List<Langelis> l : this.zaidimoLenta.getLangeliai().values()) {
-				if (l.get(i).getLaivas()!=null & l.get(i).arSauta()) {
-				//System.out.print(l.get(i).getX() + l.get(i).getY());
+				if (l.get(i).getLaivas() != null & l.get(i).arSauta()) {
+					// System.out.print(l.get(i).getX() + l.get(i).getY());
 					System.out.print("N ");
-				} 
-				
-				if (l.get(i).getLaivas()!=null) {
-				//System.out.print(l.get(i).getX() + l.get(i).getY());
-					System.out.print("L ");
-				} 
-				
-				if (l.get(i).arSauta()){
-					System.out.print("x ");
-				}else {
-					System.out.print("o ");
+				} else {
+					if (l.get(i).getLaivas() != null) {
+						// System.out.print(l.get(i).getX() + l.get(i).getY());
+						System.out.print("L ");
+					} else {
+
+						if (l.get(i).arSauta()) {
+							System.out.print("x ");
+						} else {
+							System.out.print("o ");
+						}
+					}
 				}
-				
 			}
 			System.out.println("");
 		}
@@ -60,9 +59,8 @@ public class Vaizdas implements lt.vcs.laivumusis.common.Vaizdas {
 
 	@Override
 	public void isvalyk() {
-		for(int i = 0; i < 1000; i++)
-		{
-		    System.out.println(" ");
+		for (int i = 0; i < 1000; i++) {
+			System.out.println(" ");
 		}
 	}
 
