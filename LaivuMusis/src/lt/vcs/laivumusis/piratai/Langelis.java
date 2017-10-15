@@ -1,21 +1,17 @@
 package lt.vcs.laivumusis.piratai;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Langelis implements lt.vcs.laivumusis.common.Langelis {
-	
+
 	private String x;
 	private int y;
-	
-	private int sautaKartu ;
+
+	private int sautaKartu;
 	private boolean arPasautasLangelis;
-	
+
 	private Laivas laivas;
 	private boolean arGalimaDetiLaiva = true;
-	
-	
-	public Langelis(String x , int y) {
+
+	public Langelis(String x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -23,31 +19,30 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	@Override
 	public void sauk() {
 		sautaKartu++;
-		if (laivas!=null) {
-		arPasautasLangelis = true;
+		if (laivas != null) {
+			arPasautasLangelis = true;
 		}
 	}
 
 	@Override
-	public Laivas getLaivas() {	
-		if(laivas!=null) { 
-		return laivas;
+	public Laivas getLaivas() {
+		if (laivas != null) {
+			return laivas;
 		}
 		return null;
 	}
 
 	@Override
 	public boolean arSauta() {
-		// Ar buvo sauta i si langeli
-		if (sautaKartu>0) {
-			return true;	
+		if (sautaKartu > 0) {
+			return true;
 		}
 		return false;
 	}
 
 	@Override
 	public int sakykKiekKartuSauta() {
-		System.out.println("I si langeli sauta kartu: "+sautaKartu);
+		System.out.println("I si langeli sauta kartu: " + sautaKartu);
 		return sautaKartu;
 	}
 
@@ -60,11 +55,22 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	public int getY() {
 		return this.y;
 	}
-	
-		
+
 	public void setLangelyjeEsantisLaivas(lt.vcs.laivumusis.piratai.Laivas laivas) {
 		this.laivas = laivas;
 		arGalimaDetiLaiva = false;
+	}
+
+	public void setArGalimaDetiLaiva() {
+		this.arGalimaDetiLaiva = false;
+	}
+	
+	public boolean getArGalimaDetiLaiva() {
+		return this.arGalimaDetiLaiva;
+	}
+
+	public boolean getArPasautasLangelis() {
+		return this.arPasautasLangelis;
 	}
 
 }
