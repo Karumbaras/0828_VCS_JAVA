@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 
 import lt.vcs.laivumusis.common.Busena;
 import lt.vcs.laivumusis.common.Laivas;
 import lt.vcs.laivumusis.common.Langelis;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
-import sun.security.action.GetLongAction;
+
 
 public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
@@ -34,6 +34,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	private boolean arGavoLentaId2;
 	private boolean arGavoLaivusId1;
 	private boolean arGavoLaivusId2;
+	
 
 	@Override
 	public void run() {
@@ -128,39 +129,36 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	// Grazina ar pasautas laivas
 	@Override
 	public synchronized boolean sauk(String x, int y, String zaidejoId) {
-		Langelis soveId1 = this.zaidimoLenta2.getLangeliai().get(x).get(y - 1);
-		Langelis soveId2 = this.zaidimoLenta1.getLangeliai().get(x).get(y - 1);
+		Langelis soveId1 = this.zaidimoLenta2.getLangeliai().get(x).get(y);
+		Langelis soveId2 = this.zaidimoLenta1.getLangeliai().get(x).get(y);
 		// zaidejo ID tas kuris sauna
 		if (zaidejoId == this.zaidejoId1) {
-			this.soveKartu1++;
-			// einam per langeliu masyva tikrindami ar sutampa koordinates
-			// kur sauta su esasnciu laivu langelyje
-			for (Laivas a : laivai2) {
-				for (Langelis b : a.getLaivoKoordinates()) {
-					if (b == soveId1) {
-						System.out.println("Laivas pasautas");
-						this.taiklusSuviai1++;
-						return true;
-
-					}
-				}
+			saukPagalba(soveId1, laivai2, taiklusSuviai1, soveKartu1);
+			return true;
 			}
-		} else if (zaidejoId == this.zaidejoId2) {
-			this.soveKartu2++;
-			for (Laivas a : laivai1) {
-				for (Langelis b : a.getLaivoKoordinates()) {
-					if (b == soveId2) {
-						System.out.println("Laivas pasautas");
-						this.taiklusSuviai2++;
-						return true;
-					}
-				}
-			}
-		}
+		 else if (zaidejoId == this.zaidejoId2) {
+			 saukPagalba(soveId2, laivai1, taiklusSuviai2, soveKartu2);
+			 return true;
+		 }
 		System.out.println("Tokio zaidejo nera");
 		return false;
 	}
-
+	
+	private void saukPagalba(Langelis soveID, List<Laivas> laivai,
+			 int taiklusSuviai, int soveKartu) {
+	
+	soveKartu++;
+	// einam per langeliu masyva tikrindami ar sutampa koordinates
+	// kur sauta su esasnciu laivu langelyje
+	for (Laivas a : laivai) {
+		for (Langelis b : a.getLaivoKoordinates()) {
+			if (b == soveID) {
+				System.out.println("Laivas pasautas");
+				taiklusSuviai++;
+			}
+			}
+		}
+	}
 	@Override
 	public synchronized List<Laivas> duokLaivus(String zaidejoId) {
 		// Kolas nera kopija, o nurodo i tuos paciu objektus - reikia pakeisti!
@@ -222,9 +220,29 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	@Override
 	public synchronized void pridekLaiva(lt.vcs.laivumusis.common.Laivas laivas, String zaidejoId) {
 		
-		if (zaidejoId == zaidejoId1) {
-			
-		}
+		/*StringBuilder sb = new StringBuilder();
+		List<lt.vcs.laivumusis.piratai.Langelis> pilniLangeliai = new ArrayList<lt.vcs.laivumusis.piratai.Langelis> ();
+		String abecele = "ABCDEFGHIJ";
+		Random generator = new Random();
+		
+		sb.append(abecele.charAt(generator.nextInt(abecele.length())));
+		String x = sb.toString();
+		int y = generator.nextInt(10);
+		
+		
+		
+		
+		for (lt.vcs.laivumusis.common.Laivas l : laivai1) {
+			if (l.getLaivoIlgis() == 1) {
+				String ixas = (this.zaidimoLenta1.getLangeliai().get(x).get(y).getX());
+				int ykas = this.zaidimoLenta1.getLangeliai().get(x).get(y).getY();
+				lt.vcs.laivumusis.piratai.Langelis pilnas = new lt.vcs.laivumusis.piratai.Langelis(ixas, ykas);
+				pilniLangeliai.add(pilnas);
+				
+			}
+		}*/
+		
+		
 		
 		// Kai zaidejas paduoda laiva, patikriname kokio ilgio, ir is esamo saraso
 		// padedame zaidejo paduoto laivo kopija.
