@@ -77,7 +77,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			int kiek = laivuMasyvas[i][0];
 			int laivoIlgis = laivuMasyvas[i][1];
 			for (int k = 0; k < kiek; k++) {
-				laivuSarasas.add(new lt.vcs.laivumusis.piratai.Laivas(laivoIlgis, this));
+				laivuSarasas.add(new lt.vcs.laivumusis.piratai.Laivas(laivoIlgis));
 			}
 		}
 		return laivuSarasas;
@@ -221,7 +221,11 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 	@Override
 	public synchronized void pridekLaiva(lt.vcs.laivumusis.common.Laivas laivas, String zaidejoId) {
-
+		
+		if (zaidejoId == zaidejoId1) {
+			
+		}
+		
 		// Kai zaidejas paduoda laiva, patikriname kokio ilgio, ir is esamo saraso
 		// padedame zaidejo paduoto laivo kopija.
 
@@ -261,7 +265,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			
 			if (laivuSarasas.get(i).getLaivoIlgis() == laivoIlgis & laivuSarasas.get(i).getLaivoKoordinates() == null) {
 				laivuSarasas.remove(i);
-				lt.vcs.laivumusis.piratai.Laivas naujasLaivas = new lt.vcs.laivumusis.piratai.Laivas(laivoIlgis, this);
+				lt.vcs.laivumusis.piratai.Laivas naujasLaivas = new lt.vcs.laivumusis.piratai.Laivas(laivoIlgis);
 				naujasLaivas.setKordinates(koordinates);
 				laivuSarasas.add(naujasLaivas);
 				
