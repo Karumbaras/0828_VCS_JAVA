@@ -5,15 +5,17 @@ import java.util.List;
 
 public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	
-	String x;
-	int y;
+	private String x;
+	private int y;
 	
-	int sautaKartu ;
-	boolean arPasautasLangelis;
-	Laivas laivas;
+	private int sautaKartu ;
+	private boolean arPasautasLangelis;
+	
+	private Laivas laivas;
+	private boolean arGalimaDetiLaiva = true;
 	
 	
-	public Langelis(String x , int y ) {
+	public Langelis(String x , int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -24,7 +26,6 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 		if (laivas!=null) {
 		arPasautasLangelis = true;
 		}
-		System.out.println("Pasautas langelis!");
 	}
 
 	@Override
@@ -63,6 +64,7 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 		
 	public void setLangelyjeEsantisLaivas(lt.vcs.laivumusis.piratai.Laivas laivas) {
 		this.laivas = laivas;
+		arGalimaDetiLaiva = false;
 	}
 
 }
