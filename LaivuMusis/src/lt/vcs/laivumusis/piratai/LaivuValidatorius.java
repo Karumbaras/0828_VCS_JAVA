@@ -15,6 +15,14 @@ public class LaivuValidatorius {
 	}
 
 	public boolean arPerduotosKoordinatesGeros() {
+		
+		arTeisingasLaivoIlgis();
+		arPaduotaVienaRaide();
+		arSkaiciaiLygus();
+		arSkaiciaiIsEiles();
+		arRaidesLygios();
+		arRaidesIsEiles();
+		
 		if ((arPaduotaVienaRaide() && arTeisingasLaivoIlgis() && arLaivuFormaGera()) == true) {
 			return true;
 		}
