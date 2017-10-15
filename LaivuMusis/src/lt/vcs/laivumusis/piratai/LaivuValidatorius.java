@@ -1,9 +1,5 @@
 package lt.vcs.laivumusis.piratai;
 
-import java.util.List;
-
-import lt.vcs.laivumusis.common.Langelis;
-
 public class LaivuValidatorius {
 	
 	Laivas laivas;
@@ -14,10 +10,8 @@ public class LaivuValidatorius {
 	
 	public LaivuValidatorius(Laivas laivas) {
 		this.laivas = laivas;
-		
 	}
 	
-	//TODO prideti zaidimo lentos ribu validacijos metoda
 	public boolean arPerduotosKoordinatesGeros() {
 		if((arPaduotaVienaRaide()&&arTeisingasLaivoIlgis()&&arLaivuFormaGera())==true) {
 			return true;
@@ -128,15 +122,13 @@ public class LaivuValidatorius {
 		return false;
 	}
 	
-}	
-		
-
-		
-
-		
-
-		
-
-		
-
+	public boolean tikrinkArLieciasi() {
+		for (int i = 0; i < laivas.laivoIlgis; i++) {
+			if (((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i)).getArGalimaDetiLaiva()) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
+}
