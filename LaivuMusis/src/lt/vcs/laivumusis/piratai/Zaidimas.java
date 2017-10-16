@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import lt.vcs.laivumusis.common.Busena;
 import lt.vcs.laivumusis.common.Laivas;
+import lt.vcs.laivumusis.common.LaivuPridejimoKlaida;
 import lt.vcs.laivumusis.common.Langelis;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
 
@@ -115,7 +116,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	}
 
 	@Override
-	public synchronized String registruokZaideja() {
+	public synchronized String registruokZaideja(String zaidejoId) {
 		if (zaidejuSkaicius >= 2) {
 			System.out.println("Jau uzregistruoti 2 zaidejai");
 			return null;
@@ -223,7 +224,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	}
 
 	@Override
-	public synchronized void pridekLaiva(lt.vcs.laivumusis.common.Laivas laivas, String zaidejoId) {
+	public synchronized void pridekLaiva(lt.vcs.laivumusis.common.Laivas laivas, String zaidejoId) throws LaivuPridejimoKlaida{
 
 		//ar neturetu sis metodas grazinti boolean?
 		
@@ -260,7 +261,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 	}
 
-	private boolean padekZaidejoLaiva(lt.vcs.laivumusis.common.Laivas laivas, ZaidimoLenta zaidimoLenta,
+	private synchronized boolean padekZaidejoLaiva(lt.vcs.laivumusis.common.Laivas laivas, ZaidimoLenta zaidimoLenta,
 			List<Laivas> laivuSarasas) {
 
 		int laivoIlgis = laivas.getLaivoIlgis();
