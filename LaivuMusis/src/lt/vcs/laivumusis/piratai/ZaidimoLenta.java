@@ -51,7 +51,8 @@ public class ZaidimoLenta implements lt.vcs.laivumusis.common.ZaidimoLenta {
 
 	@Override
 	public boolean sauk(String x, int y) {
-		// TODO Auto-generated method stub
+		
+		
 		return false;
 	}
 	
