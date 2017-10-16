@@ -15,11 +15,11 @@ public interface Zaidimas extends Runnable {
 	public Busena tikrinkBusena(String zaidejoId);
 
 	// Grazina unikalu zaidejo id kitu operaciju kvietimui
-	public String registruokZaideja();
+	public String registruokZaideja(String zaidejoId);
 
 	// Prideda zaidejo laiva, patalpina ant zemelapio
 	// ir pasidaro laivo bei langeliu kopijas
-	public void pridekLaiva(Laivas laivas, String zaidejoId);
+	public void pridekLaiva(Laivas laivas, String zaidejoId) throws LaivuPridejimoKlaida;
 
 	// Grazina true if pataike i laiva
 	public boolean sauk(String x, int y, String zaidejoId);
