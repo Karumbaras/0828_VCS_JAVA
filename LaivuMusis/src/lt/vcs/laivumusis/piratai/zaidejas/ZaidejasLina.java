@@ -11,8 +11,13 @@ import lt.vcs.laivumusis.common.Zaidimas;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
 
 public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
-	Zaidimas zaidimas;
+	private Zaidimas zaidimas;
 	private String zaidejoId;
+
+	private ZaidimoLenta zaidimoLenta;
+	private String abecele = "";
+	private int lentosIlgis;
+	private int lentosPlotis;
 
 	public ZaidejasLina(Zaidimas zaidimas) {
 		this.zaidimas = zaidimas;
@@ -27,20 +32,46 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 
 				switch (zaidimas.tikrinkBusena(zaidejoId)) {
 				case DalinamesZemelapius:
-					ZaidimoLenta zaidimoLenta = zaidimas.duokZaidimoLenta(zaidejoId);
+					this.zaidimoLenta = zaidimas.duokZaidimoLenta(zaidejoId);
+
+					for (String k : zaidimoLenta.getLangeliai().keySet()) {
+						this.abecele = this.abecele + k;
+					}
+
+					this.lentosPlotis = zaidimoLenta.getLangeliai().keySet().size();
+					this.lentosIlgis = zaidimoLenta.getLangeliai().get("" + abecele.charAt(0)).size();
+
 					Thread.sleep(1000);
 					break;
+					
 				case DalinemesLaivus:
 					List<Laivas> laivuListas = zaidimas.duokLaivus(zaidejoId);
-
-					for (int k = 0; k < laivuListas.size(); k++) {
+					System.out.println("Lina gauna Laivus");
+					for (int k = 0; k < laivuListas.size();k++) {
 						// Bandom kurti laiva
 						int laivoPadetis = new Random().nextInt(50);
 						int laivoIlgis = laivuListas.get(k).getLaivoIlgis();
-						laivuListas.get(k).setKordinates(sugalvokLaivoKoordinates(laivoIlgis, laivoPadetis));
-						zaidimas.pridekLaiva(laivuListas.get(k), this.zaidejoId);
-						break;
+						laivuListas.get(k)
+								.setKordinates(sugalvokLaivoKoordinates(laivoIlgis, laivoPadetis, zaidimoLenta));
+						zaidimas.pridekLaiva(laivuListas.get(k), this.zaidejoId);		
 					}
+					
+					break;
+				case PriesasLaimejo:
+					break;
+				case PriesininkoEile:
+					break;
+				case Registracija:
+					break;
+				case RikiuojamLaivus:
+					break;
+				case TavoEile:
+					break;
+				case TuLaimejai:
+					break;
+				default:
+					break;
+
 				}
 
 			}
@@ -60,15 +91,24 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 			zaidimas.pridekLaiva(zaidimas.duokLaivus("1").get(i), "1");
 	}
 
-	private List<Langelis> sugalvokLaivoKoordinates(int laivoIlgis, int laivoPadetis) {
+	private List<Langelis> sugalvokLaivoKoordinates(int laivoIlgis, int laivoPadetis, ZaidimoLenta zaidimoLenta) {
 		List<Langelis> langeliai = new ArrayList<Langelis>();
-		//Vienu atveju bus vertikalus, kitu atveju bus horizontalus
+
+		// Vienu atveju bus vertikalus, kitu atveju bus horizontalus
 		if (laivoPadetis < 25) {
-			//vertikalus
-			
-		} else {
+			// horizontalus
+			int stulpelisInt = new Random().nextInt(lentosPlotis - laivoIlgis);
+			int eilute = new Random().nextInt(lentosIlgis) + 1;
 			for (int i = 0; i < laivoIlgis; i++) {
-				langeliai.add(new lt.vcs.laivumusis.piratai.Langelis("A", i + 1));
+				String stulpelis = "" + abecele.charAt(stulpelisInt + i);
+				langeliai.add(new lt.vcs.laivumusis.piratai.Langelis(stulpelis, eilute));
+			}
+		} else {
+			// vertikalus
+			String stulpelis = "" + abecele.charAt(new Random().nextInt(lentosPlotis));
+			int eilute = new Random().nextInt(lentosIlgis - laivoIlgis) + 1;
+			for (int i = 0; i < laivoIlgis; i++) {
+				langeliai.add(new lt.vcs.laivumusis.piratai.Langelis(stulpelis, eilute));
 			}
 		}
 		return langeliai;

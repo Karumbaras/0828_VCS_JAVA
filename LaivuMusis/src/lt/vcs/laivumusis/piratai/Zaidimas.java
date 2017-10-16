@@ -226,38 +226,15 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	public synchronized void pridekLaiva(lt.vcs.laivumusis.common.Laivas laivas, String zaidejoId) {
 
 		//ar neturetu sis metodas grazinti boolean?
-
-		
-		/*StringBuilder sb = new StringBuilder();
-		List<lt.vcs.laivumusis.piratai.Langelis> pilniLangeliai = new ArrayList<lt.vcs.laivumusis.piratai.Langelis> ();
-		String abecele = "ABCDEFGHIJ";
-		Random generator = new Random();
-		
-		sb.append(abecele.charAt(generator.nextInt(abecele.length())));
-		String x = sb.toString();
-		int y = generator.nextInt(10);
-		
-		
-		
-		
-		for (lt.vcs.laivumusis.common.Laivas l : laivai1) {
-			if (l.getLaivoIlgis() == 1) {
-				String ixas = (this.zaidimoLenta1.getLangeliai().get(x).get(y).getX());
-				int ykas = this.zaidimoLenta1.getLangeliai().get(x).get(y).getY();
-				lt.vcs.laivumusis.piratai.Langelis pilnas = new lt.vcs.laivumusis.piratai.Langelis(ixas, ykas);
-				pilniLangeliai.add(pilnas);
-				
-			}
-		}*/
 		
 		LaivuValidatorius validatorius = new LaivuValidatorius((lt.vcs.laivumusis.piratai.Laivas) laivas);
 
 		//validatorius.arPerduotosKoordinatesGeros();
 
 		if (zaidejoId == zaidejoId1) {
-			validatorius.tikrinkArLieciasi(zaidimoLenta2);
-		} else
 			validatorius.tikrinkArLieciasi(zaidimoLenta1);
+		} else
+			validatorius.tikrinkArLieciasi(zaidimoLenta2);
 
 		// Kai zaidejas paduoda laiva, patikriname kokio ilgio, ir is esamo saraso
 		// padedame zaidejo paduoto laivo kopija.

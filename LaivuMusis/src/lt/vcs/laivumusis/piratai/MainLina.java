@@ -5,12 +5,13 @@ import java.util.List;
 import java.util.Random;
 
 import lt.vcs.laivumusis.piratai.zaidejas.Zaidejas;
+import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasLina;
 
 public class MainLina {
 	public static void main(String[] args) {
-		int [][] laivai = {{1,4},{2,3}};
+		int [][] laivai = {{2,3}};
 		Zaidimas zaidimas = new Zaidimas();
-		Zaidejas zaid = new Zaidejas(zaidimas);
+		//ZaidejasLina zaid = new ZaidejasLina(zaidimas);
 	
 		//Zaidimas zaidimas2 = new Zaidimas(15,15,laivai);
 		//Zaidimas zaidimas2 = new Zaidimas();
@@ -22,12 +23,12 @@ public class MainLina {
 		//	System.out.println(laiveliai.get(i).getLaivoIlgis());
 		//}
 		
-		System.out.println(new Random().nextInt(2));
-		//Thread zaidejas1 = new Thread(new Zaidejas(zaidimas));
-		//Thread zaidejas2 = new Thread(new Zaidejas(zaidimas));
+		//System.out.println(new Random().nextInt(2));
+		Thread zaidejas1 = new Thread(new ZaidejasLina(zaidimas));
+		Thread zaidejas2 = new Thread(new ZaidejasLina(zaidimas));
 		
-		//zaidejas1.start();
-		//zaidejas2.start();
+		zaidejas1.start();
+		zaidejas2.start();
 		
 		
 	
