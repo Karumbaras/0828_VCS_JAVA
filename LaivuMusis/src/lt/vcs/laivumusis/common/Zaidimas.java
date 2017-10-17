@@ -14,8 +14,8 @@ public interface Zaidimas extends Runnable {
 	// Zaidejai klausineja ka jiems daryti
 	public Busena tikrinkBusena(String zaidejoId);
 
-	// Grazina unikalu zaidejo id kitu operaciju kvietimui
-	public String registruokZaideja(String zaidejoId);
+	// Grazina ar pavyko prisijungti prie žaidimo
+	public boolean registruokZaideja(String zaidejoId);
 
 	// Prideda zaidejo laiva, patalpina ant zemelapio
 	// ir pasidaro laivo bei langeliu kopijas
