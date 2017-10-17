@@ -8,7 +8,7 @@ import lt.vcs.laivumusis.common.Langelis;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
 
 public class Vaizdas implements lt.vcs.laivumusis.common.Vaizdas {
-	ZaidimoLenta zaidimoLenta;
+	private ZaidimoLenta zaidimoLenta;
 
 	public Vaizdas(ZaidimoLenta zaidimoLenta) {
 		this.zaidimoLenta = zaidimoLenta;

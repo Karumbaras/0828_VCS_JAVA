@@ -138,7 +138,7 @@ public class LaivuValidatorius {
 			String raidineKoordinate = laivas.getLaivoKoordinates().get(i).getX();
 			int skaitineKoordinate = laivas.getLaivoKoordinates().get(i).getY();
 
-			if (((lt.vcs.laivumusis.piratai.Langelis) zaidimoLenta.getLangeliai().get(raidineKoordinate).get(skaitineKoordinate))
+			if (((lt.vcs.laivumusis.piratai.Langelis) zaidimoLenta.getLangeliai().get(raidineKoordinate).get(skaitineKoordinate-1))
 					.getArGalimaDetiLaiva()) {
 				return true;
 			}

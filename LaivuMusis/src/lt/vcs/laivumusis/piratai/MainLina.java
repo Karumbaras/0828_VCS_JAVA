@@ -9,8 +9,8 @@ import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasLina;
 
 public class MainLina {
 	public static void main(String[] args) {
-		int [][] laivai = {{2,3}};
-		Zaidimas zaidimas = new Zaidimas();
+		int [][] laivai = {{1,4}, {1,3},{2,2}};
+		Zaidimas zaidimas = new Zaidimas(10,10,laivai);
 		//ZaidejasLina zaid = new ZaidejasLina(zaidimas);
 	
 		//Zaidimas zaidimas2 = new Zaidimas(15,15,laivai);
@@ -24,8 +24,8 @@ public class MainLina {
 		//}
 		
 		//System.out.println(new Random().nextInt(2));
-		Thread zaidejas1 = new Thread(new ZaidejasLina(zaidimas));
-		Thread zaidejas2 = new Thread(new ZaidejasLina(zaidimas));
+		Thread zaidejas1 = new Thread(new ZaidejasLina(zaidimas, "Lina"));
+		Thread zaidejas2 = new Thread(new ZaidejasLina(zaidimas, "Kestutis"));
 		
 		zaidejas1.start();
 		zaidejas2.start();
