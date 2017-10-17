@@ -253,15 +253,21 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 		if (zaidejoId == zaidejoId1) {
 			System.out.println(zaidejoId1);
-			if (padekZaidejoLaiva(laivas, this.zaidimoLenta1, laivai1)) {
+			if (validatorius.tikrinkArLieciasi(zaidimoLenta1) && padekZaidejoLaiva(laivas, this.zaidimoLenta1, laivai1)) {
 				padetaLaivuId1++;
+				validatorius.neleiskLaivamLiestis(zaidimoLenta1);
+			}else {
+				throw new LaivuPridejimoKlaida();
 			}
 		}
 
 		if (zaidejoId == zaidejoId2) {
 			System.out.println(zaidejoId2);
-			if (padekZaidejoLaiva(laivas, this.zaidimoLenta2, laivai2)) {
+			if (validatorius.tikrinkArLieciasi(zaidimoLenta2) && padekZaidejoLaiva(laivas, this.zaidimoLenta2, laivai2)) {
 				padetaLaivuId2++;
+				validatorius.neleiskLaivamLiestis(zaidimoLenta2);
+			} else {
+				throw new LaivuPridejimoKlaida();
 			}
 		}
 		// TODO sutvarkyti

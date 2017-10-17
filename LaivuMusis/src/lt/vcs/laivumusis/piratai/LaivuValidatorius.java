@@ -145,4 +145,31 @@ public class LaivuValidatorius {
 		}
 		return false;
 	}
+	
+	public void neleiskLaivamLiestis(ZaidimoLenta zaidimoLenta) {
+		for (int i = 0; i < laivas.laivoIlgis; i++) {
+
+			((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i)).setArGalimaDetiLaiva();
+
+			String raidineKoordinate = laivas.getLaivoKoordinates().get(i).getX();
+			int skaitineKoordinate = laivas.getLaivoKoordinates().get(i).getY();
+			
+			for (int sk = -1; sk <= 1; sk++) {
+				for (int sk2 = -1; sk2 <= 1; sk2++) {
+					if (((raidineKoordinate.charAt(0) + sk) >= 65)
+							&& ((raidineKoordinate.charAt(0) + sk) <= zaidimoLenta.getLangeliai().size()+64)) {
+
+						if (((skaitineKoordinate + sk2) >= 1) && ((skaitineKoordinate + sk2) <= zaidimoLenta
+								.getLangeliai().get(raidineKoordinate).size())) {
+
+							((lt.vcs.laivumusis.piratai.Langelis) zaidimoLenta.getLangeliai()
+									.get("" + (char) (raidineKoordinate.charAt(0) + sk))
+									.get((skaitineKoordinate + sk2) - 1)).setArGalimaDetiLaiva();
+						}
+					}
+				}
+
+			}
+		}
+}
 }
