@@ -18,6 +18,8 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	private int soveKartu2;
 	private int taiklusSuviai1;
 	private int taiklusSuviai2;
+	private Busena zaidejoBusenaId1 = Busena.TavoEile;
+	private Busena zaidejoBusenaId2 = Busena.PriesininkoEile;
 
 	// ZaidimoLenta
 	private ZaidimoLenta zaidimoLenta1;
@@ -111,7 +113,17 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	}
 
 	@Override
-	public Busena tikrinkBusena(String zaidejoId) {
+	public synchronized Busena tikrinkBusena(String zaidejoId) {
+		if (zaidimoBusena == Busena.Registracija || zaidimoBusena == Busena.DalinamesZemelapius
+				|| zaidimoBusena == Busena.DalinemesLaivus || zaidimoBusena == Busena.RikiuojamLaivus) {
+			return zaidimoBusena;
+		}
+		if (zaidejoId == this.zaidejoId1) {
+			return zaidejoBusenaId1;
+		}
+		if (zaidejoId == this.zaidejoId2) {
+			return zaidejoBusenaId2;
+		}
 		return zaidimoBusena;
 	}
 
@@ -152,15 +164,21 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		// zaidejo ID tas kuris sauna
 		if (zaidejoId == this.zaidejoId1) {
 			soveId1.sauk();
-			if(saukPagalba(soveId1, laivai2, taiklusSuviai1, soveKartu1)) {
-			return true;
+			if (saukPagalba(soveId1, laivai2, taiklusSuviai1, soveKartu1)) {
+				return true;
+			} else {
+				zaidejoBusenaId1 = Busena.PriesininkoEile;
+				zaidejoBusenaId2 = Busena.TavoEile;
 			}
 		}
 
 		else if (zaidejoId == this.zaidejoId2) {
 			soveId2.sauk();
-			if(saukPagalba(soveId2, laivai1, taiklusSuviai2, soveKartu2)) {
-			return true;
+			if (saukPagalba(soveId2, laivai1, taiklusSuviai2, soveKartu2)) {
+				return true;
+			} else {
+				zaidejoBusenaId2 = Busena.PriesininkoEile;
+				zaidejoBusenaId1 = Busena.TavoEile;
 			}
 		}
 		return false;
@@ -253,17 +271,19 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 		if (zaidejoId == zaidejoId1) {
 			System.out.println(zaidejoId1);
-			if (validatorius.tikrinkArLieciasi(zaidimoLenta1) && padekZaidejoLaiva(laivas, this.zaidimoLenta1, laivai1)) {
+			if (validatorius.tikrinkArLieciasi(zaidimoLenta1)
+					&& padekZaidejoLaiva(laivas, this.zaidimoLenta1, laivai1)) {
 				padetaLaivuId1++;
 				validatorius.neleiskLaivamLiestis(zaidimoLenta1);
-			}else {
+			} else {
 				throw new LaivuPridejimoKlaida();
 			}
 		}
 
 		if (zaidejoId == zaidejoId2) {
 			System.out.println(zaidejoId2);
-			if (validatorius.tikrinkArLieciasi(zaidimoLenta2) && padekZaidejoLaiva(laivas, this.zaidimoLenta2, laivai2)) {
+			if (validatorius.tikrinkArLieciasi(zaidimoLenta2)
+					&& padekZaidejoLaiva(laivas, this.zaidimoLenta2, laivai2)) {
 				padetaLaivuId2++;
 				validatorius.neleiskLaivamLiestis(zaidimoLenta2);
 			} else {
@@ -272,7 +292,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		}
 		// TODO sutvarkyti
 		if (padetaLaivuId1 == laivuKiekis & padetaLaivuId2 == laivuKiekis) {
-			zaidimoBusena = Busena.TavoEile;
+			zaidimoBusena = Busena.PriesininkoEile;
 		}
 		System.out.println();
 		new Vaizdas(this.zaidimoLenta1).pieskVaizda();

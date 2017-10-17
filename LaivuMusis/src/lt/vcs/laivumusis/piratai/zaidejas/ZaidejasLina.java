@@ -63,7 +63,7 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 
 				case RikiuojamLaivus:
 					
-					/*for (int k = 0; k < this.laivuListas.size(); k++) {
+					for (int k = 0; k < this.laivuListas.size(); k++) {
 						// Bandom kurti laiva
 						try {
 							Thread.sleep(new Random().nextInt(2000));
@@ -76,9 +76,9 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 						} catch (Exception e) {
 							k--;
 						}
-					}*/
+					}
 					
-					List<Langelis> langeliai = new ArrayList<Langelis>();
+					/*List<Langelis> langeliai = new ArrayList<Langelis>();
 					for (int i = 0; i < this.laivuListas.get(0).getLaivoIlgis(); i++) {
 						langeliai.add(new lt.vcs.laivumusis.piratai.Langelis("A", i+1));
 					}
@@ -95,7 +95,7 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 					} catch (Exception e) {
 
 					}
-					break;
+					break;*/
 					
 				case PriesasLaimejo:
 					break;
