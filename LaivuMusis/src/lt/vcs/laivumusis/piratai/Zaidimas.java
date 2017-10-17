@@ -157,14 +157,18 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	// Grazina ar pasautas laivas
 	@Override
 	public synchronized boolean sauk(String x, int y, String zaidejoId) {
-		Langelis soveId1 = this.zaidimoLenta2.getLangeliai().get(x).get(y - 1);
-		Langelis soveId2 = this.zaidimoLenta1.getLangeliai().get(x).get(y - 1);
+
 		new Vaizdas(this.zaidimoLenta1).pieskVaizda();
 		new Vaizdas(this.zaidimoLenta2).pieskVaizda();
 		// zaidejo ID tas kuris sauna
 		if (zaidejoId == this.zaidejoId1) {
+			Langelis soveId1 = this.zaidimoLenta2.getLangeliai().get(x).get(y - 1);
 			soveId1.sauk();
-			if (saukPagalba(soveId1, laivai2, taiklusSuviai1, soveKartu1)) {
+			if (saukPagalba(soveId1, laivai2)) {
+				if (arLaimejo(laivai2)) {
+					zaidejoBusenaId1 = Busena.TuLaimejai;
+					zaidejoBusenaId2 = Busena.PriesasLaimejo;
+				}
 				return true;
 			} else {
 				zaidejoBusenaId1 = Busena.PriesininkoEile;
@@ -172,9 +176,14 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			}
 		}
 
-		else if (zaidejoId == this.zaidejoId2) {
+		if (zaidejoId == this.zaidejoId2) {
+			Langelis soveId2 = this.zaidimoLenta1.getLangeliai().get(x).get(y - 1);
 			soveId2.sauk();
-			if (saukPagalba(soveId2, laivai1, taiklusSuviai2, soveKartu2)) {
+			if (saukPagalba(soveId2, laivai1)) {
+				if (arLaimejo(laivai1)) {
+					zaidejoBusenaId1 = Busena.TuLaimejai;
+					zaidejoBusenaId2 = Busena.PriesasLaimejo;
+				}
 				return true;
 			} else {
 				zaidejoBusenaId2 = Busena.PriesininkoEile;
@@ -184,15 +193,13 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		return false;
 	}
 
-	private boolean saukPagalba(Langelis soveID, List<Laivas> laivai, int taiklusSuviai, int soveKartu) {
-		soveKartu++;
+	private boolean saukPagalba(Langelis soveID, List<Laivas> laivai) {
 		// einam per langeliu masyva tikrindami ar sutampa koordinates
 		// kur sauta su esasnciu laivu langelyje
 		for (Laivas a : laivai) {
 			for (Langelis b : a.getLaivoKoordinates()) {
 				if (b == soveID) {
 					System.out.println("Laivas pasautas");
-					taiklusSuviai++;
 					return true;
 				}
 			}
@@ -327,7 +334,15 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			}
 		}
 		return false;
+	}
 
+	private boolean arLaimejo(List<Laivas> LaivuListas) {
+		for (Laivas laivas : LaivuListas) {
+			if (laivas.arNusautas() == false) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
