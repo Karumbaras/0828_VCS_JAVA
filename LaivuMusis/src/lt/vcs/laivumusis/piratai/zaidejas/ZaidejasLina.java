@@ -30,6 +30,7 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 	public void run() {
 		List<Laivas> laivuListas;
 		boolean arUzregistravo = true;
+		boolean arTiesa = true;
 		while (arUzregistravo) {
 			if (zaidimas.registruokZaideja(this.zaidejoId)) {
 				arUzregistravo = false;
@@ -37,11 +38,10 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 		}
 		System.out.println(this.zaidejoId);
 		try {
-			while (true) {
+			while (arTiesa) {
 				switch (zaidimas.tikrinkBusena(zaidejoId)) {
 
 				case Registracija:
-
 					break;
 
 				case DalinamesZemelapius:
@@ -78,37 +78,19 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 						}
 					}
 					
-					/*List<Langelis> langeliai = new ArrayList<Langelis>();
-					for (int i = 0; i < this.laivuListas.get(0).getLaivoIlgis(); i++) {
-						langeliai.add(new lt.vcs.laivumusis.piratai.Langelis("A", i+1));
-					}
-					
-					this.laivuListas.get(0)
-					.setKordinates(langeliai);
-					try {
-					zaidimas.pridekLaiva(this.laivuListas.get(0), this.zaidejoId);
-					zaidimas.sauk("A", 1, this.zaidejoId);
-					zaidimas.sauk("C", 3, this.zaidejoId);
-					for (ZaidimoLenta zl:zaidimas.getLentos()) {
-						//new Vaizdas(zl).pieskVaizda();
-					}
-					} catch (Exception e) {
-
-					}
-					break;*/
-					
-				case PriesasLaimejo:
-					break;
 				case PriesininkoEile:
 					break;
-
 				case TavoEile:
+					sauk();
 					break;
 				case TuLaimejai:
+					System.out.println(this.zaidejoId +" dziaugiasi!!;(((");
+					arTiesa = false;
 					break;
-				default:
+				case PriesasLaimejo:
+					System.out.println(this.zaidejoId +" liudi!!;(((");
+					arTiesa = false;
 					break;
-
 				}
 
 			}
@@ -146,5 +128,11 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 			}
 		}
 		return langeliai;
+	}
+	
+	private void sauk() {
+		String stulpelis = "" + abecele.charAt(new Random().nextInt(lentosPlotis));
+		int eilute = new Random().nextInt(lentosIlgis) + 1;
+		zaidimas.sauk(stulpelis, eilute, this.zaidejoId);
 	}
 }
