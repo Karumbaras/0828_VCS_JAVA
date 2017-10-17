@@ -9,6 +9,7 @@ import lt.vcs.laivumusis.common.Laivas;
 import lt.vcs.laivumusis.common.Langelis;
 import lt.vcs.laivumusis.common.Zaidimas;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
+import lt.vcs.laivumusis.piratai.Vaizdas;
 
 public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 	private Zaidimas zaidimas;
@@ -61,8 +62,8 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 					break;
 
 				case RikiuojamLaivus:
-
-					for (int k = 0; k < this.laivuListas.size(); k++) {
+					
+					/*for (int k = 0; k < this.laivuListas.size(); k++) {
 						// Bandom kurti laiva
 						try {
 							Thread.sleep(new Random().nextInt(2000));
@@ -75,10 +76,27 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 						} catch (Exception e) {
 							k--;
 						}
+					}*/
+					
+					List<Langelis> langeliai = new ArrayList<Langelis>();
+					for (int i = 0; i < this.laivuListas.get(0).getLaivoIlgis(); i++) {
+						langeliai.add(new lt.vcs.laivumusis.piratai.Langelis("A", i+1));
 					}
+					
+					this.laivuListas.get(0)
+					.setKordinates(langeliai);
+					try {
+					zaidimas.pridekLaiva(this.laivuListas.get(0), this.zaidejoId);
+					zaidimas.sauk("A", 1, this.zaidejoId);
+					zaidimas.sauk("C", 3, this.zaidejoId);
+					for (ZaidimoLenta zl:zaidimas.getLentos()) {
+						//new Vaizdas(zl).pieskVaizda();
+					}
+					} catch (Exception e) {
 
+					}
 					break;
-
+					
 				case PriesasLaimejo:
 					break;
 				case PriesininkoEile:

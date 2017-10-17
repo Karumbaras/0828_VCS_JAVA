@@ -145,25 +145,28 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	// Grazina ar pasautas laivas
 	@Override
 	public synchronized boolean sauk(String x, int y, String zaidejoId) {
-		Langelis soveId1 = this.zaidimoLenta2.getLangeliai().get(x).get(y);
-		Langelis soveId2 = this.zaidimoLenta1.getLangeliai().get(x).get(y);
+		Langelis soveId1 = this.zaidimoLenta2.getLangeliai().get(x).get(y - 1);
+		Langelis soveId2 = this.zaidimoLenta1.getLangeliai().get(x).get(y - 1);
+		new Vaizdas(this.zaidimoLenta1).pieskVaizda();
+		new Vaizdas(this.zaidimoLenta2).pieskVaizda();
 		// zaidejo ID tas kuris sauna
 		if (zaidejoId == this.zaidejoId1) {
-			saukPagalba(soveId1, laivai2, taiklusSuviai1, soveKartu1);
+			soveId1.sauk();
+			if(saukPagalba(soveId1, laivai2, taiklusSuviai1, soveKartu1)) {
 			return true;
+			}
 		}
 
 		else if (zaidejoId == this.zaidejoId2) {
-			saukPagalba(soveId2, laivai1, taiklusSuviai2, soveKartu2);
+			soveId2.sauk();
+			if(saukPagalba(soveId2, laivai1, taiklusSuviai2, soveKartu2)) {
 			return true;
+			}
 		}
-		System.err.println("Tokio zaidejo nera");
-
 		return false;
 	}
 
-	private void saukPagalba(Langelis soveID, List<Laivas> laivai, int taiklusSuviai, int soveKartu) {
-
+	private boolean saukPagalba(Langelis soveID, List<Laivas> laivai, int taiklusSuviai, int soveKartu) {
 		soveKartu++;
 		// einam per langeliu masyva tikrindami ar sutampa koordinates
 		// kur sauta su esasnciu laivu langelyje
@@ -172,9 +175,11 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 				if (b == soveID) {
 					System.out.println("Laivas pasautas");
 					taiklusSuviai++;
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 
 	@Override
