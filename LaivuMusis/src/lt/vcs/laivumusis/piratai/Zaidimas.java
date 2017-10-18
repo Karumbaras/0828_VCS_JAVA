@@ -44,8 +44,8 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	private static Busena zaidimoBusena = Busena.Registracija;
 
 	// Vaizdas
-	private Vaizdas vaizdas1 = new Vaizdas(this.zaidimoLenta1);
-	private Vaizdas vaizdas2 = new Vaizdas(this.zaidimoLenta2);
+	private Vaizdas vaizdas1;
+	private Vaizdas vaizdas2;
 
 	@Override
 	public void run() {
@@ -57,6 +57,8 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 		this.zaidimoLenta1 = new lt.vcs.laivumusis.piratai.ZaidimoLenta(lentosIlgis, lentosPlotis);
 		this.zaidimoLenta2 = new lt.vcs.laivumusis.piratai.ZaidimoLenta(lentosIlgis, lentosPlotis);
+		this.vaizdas1 = new Vaizdas(this.zaidimoLenta1);
+		this.vaizdas2 = new Vaizdas(this.zaidimoLenta2);
 
 		// Masyvas laivu ilgiams [laivuKiekis] [laivuIlgis]
 		this.laivai1 = sukurkLaivuSarasa(this.laivuMasyvas);
@@ -80,6 +82,8 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		this.lentosPlotis = lentosPlotis;
 		this.zaidimoLenta1 = new lt.vcs.laivumusis.piratai.ZaidimoLenta(lentosIlgis, lentosPlotis);
 		this.zaidimoLenta2 = new lt.vcs.laivumusis.piratai.ZaidimoLenta(lentosIlgis, lentosPlotis);
+		this.vaizdas1 = new Vaizdas(this.zaidimoLenta1);
+		this.vaizdas2 = new Vaizdas(this.zaidimoLenta2);
 		this.laivuMasyvas = laivuMasyvas;
 		this.laivai1 = sukurkLaivuSarasa(laivuMasyvas);
 		this.laivai2 = sukurkLaivuSarasa(laivuMasyvas);
@@ -354,9 +358,10 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	}
 
 	private void pieskLentas() {
-		vaizdas1.isvalyk();
+		//vaizdas1.isvalyk();
 		vaizdas1.pieskVaizda();
 		vaizdas2.pieskVaizda();
+		System.out.println();
 	}
 
 }
