@@ -140,10 +140,10 @@ public class LaivuValidatorius {
 
 			if (((lt.vcs.laivumusis.piratai.Langelis) zaidimoLenta.getLangeliai().get(raidineKoordinate).get(skaitineKoordinate-1))
 					.getArGalimaDetiLaiva()) {
-				return true;
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	public void neleiskLaivamLiestis(ZaidimoLenta zaidimoLenta) {
