@@ -276,7 +276,9 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 		LaivuValidatorius validatorius = new LaivuValidatorius((lt.vcs.laivumusis.piratai.Laivas) laivas, lentosIlgis, lentosPlotis);
 
-		validatorius.arPerduotosKoordinatesGeros();
+		if (!validatorius.arPerduotosKoordinatesGeros()) {
+			throw new LaivuPridejimoKlaida();
+		}
 
 		/*
 		 * if (zaidejoId == zaidejoId1) { validatorius.tikrinkArLieciasi(zaidimoLenta1);
