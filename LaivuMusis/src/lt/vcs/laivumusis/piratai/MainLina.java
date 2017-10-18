@@ -9,7 +9,7 @@ import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasLina;
 
 public class MainLina {
 	public static void main(String[] args) {
-		int [][] laivai = {{1,4}, {1,3},{2,2}};
+		int [][] laivai = {{1,1}};
 		Zaidimas zaidimas = new Zaidimas(10,10,laivai);
 		//ZaidejasLina zaid = new ZaidejasLina(zaidimas);
 	

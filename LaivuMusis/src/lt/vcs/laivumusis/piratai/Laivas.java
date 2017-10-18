@@ -5,7 +5,7 @@ import lt.vcs.laivumusis.common.Langelis;
 
 public class Laivas implements lt.vcs.laivumusis.common.Laivas {
 	int laivoIlgis;
-	boolean arNusautas;
+
 	public List<Langelis> laivoKoordinates = null;
 
 	public Laivas(int laivoIlgis) {
@@ -19,7 +19,13 @@ public class Laivas implements lt.vcs.laivumusis.common.Laivas {
 
 	@Override
 	public boolean arNusautas() {
-		return arNusautas;
+
+		for (Langelis l : this.laivoKoordinates) {
+			if(l.arSauta() == false) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
