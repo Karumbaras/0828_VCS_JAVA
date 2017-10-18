@@ -287,7 +287,6 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		// padedame zaidejo paduoto laivo kopija.
 
 		if (zaidejoId == zaidejoId1) {
-			System.out.println(zaidejoId1);
 			if (!validatorius.tikrinkArLieciasi(zaidimoLenta1)) {
 				if (padekZaidejoLaiva(laivas, this.zaidimoLenta1, laivai1)) {
 					padetaLaivuId1++;
