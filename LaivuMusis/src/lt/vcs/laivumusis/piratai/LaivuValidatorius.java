@@ -9,9 +9,14 @@ public class LaivuValidatorius {
 	private boolean arSkaiciaiIsEiles = false;
 	private boolean arRaidesLygios = false;
 	private boolean arRaidesIsEiles = false;
+	
+	private int lentosIlgis;
+	private int lentosPlotis;
 
-	public LaivuValidatorius(Laivas laivas) {
+	public LaivuValidatorius(Laivas laivas, int lentosIlgis, int lentosPlotis) {
 		this.laivas = laivas;
+		this.lentosIlgis = lentosIlgis;
+		this.lentosPlotis = lentosPlotis;
 	}
 
 	public boolean arPerduotosKoordinatesGeros() {
@@ -23,7 +28,7 @@ public class LaivuValidatorius {
 		arRaidesLygios();
 		arRaidesIsEiles();
 		
-		if ((arPaduotaVienaRaide() && arTeisingasLaivoIlgis() && arLaivuFormaGera()) == true) {
+		if ((arPaduotaVienaRaide() && arTeisingasLaivoIlgis() && arLaivuFormaGera() && tikrinkArNeUzLentosRibu(laivas, lentosIlgis, lentosPlotis))) {
 			return true;
 		}
 		return false;
@@ -100,19 +105,19 @@ public class LaivuValidatorius {
 	private boolean arLaivuFormaGera() {
 
 		if ((arSkaiciaiLygus == arSkaiciaiIsEiles) || (arRaidesLygios == arRaidesIsEiles)) {
-			System.out.println("Blogai priskirtos koordinates");
+			System.out.println("Laivas lenktas");
 			return false;
 		}
 
 		if ((arSkaiciaiLygus == arRaidesLygios) || (arSkaiciaiIsEiles == arRaidesIsEiles)) {
-			System.out.println("Blogai priskirtos koordinates");
+			System.out.println("Laivas lenktas 2");
 			return false;
 		}
 		return true;
 
 	}
 
-	private boolean tikrinkArUzLentosRibu(Laivas laivas, int lentosIlgis, int lentosPlotis) {
+	private boolean tikrinkArNeUzLentosRibu(Laivas laivas, int lentosIlgis, int lentosPlotis) {
 
 		for (int i = 0; i < laivas.getLaivoIlgis(); i++) {
 
@@ -126,11 +131,11 @@ public class LaivuValidatorius {
 
 			if (laivoXKoordinate < 1 || laivoXKoordinate > 26) {
 				System.out.println("Laivo X koordinate uz lentos ribu");
-				return true;
+				return false;
 			}
 
 		}
-		return false;
+		return true;
 	}
 
 	public boolean tikrinkArLieciasi(ZaidimoLenta zaidimoLenta) {
