@@ -274,35 +274,38 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 		// validatorius.arPerduotosKoordinatesGeros();
 
-		if (zaidejoId == zaidejoId1) {
+		/*if (zaidejoId == zaidejoId1) {
 			validatorius.tikrinkArLieciasi(zaidimoLenta1);
 		} else
-			validatorius.tikrinkArLieciasi(zaidimoLenta2);
+			validatorius.tikrinkArLieciasi(zaidimoLenta2);*/
 
 		// Kai zaidejas paduoda laiva, patikriname kokio ilgio, ir is esamo saraso
 		// padedame zaidejo paduoto laivo kopija.
 
 		if (zaidejoId == zaidejoId1) {
 			System.out.println(zaidejoId1);
-			if (validatorius.tikrinkArLieciasi(zaidimoLenta1)
-					&& padekZaidejoLaiva(laivas, this.zaidimoLenta1, laivai1)) {
-				padetaLaivuId1++;
-				validatorius.neleiskLaivamLiestis(zaidimoLenta1);
-			} else {
-				throw new LaivuPridejimoKlaida();
+			if (!validatorius.tikrinkArLieciasi(zaidimoLenta1)) {
+				if (padekZaidejoLaiva(laivas, this.zaidimoLenta1, laivai1)) {
+					padetaLaivuId1++;
+					validatorius.neleiskLaivamLiestis(zaidimoLenta1);
+				}
 			}
+		} else {
+			throw new LaivuPridejimoKlaida();
 		}
 
 		if (zaidejoId == zaidejoId2) {
 			System.out.println(zaidejoId2);
-			if (validatorius.tikrinkArLieciasi(zaidimoLenta2)
-					&& padekZaidejoLaiva(laivas, this.zaidimoLenta2, laivai2)) {
-				padetaLaivuId2++;
-				validatorius.neleiskLaivamLiestis(zaidimoLenta2);
+			if (!validatorius.tikrinkArLieciasi(zaidimoLenta2)) {
+				if (padekZaidejoLaiva(laivas, this.zaidimoLenta2, laivai2)) {
+					padetaLaivuId2++;
+					validatorius.neleiskLaivamLiestis(zaidimoLenta2);
+				}
 			} else {
 				throw new LaivuPridejimoKlaida();
 			}
 		}
+		
 		// TODO sutvarkyti
 		if (padetaLaivuId1 == laivuKiekis && padetaLaivuId2 == laivuKiekis) {
 			System.out.println();
