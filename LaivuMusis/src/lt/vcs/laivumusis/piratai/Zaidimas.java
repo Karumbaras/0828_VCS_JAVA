@@ -275,9 +275,10 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	public synchronized void pridekLaiva(lt.vcs.laivumusis.common.Laivas laivas, String zaidejoId)
 			throws LaivuPridejimoKlaida {
 
-		LaivuValidatorius validatorius = new LaivuValidatorius((lt.vcs.laivumusis.piratai.Laivas) laivas);
 
-		// validatorius.arPerduotosKoordinatesGeros();
+		LaivuValidatorius validatorius = new LaivuValidatorius((lt.vcs.laivumusis.piratai.Laivas) laivas, lentosIlgis, lentosPlotis);
+
+		validatorius.arPerduotosKoordinatesGeros();
 
 		/*
 		 * if (zaidejoId == zaidejoId1) { validatorius.tikrinkArLieciasi(zaidimoLenta1);
