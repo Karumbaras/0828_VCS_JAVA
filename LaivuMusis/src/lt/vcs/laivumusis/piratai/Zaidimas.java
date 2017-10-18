@@ -42,8 +42,8 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 	// Zaidimas
 	private static Busena zaidimoBusena = Busena.Registracija;
-	
-	//Vaizdas
+
+	// Vaizdas
 	private Vaizdas vaizdas1 = new Vaizdas(this.zaidimoLenta1);
 	private Vaizdas vaizdas2 = new Vaizdas(this.zaidimoLenta2);
 
@@ -274,10 +274,10 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 		// validatorius.arPerduotosKoordinatesGeros();
 
-		/*if (zaidejoId == zaidejoId1) {
-			validatorius.tikrinkArLieciasi(zaidimoLenta1);
-		} else
-			validatorius.tikrinkArLieciasi(zaidimoLenta2);*/
+		/*
+		 * if (zaidejoId == zaidejoId1) { validatorius.tikrinkArLieciasi(zaidimoLenta1);
+		 * } else validatorius.tikrinkArLieciasi(zaidimoLenta2);
+		 */
 
 		// Kai zaidejas paduoda laiva, patikriname kokio ilgio, ir is esamo saraso
 		// padedame zaidejo paduoto laivo kopija.
@@ -288,10 +288,10 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 				if (padekZaidejoLaiva(laivas, this.zaidimoLenta1, laivai1)) {
 					padetaLaivuId1++;
 					validatorius.neleiskLaivamLiestis(zaidimoLenta1);
+				} else {
+					throw new LaivuPridejimoKlaida();
 				}
 			}
-		} else {
-			throw new LaivuPridejimoKlaida();
 		}
 
 		if (zaidejoId == zaidejoId2) {
@@ -305,7 +305,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 				throw new LaivuPridejimoKlaida();
 			}
 		}
-		
+
 		// TODO sutvarkyti
 		if (padetaLaivuId1 == laivuKiekis && padetaLaivuId2 == laivuKiekis) {
 			System.out.println();
@@ -352,7 +352,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		}
 		return true;
 	}
-	
+
 	private void pieskLentas() {
 		vaizdas1.isvalyk();
 		vaizdas1.pieskVaizda();
