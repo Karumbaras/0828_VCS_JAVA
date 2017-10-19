@@ -10,8 +10,8 @@ public class MainKestutis {
 		
 		
 		
-		Thread zaidejas1 = new Thread(new ZaidejasKestutis(zaidimas));
-		Thread zaidejas2 = new Thread(new ZaidejasKestutis(zaidimas));
+		Thread zaidejas1 = new Thread(new ZaidejasKestutis(zaidimas, "Zaidejas1"));
+		Thread zaidejas2 = new Thread(new ZaidejasKestutis(zaidimas, "Zaidejas2"));
 		
 		zaidejas1.start();
 		zaidejas2.start();
