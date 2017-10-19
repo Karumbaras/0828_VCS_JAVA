@@ -279,7 +279,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 				lentosPlotis);
 
 		if (!validatorius.arPerduotosKoordinatesGeros()) {
-			throw new LaivuPridejimoKlaida();
+			throw new LaivuPridejimoKlaida("Perduotos blogos kordinates");
 		}
 
 		/*
@@ -294,7 +294,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 					validatorius.neleiskLaivamLiestis(zaidimoLenta1);
 				}
 			} else {
-				throw new LaivuPridejimoKlaida();
+				throw new LaivuPridejimoKlaida("Laivai lieciasi");
 			}
 		}
 
@@ -305,7 +305,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 					validatorius.neleiskLaivamLiestis(zaidimoLenta2);
 				}
 			} else {
-				throw new LaivuPridejimoKlaida();
+				throw new LaivuPridejimoKlaida("Laivai lieciasi");
 			}
 		}
 
