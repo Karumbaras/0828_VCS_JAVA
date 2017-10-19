@@ -20,7 +20,7 @@ public class DuomenuBaze {
 		}
 	}
 
-	private void Prisijungimas() throws ClassNotFoundException {
+	private synchronized void Prisijungimas() throws ClassNotFoundException {
 		Class.forName("org.sqlite.JDBC");
 		try {
 			connection = DriverManager.getConnection("jdbc:sqlite:" + keliasIkiBazes);
@@ -28,11 +28,12 @@ public class DuomenuBaze {
 			// if the error message is "out of memory",
 			// it probably means no database file is found
 			System.err.println(e.getMessage());
-		}
+		}  
 	}
 
-	public boolean registruokZaideja(String zaidejoId) {
+	public synchronized boolean registruokZaideja(String zaidejoId) {
 		try {
+			Prisijungimas();
 			if (tikrinkArYraToksZaidejas(zaidejoId)) {
 				statement = connection.createStatement();
 				String update = "UPDATE zaidejai SET paskutine_data = datetime() WHERE vardas = '" + zaidejoId + "'";
@@ -45,7 +46,7 @@ public class DuomenuBaze {
 				return true;
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.err.println("Nepavyko uzregistruoti zaidejo!");
 			e.printStackTrace();
