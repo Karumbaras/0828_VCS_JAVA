@@ -2,6 +2,7 @@ package lt.vcs.laivumusis.piratai.zaidejas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import lt.vcs.laivumusis.common.Busena;
 import lt.vcs.laivumusis.common.Laivas;
@@ -11,59 +12,104 @@ import lt.vcs.laivumusis.common.ZaidimoLenta;
 
 public class ZaidejasKestutis implements lt.vcs.laivumusis.common.Zaidejas{
 
-	Zaidimas zaidimas;
+	private Zaidimas zaidimas;
 	private String zaidejoId;
+	private ZaidimoLenta zaidimoLenta;
+	private List<Laivas> laivuListas = new ArrayList<Laivas>();
+	private String abecele = "ABCDEFGHIJ";
+	Random generator = new Random();
+	boolean tikrinimui = true;
 	
-	public ZaidejasKestutis(Zaidimas zaidimas) {
+	
+	public ZaidejasKestutis(Zaidimas zaidimas, String zaidejoId) {
 		this.zaidimas = zaidimas;
+		this.zaidejoId = zaidejoId;
 	}
 	
 	@Override
 	public void run() {
-		this.zaidejoId = zaidimas.registruokZaideja();
+		zaidimas.registruokZaideja(this.zaidejoId);
 		System.out.println(this.zaidejoId);
-		List<Laivas> laivuListas = new ArrayList<Laivas>();
+		
 		try {
-			while (true) {
+			while (tikrinimui) {
 				
-				Thread.sleep(3000);
+			
+				Thread.sleep(10);
+				
 				Busena zaidimoBusena = zaidimas.tikrinkBusena(zaidejoId);
-				System.out.println(zaidimoBusena);
+				System.out.println(zaidimoBusena + zaidejoId);
+				
+				
 				if (zaidimoBusena == Busena.DalinamesZemelapius) {
-					ZaidimoLenta zaidimoLenta = zaidimas.duokZaidimoLenta(zaidejoId);
-					Thread.sleep(3000);
+					this.zaidimoLenta = zaidimas.duokZaidimoLenta(zaidejoId);
+					Thread.sleep(1000);
 				}
+			
 
 				if (zaidimoBusena == Busena.DalinemesLaivus) {
-					laivuListas = zaidimas.duokLaivus(zaidejoId);
+					this.laivuListas = zaidimas.duokLaivus(zaidejoId);
+				    Thread.sleep(1000);	
 				}
 				
-			/*	if(zaidimoBusena == Busena.RikiuojamLaivus) {
-					for (Laivas l : laivuListas) {
-						List<Langelis> langeliai = new ArrayList<Langelis>(l.getLaivoIlgis());
-						for (int i = 0; i < langeliai.size(); i++) {
-							langeliai.add(new lt.vcs.laivumusis.piratai.Langelis("A", i));
-						}
-						l.setKordinates(langeliai);
-						zaidimas.pridekLaiva(l, this.zaidejoId);
+				if (zaidimoBusena == Busena.RikiuojamLaivus) {
+					Thread.sleep(1000);	
+					
+					for (Laivas k : this.laivuListas) {
+						try {
+						int laivoKryptis = generator.nextInt(2);
+						
+						List<Langelis> laivoLangeliai = new ArrayList<Langelis>();
+						
+						if (laivoKryptis == 0) { //horizontalus
+							int ixas = generator.nextInt(abecele.length() - k.getLaivoIlgis());
+							int y = generator.nextInt(10) + 1;
+							for (int i = 0; i < k.getLaivoIlgis(); i++) {
+								String x = "" + abecele.charAt(ixas + i);
+								laivoLangeliai.add(new lt.vcs.laivumusis.piratai.Langelis(x, y));
+								System.out.println(x+y);
+								}}
+							else { //vertikalus
+								String x = "" + abecele.charAt(generator.nextInt(abecele.length()));
+								int y = generator.nextInt(10-k.getLaivoIlgis()) + 1;
+								for (int i = 0; i < k.getLaivoIlgis(); i++) {
+									laivoLangeliai.add(new lt.vcs.laivumusis.piratai.Langelis(x, y+i));
+									System.out.println(x+(y+i));
+								}
+							}
+						k.setKordinates(laivoLangeliai);
+						zaidimas.pridekLaiva(k, this.zaidejoId);
+						 }catch (Exception e) {}
 					}
 				}
-*/
-			}
-		} catch (InterruptedException e) {
+				
+				if (zaidimoBusena == Busena.TavoEile) {
+					String x = "" + abecele.charAt(generator.nextInt(abecele.length()));
+					int y = generator.nextInt(10) + 1;
+					zaidimas.sauk(x, y, this.zaidejoId);
+					}
+				
+				if (zaidimoBusena == Busena.TuLaimejai) {
+					System.out.println(this.zaidejoId +" Laimejo");
+					tikrinimui = false;
+				}
+				
+				if (zaidimoBusena == Busena.PriesasLaimejo) {
+					System.out.println(this.zaidejoId +" Pralaimejo");
+					tikrinimui = false;
+				}
+				
+			}} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
+	
 
 	@Override
 	public Zaidimas getZaidimas() {
-		return this.zaidimas;
-	}
-
-	
-	public void padekLaivusAntLentos() {
-		for (int i = 0; i < zaidimas.duokLaivus("1").size();i++) 
-		zaidimas.pridekLaiva(zaidimas.duokLaivus("1").get(i), "1");
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
