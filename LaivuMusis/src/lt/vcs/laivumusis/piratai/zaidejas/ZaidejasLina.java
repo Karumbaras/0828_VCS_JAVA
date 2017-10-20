@@ -7,6 +7,7 @@ import lt.vcs.laivumusis.common.Laivas;
 import lt.vcs.laivumusis.common.Langelis;
 import lt.vcs.laivumusis.common.Zaidimas;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
+import lt.vcs.laivumusis.piratai.duomenubazes.DuomenuBaze;
 
 public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 
@@ -38,9 +39,10 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 		System.out.println(this.zaidejoId);
 		try {
 			while (arTiesa) {
+				//System.out.println(zaidimas.tikrinkBusena(zaidejoId));
 				switch (zaidimas.tikrinkBusena(zaidejoId)) {
-
 				case Registracija:
+					registruokis();
 					while (arUzregistravo) {
 						if (zaidimas.registruokZaideja(this.zaidejoId)) {
 							arUzregistravo = false;
@@ -146,5 +148,10 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 				break;
 			}
 		}
+	}
+	
+	private void registruokis() {
+		DuomenuBaze duomenuBaze = new DuomenuBaze("D:/sarunas/Linos/LaivuMusisLina.db");
+		duomenuBaze.registruokZaideja(zaidejoId);
 	}
 }

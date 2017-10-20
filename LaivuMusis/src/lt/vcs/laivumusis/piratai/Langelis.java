@@ -12,7 +12,7 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	private boolean arGalimaDetiLaiva = true;
 
 	public Langelis(String x, int y) {
-		this.x = x;
+		this.x = x.toUpperCase();
 		this.y = y;
 	}
 

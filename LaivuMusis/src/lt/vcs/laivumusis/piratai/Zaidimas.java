@@ -113,10 +113,10 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 	@Override
 	public synchronized void skaiciuokStatistika() {
-		System.out.println(this.zaidejoId1+" sove " + this.soveKartu1 + " kartu");
-		System.out.println(this.zaidejoId2+" sove " + this.soveKartu2 + " kartu");
-		System.out.println(this.zaidejoId1+" taikliu suviu skaicius " + this.taiklusSuviai1);
-		System.out.println(this.zaidejoId2+" taikliu suviu skaicius " + this.taiklusSuviai2);
+		System.out.println(this.zaidejoId1 + " sove " + this.soveKartu1 + " kartu");
+		System.out.println(this.zaidejoId2 + " sove " + this.soveKartu2 + " kartu");
+		System.out.println(this.zaidejoId1 + " taikliu suviu skaicius " + this.taiklusSuviai1);
+		System.out.println(this.zaidejoId2 + " taikliu suviu skaicius " + this.taiklusSuviai2);
 	}
 
 	@Override
@@ -275,11 +275,11 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	public synchronized void pridekLaiva(lt.vcs.laivumusis.common.Laivas laivas, String zaidejoId)
 			throws LaivuPridejimoKlaida {
 
-
-		LaivuValidatorius validatorius = new LaivuValidatorius((lt.vcs.laivumusis.piratai.Laivas) laivas, lentosIlgis, lentosPlotis);
+		LaivuValidatorius validatorius = new LaivuValidatorius((lt.vcs.laivumusis.piratai.Laivas) laivas, lentosIlgis,
+				lentosPlotis);
 
 		if (!validatorius.arPerduotosKoordinatesGeros()) {
-			throw new LaivuPridejimoKlaida();
+			throw new LaivuPridejimoKlaida("Perduotos blogos kordinates");
 		}
 
 		/*
@@ -292,9 +292,9 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 				if (padekZaidejoLaiva(laivas, this.zaidimoLenta1, laivai1)) {
 					padetaLaivuId1++;
 					validatorius.neleiskLaivamLiestis(zaidimoLenta1);
-				} else {
-					throw new LaivuPridejimoKlaida();
 				}
+			} else {
+				throw new LaivuPridejimoKlaida("Laivai lieciasi");
 			}
 		}
 
@@ -305,7 +305,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 					validatorius.neleiskLaivamLiestis(zaidimoLenta2);
 				}
 			} else {
-				throw new LaivuPridejimoKlaida();
+				throw new LaivuPridejimoKlaida("Laivai lieciasi");
 			}
 		}
 
@@ -356,7 +356,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	}
 
 	private void pieskLentas() {
-		//vaizdas1.isvalyk();
+		// vaizdas1.isvalyk();
 		vaizdas1.pieskVaizda();
 		vaizdas2.pieskVaizda();
 		System.out.println();
