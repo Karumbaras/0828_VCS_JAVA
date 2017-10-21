@@ -9,8 +9,8 @@ public class Main {
 		Zaidejas zaid = new Zaidejas(zaidimas);
 		
 		
-		String zaidejoID = zaid.getZaidimas().registruokZaideja();
-		System.out.println(zaid.getZaidimas().registruokZaideja());
+		//String zaidejoID = zaid.getZaidimas().registruokZaideja();
+		//System.out.println(zaid.getZaidimas().registruokZaideja());
 		
 		
 		

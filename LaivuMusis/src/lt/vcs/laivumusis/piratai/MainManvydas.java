@@ -9,8 +9,8 @@ public class MainManvydas {
 		Zaidejas zaid = new Zaidejas(zaidimas);
 		
 		
-		String zaidejoID = zaid.getZaidimas().registruokZaideja();
-		System.out.println(zaid.getZaidimas().registruokZaideja());
+		// zaidejoID = zaid.getZaidimas().registruokZaideja();
+		//System.out.println(zaid.getZaidimas().registruokZaideja());
 		
 		
 		
@@ -19,7 +19,7 @@ public class MainManvydas {
 		Vaizdas vaizdas = new Vaizdas(a);
 		vaizdas.pieskVaizda();
 		
-		zaidimas.duokZaidimoLenta(zaidejoID);
+		//zaidimas.duokZaidimoLenta(zaidejoID);
 
 	}
 

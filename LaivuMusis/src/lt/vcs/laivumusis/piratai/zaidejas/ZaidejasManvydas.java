@@ -20,7 +20,7 @@ public class ZaidejasManvydas {
 
 	//@Override
 	public void run() {
-		this.zaidejoId = zaidimas.registruokZaideja();
+		//this.zaidejoId = zaidimas.registruokZaideja();
 		System.out.println(this.zaidejoId);
 		try {
 			while (true) {
@@ -82,8 +82,8 @@ public class ZaidejasManvydas {
 	}
 	
 	public void padekLaivusAntLentos() {
-		for (int i = 0; i < zaidimas.duokLaivus("1").size(); i++)
-			zaidimas.pridekLaiva(zaidimas.duokLaivus("1").get(i), "1");
+		//for (int i = 0; i < zaidimas.duokLaivus("1").size(); i++)
+		//	zaidimas.pridekLaiva(zaidimas.duokLaivus("1").get(i), "1");
 	}
 }
 

@@ -19,7 +19,7 @@ public class Zaidejas implements lt.vcs.laivumusis.common.Zaidejas {
 
 	@Override
 	public void run() {
-		this.zaidejoId = zaidimas.registruokZaideja();
+		//this.zaidejoId = zaidimas.registruokZaideja();
 		System.out.println(this.zaidejoId);
 		try {
 			while (true) {
@@ -42,7 +42,7 @@ public class Zaidejas implements lt.vcs.laivumusis.common.Zaidejas {
 	
 					laivuListas.get(0).setKordinates(langeliai);
 
-					zaidimas.pridekLaiva(laivuListas.get(0), this.zaidejoId);
+					//zaidimas.pridekLaiva(laivuListas.get(0), this.zaidejoId);
 					//}
 				}
 
@@ -59,8 +59,8 @@ public class Zaidejas implements lt.vcs.laivumusis.common.Zaidejas {
 	}
 
 	public void padekLaivusAntLentos() {
-		for (int i = 0; i < zaidimas.duokLaivus("1").size(); i++)
-			zaidimas.pridekLaiva(zaidimas.duokLaivus("1").get(i), "1");
+	//	for (int i = 0; i < zaidimas.duokLaivus("1").size(); i++)
+	//		zaidimas.pridekLaiva(zaidimas.duokLaivus("1").get(i), "1");
 	}
 
 }
