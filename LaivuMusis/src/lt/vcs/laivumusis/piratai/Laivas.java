@@ -1,6 +1,8 @@
 package lt.vcs.laivumusis.piratai;
 
 import java.util.List;
+
+import javafx.scene.paint.Color;
 import lt.vcs.laivumusis.common.Langelis;
 
 public class Laivas implements lt.vcs.laivumusis.common.Laivas {
@@ -40,6 +42,7 @@ public class Laivas implements lt.vcs.laivumusis.common.Laivas {
 		// kiekvienam langeliui kuriam setinamos koordinates perduodam laivo objekta
 		for (int i = 0; i < langeliai.size(); i++) {
 			((lt.vcs.laivumusis.piratai.Langelis) langeliai.get(i)).setLangelyjeEsantisLaivas(this);
+			((lt.vcs.laivumusis.piratai.Langelis) langeliai.get(i)).getKvadratas().setFill(Color.YELLOW);
 		}
 
 		this.laivoKoordinates = langeliai;

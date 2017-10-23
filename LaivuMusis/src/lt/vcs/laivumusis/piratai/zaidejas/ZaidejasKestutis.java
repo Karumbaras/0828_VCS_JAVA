@@ -14,12 +14,12 @@ public class ZaidejasKestutis implements lt.vcs.laivumusis.common.Zaidejas{
 
 	private Zaidimas zaidimas;
 	private String zaidejoId;
-	private ZaidimoLenta zaidimoLenta;
+	ZaidimoLenta zaidimoLenta;
 	private List<Laivas> laivuListas = new ArrayList<Laivas>();
 	private String abecele = "ABCDEFGHIJ";
 	Random generator = new Random();
 	boolean tikrinimui = true;
-	
+		
 	
 	public ZaidejasKestutis(Zaidimas zaidimas, String zaidejoId) {
 		this.zaidimas = zaidimas;
@@ -38,7 +38,7 @@ public class ZaidejasKestutis implements lt.vcs.laivumusis.common.Zaidejas{
 				Thread.sleep(10);
 				
 				Busena zaidimoBusena = zaidimas.tikrinkBusena(zaidejoId);
-				System.out.println(zaidimoBusena + zaidejoId);
+			
 				
 				
 				if (zaidimoBusena == Busena.DalinamesZemelapius) {
@@ -67,14 +67,12 @@ public class ZaidejasKestutis implements lt.vcs.laivumusis.common.Zaidejas{
 							for (int i = 0; i < k.getLaivoIlgis(); i++) {
 								String x = "" + abecele.charAt(ixas + i);
 								laivoLangeliai.add(new lt.vcs.laivumusis.piratai.Langelis(x, y));
-								System.out.println(x+y);
 								}}
 							else { //vertikalus
 								String x = "" + abecele.charAt(generator.nextInt(abecele.length()));
 								int y = generator.nextInt(10-k.getLaivoIlgis()) + 1;
 								for (int i = 0; i < k.getLaivoIlgis(); i++) {
 									laivoLangeliai.add(new lt.vcs.laivumusis.piratai.Langelis(x, y+i));
-									System.out.println(x+(y+i));
 								}
 							}
 						k.setKordinates(laivoLangeliai);
@@ -87,10 +85,12 @@ public class ZaidejasKestutis implements lt.vcs.laivumusis.common.Zaidejas{
 					String x = "" + abecele.charAt(generator.nextInt(abecele.length()));
 					int y = generator.nextInt(10) + 1;
 					zaidimas.sauk(x, y, this.zaidejoId);
+					 
 					}
 				
 				if (zaidimoBusena == Busena.TuLaimejai) {
 					System.out.println(this.zaidejoId +" Laimejo");
+					zaidimas.skaiciuokStatistika();
 					tikrinimui = false;
 				}
 				
