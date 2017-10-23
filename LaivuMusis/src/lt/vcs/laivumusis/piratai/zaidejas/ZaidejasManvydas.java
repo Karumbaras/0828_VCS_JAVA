@@ -2,46 +2,101 @@ package lt.vcs.laivumusis.piratai.zaidejas;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import lt.vcs.laivumusis.common.Busena;
+import java.util.Random;
 import lt.vcs.laivumusis.common.Laivas;
 import lt.vcs.laivumusis.common.Langelis;
 import lt.vcs.laivumusis.common.Zaidimas;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
+import lt.vcs.laivumusis.piratai.duomenubazes.DuomenuBaze;
 
-public class ZaidejasManvydas {
-	Zaidimas zaidimas;
+public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
+
 	private String zaidejoId;
-	List<Laivas> laivai;
 
-	public ZaidejasManvydas(Zaidimas zaidimas) {
+	private Zaidimas zaidimas;
+
+	private ZaidimoLenta zaidimoLenta;
+	private String abecele = "";
+	private int lentosIlgis;
+	private int lentosPlotis;
+
+	private List<Laivas> laivuListas = new ArrayList<Laivas>();
+
+	private List<String> suviai = new ArrayList<String>();
+
+	public ZaidejasManvydas(Zaidimas zaidimas, String zaidejoId) {
 		this.zaidimas = zaidimas;
+		this.zaidejoId = zaidejoId;
 	}
 
-	//@Override
+	@Override
 	public void run() {
-		//this.zaidejoId = zaidimas.registruokZaideja();
+
+		boolean arUzregistravo = true;
+		boolean arTiesa = true;
+
 		System.out.println(this.zaidejoId);
 		try {
-			while (true) {
-				
-				Thread.sleep(3000);
-				Busena zaidimoBusena = zaidimas.tikrinkBusena(zaidejoId);
-				System.out.println(zaidimoBusena);
-				if (zaidimoBusena == Busena.DalinamesZemelapius) {
-					ZaidimoLenta zaidimoLenta = zaidimas.duokZaidimoLenta(zaidejoId);
-					Thread.sleep(3000);
-				}
-
-				if (zaidimoBusena == Busena.DalinemesLaivus) {
-					List<Laivas> laivuListas = zaidimas.duokLaivus(zaidejoId);
-					for (Laivas l : laivuListas) {
-						List<Langelis> langeliai = new ArrayList<Langelis>(l.getLaivoIlgis());
-						for (int i = 0; i < langeliai.size(); i++) {
-						
+			while (arTiesa) {
+				switch (zaidimas.tikrinkBusena(zaidejoId)) {
+				case Registracija:
+					registruokis();
+					while (arUzregistravo) {
+						if (zaidimas.registruokZaideja(this.zaidejoId)) {
+							arUzregistravo = false;
 						}
-						l.setKordinates(langeliai);
 					}
+					break;
+
+				case DalinamesZemelapius:
+					this.zaidimoLenta = zaidimas.duokZaidimoLenta(zaidejoId);
+
+					for (String k : zaidimoLenta.getLangeliai().keySet()) {
+						this.abecele = this.abecele + k;
+					}
+
+					this.lentosPlotis = zaidimoLenta.getLangeliai().keySet().size();
+					this.lentosIlgis = zaidimoLenta.getLangeliai().get("" + abecele.charAt(0)).size();
+
+					Thread.sleep(new Random().nextInt(2000));
+					break;
+
+				case DalinemesLaivus:
+					this.laivuListas = zaidimas.duokLaivus(zaidejoId);
+					break;
+
+				case RikiuojamLaivus:
+
+					for (int k = 0; k < this.laivuListas.size(); k++) {
+						try {
+							// Thread.sleep(new Random().nextInt(2000));
+							int laivoPadetis = new Random().nextInt(50);
+							int laivoIlgis = this.laivuListas.get(k).getLaivoIlgis();
+							this.laivuListas.get(k)
+									.setKordinates(sugalvokLaivoKoordinates(laivoIlgis, laivoPadetis, zaidimoLenta));
+
+							zaidimas.pridekLaiva(this.laivuListas.get(k), this.zaidejoId);
+						} catch (Exception e) {
+							k--;
+						}
+					}
+
+				case PriesininkoEile:
+					break;
+				case TavoEile:
+					Thread.sleep(new Random().nextInt(100));
+					sauk();
+					break;
+				case TuLaimejai:
+					System.out.println(this.zaidejoId + " dziaugiasi!!;)))");
+					zaidimas.skaiciuokStatistika();
+					arTiesa = false;
+					break;
+				case PriesasLaimejo:
+					System.out.println(this.zaidejoId + " liudi!!;(((");
+					zaidimas.skaiciuokStatistika();
+					arTiesa = false;
+					break;
 				}
 
 			}
@@ -51,54 +106,63 @@ public class ZaidejasManvydas {
 		}
 	}
 
-	//@Override
+	@Override
 	public Zaidimas getZaidimas() {
 		return this.zaidimas;
 	}
 
-	public void pasiimkLaivus() {
-		this.laivai = zaidimas.duokLaivus(this.zaidejoId);
-	}
-	
-	public void priskirkLaivamsKoordinates() {
-		for(int i = 0; i < this.laivai.size(); i++) {
-			
-			List<Langelis> langeliai = null;
-			
-			for (int k = 0; k < this.laivai.get(i).getLaivoIlgis(); k++) {
-				langeliai.add(null);
+	private List<Langelis> sugalvokLaivoKoordinates(int laivoIlgis, int laivoPadetis, ZaidimoLenta zaidimoLenta) {
+		List<Langelis> langeliai = new ArrayList<Langelis>();
+
+		// Vienu atveju bus vertikalus, kitu atveju bus horizontalus
+		if (laivoPadetis < 25) {
+			// horizontalus
+			int stulpelisInt = new Random().nextInt(lentosPlotis - laivoIlgis);
+			int eilute = new Random().nextInt(lentosIlgis) + 1;
+			for (int i = 0; i < laivoIlgis; i++) {
+				String stulpelis = "" + abecele.charAt(stulpelisInt + i);
+				// System.out.println(stulpelis + eilute);
+				langeliai.add(new lt.vcs.laivumusis.piratai.Langelis(stulpelis, eilute));
 			}
-			
-			this.laivai.get(i).setKordinates(langeliai);
+		} else {
+			// vertikalus
+			String stulpelis = "" + abecele.charAt(new Random().nextInt(lentosPlotis));
+			int eilute = new Random().nextInt(lentosIlgis - laivoIlgis) + 1;
+			for (int i = 0; i < laivoIlgis; i++) {
+				// System.out.println(stulpelis + (eilute + i));
+				langeliai.add(new lt.vcs.laivumusis.piratai.Langelis(stulpelis, eilute + i));
+			}
+		}
+		return langeliai;
+	}
+
+	private void sauk() {
+		while (true) {
+			String stulpelis = "" + abecele.charAt(new Random().nextInt(lentosPlotis));
+			int eilute = new Random().nextInt(lentosIlgis) + 1;
+			if (suviai.contains(stulpelis + eilute) == false) {
+				suviai.add(stulpelis + eilute);
+				if (zaidimas.sauk(stulpelis, eilute, this.zaidejoId)) {
+					ieskokLaivo(stulpelis, eilute);
+				}
+
+				break;
+			}
 		}
 	}
-	
-	public List<Langelis> parinkKoordinates(List<Langelis> langeliai) {
-		
-		
-		
-		return langeliai;
-		
+
+	private void ieskokLaivo(String stulpelis, int eilute) {
+		if (!suviai.contains(stulpelis + (eilute + 1)) && eilute + 1 < lentosIlgis) {
+			suviai.add(stulpelis + (eilute + 1));
+			zaidimas.sauk(stulpelis, (eilute + 1), this.zaidejoId);
+		} else if (!suviai.contains(stulpelis + (eilute - 1)) && eilute - 1 > lentosIlgis) {
+			suviai.add(stulpelis + (eilute - 1));
+			zaidimas.sauk(stulpelis, (eilute - 1), this.zaidejoId);
+		}
 	}
-	
-	public void padekLaivusAntLentos() {
-		//for (int i = 0; i < zaidimas.duokLaivus("1").size(); i++)
-		//	zaidimas.pridekLaiva(zaidimas.duokLaivus("1").get(i), "1");
+
+	private void registruokis() {
+		DuomenuBaze duomenuBaze = new DuomenuBaze("C:/Users/Manvydas/Desktop/VCS/Java/LaivuMusis.db");
+		duomenuBaze.registruokZaideja(zaidejoId);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

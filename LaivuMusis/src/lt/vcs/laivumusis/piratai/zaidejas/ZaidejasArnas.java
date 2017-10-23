@@ -32,14 +32,18 @@ public class ZaidejasArnas implements lt.vcs.laivumusis.common.Zaidejas {
 	public void run() {
 
 		boolean ArDarTestiZaidima = true;
+		boolean arPrisiregistravo = true;
 		try {
 			while (ArDarTestiZaidima) {
 
 				switch (zaidimas.tikrinkBusena(zaidejoId)) {
 				case Registracija:
+					if(arPrisiregistravo) {
 					registruokis();
 					zaidimas.registruokZaideja(zaidejoId);
 					Thread.sleep(1000);
+					arPrisiregistravo = false;
+					}
 					break;
 				case DalinamesZemelapius:
 					zaidimoLenta = zaidimas.duokZaidimoLenta(zaidejoId);
@@ -56,7 +60,7 @@ public class ZaidejasArnas implements lt.vcs.laivumusis.common.Zaidejas {
 							laivai.get(i).setKordinates(galvokKoordinates(laivai.get(i)));
 							zaidimas.pridekLaiva(laivai.get(i), zaidejoId);
 						} catch (LaivuPridejimoKlaida e) {
-							e.printStackTrace();
+							
 							i--;
 						}
 					}
@@ -85,7 +89,7 @@ public class ZaidejasArnas implements lt.vcs.laivumusis.common.Zaidejas {
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 	}
 
