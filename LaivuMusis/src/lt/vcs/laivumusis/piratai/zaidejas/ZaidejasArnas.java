@@ -89,7 +89,7 @@ public class ZaidejasArnas implements lt.vcs.laivumusis.common.Zaidejas {
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 	}
 
