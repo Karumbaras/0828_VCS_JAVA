@@ -1,26 +1,25 @@
 package lt.vcs.laivumusis.piratai;
 
-import lt.vcs.laivumusis.piratai.zaidejas.Zaidejas;
+import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasManvydas;
 
 public class MainManvydas {
-
 	public static void main(String[] args) {
+		//int [][] laivai = {{1,3},{1,4}};
+		//Zaidimas zaidimas = new Zaidimas(10,10,laivai);
 		Zaidimas zaidimas = new Zaidimas();
-		Zaidejas zaid = new Zaidejas(zaidimas);
-		
-		
-		// zaidejoID = zaid.getZaidimas().registruokZaideja();
-		//System.out.println(zaid.getZaidimas().registruokZaideja());
-		
-		
-		
 
-		ZaidimoLenta a = new ZaidimoLenta(10, 10);
-		Vaizdas vaizdas = new Vaizdas(a);
-		vaizdas.pieskVaizda();
+		Thread zaidejas1 = new Thread(new ZaidejasManvydas(zaidimas, "Piratas"));
+		Thread zaidejas2 = new Thread(new ZaidejasManvydas(zaidimas, "Jureivis"));
 		
-		//zaidimas.duokZaidimoLenta(zaidejoID);
-
+		zaidejas1.start();
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		zaidejas2.start();
+		
+		
 	}
-
 }
