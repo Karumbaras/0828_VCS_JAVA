@@ -16,9 +16,14 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 	private Zaidimas zaidimas;
 
 	private ZaidimoLenta zaidimoLenta;
-	private String abecele = "";
 	private int lentosIlgis;
 	private int lentosPlotis;
+	
+	private boolean arZaidimasTesiasi = true;
+	
+	private String abecele = "";
+	
+	Random random = new Random();
 
 	private List<Laivas> laivai = new ArrayList<Laivas>();
 	private List<String> suviai = new ArrayList<String>();
@@ -30,20 +35,16 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 
 	@Override
 	public void run() {
-
 		boolean arUzregistravo = true;
-		boolean arZaidimasTesiasi = true;
-
-		System.out.println(this.zaidejoId);
+		
 		try {
 			while (arZaidimasTesiasi) {
 				switch (zaidimas.tikrinkBusena(zaidejoId)) {
 
 				case Registracija:
-
 					while (arUzregistravo) {
 						registruokis();
-						Thread.sleep(new Random().nextInt(1000));
+						Thread.sleep(10);
 						if (zaidimas.registruokZaideja(this.zaidejoId)) {
 							arUzregistravo = false;
 						}
@@ -51,44 +52,34 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 					break;
 
 				case DalinamesZemelapius:
-
-					this.zaidimoLenta = zaidimas.duokZaidimoLenta(zaidejoId);
-
-					for (String k : zaidimoLenta.getLangeliai().keySet()) {
-						this.abecele = this.abecele + k;
-					}
-
-					this.lentosPlotis = zaidimoLenta.getLangeliai().keySet().size();
-					this.lentosIlgis = zaidimoLenta.getLangeliai().get("" + abecele.charAt(0)).size();
-
-					Thread.sleep(new Random().nextInt(2000));
+					pasiimkLenta();
+					Thread.sleep(10);
 					break;
 
 				case DalinemesLaivus:
-					this.laivai = zaidimas.duokLaivus(zaidejoId);
+					pasiimkLaivus();
+					Thread.sleep(10);
 					break;
 
 				case RikiuojamLaivus:
 					rikiuokLaivus();
+					Thread.sleep(10);
+					break;
 
 				case PriesininkoEile:
+					Thread.sleep(10);
 					break;
 
 				case TavoEile:
-					Thread.sleep(new Random().nextInt(100));
 					sauk();
 					break;
 
 				case TuLaimejai:
-					System.out.println(this.zaidejoId + " Laimejo!!!");
-					zaidimas.skaiciuokStatistika();
-					arZaidimasTesiasi = false;
+					baikZaidima("laimejo");
 					return;
 
 				case PriesasLaimejo:
-					System.out.println(this.zaidejoId + " Pralose...");
-					zaidimas.skaiciuokStatistika();
-					arZaidimasTesiasi = false;
+					baikZaidima("pralaimejo");
 					return;
 				}
 			}
@@ -101,6 +92,24 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 	public Zaidimas getZaidimas() {
 		return this.zaidimas;
 	}
+	
+	private void registruokis() {
+		DuomenuBaze duomenuBaze = new DuomenuBaze("C:/Users/Manvydas/Desktop/VCS/Java/LaivuMusis.db");
+		duomenuBaze.registruokZaideja(zaidejoId);
+	}
+	
+	public void pasiimkLenta() {
+		this.zaidimoLenta = zaidimas.duokZaidimoLenta(zaidejoId);
+		for (String k : zaidimoLenta.getLangeliai().keySet()) {
+			this.abecele = this.abecele + k;
+		}
+		this.lentosPlotis = zaidimoLenta.getLangeliai().keySet().size();
+		this.lentosIlgis = zaidimoLenta.getLangeliai().get("" + abecele.charAt(0)).size();
+	}
+	
+	public void pasiimkLaivus() {
+		this.laivai = zaidimas.duokLaivus(zaidejoId);
+	}
 
 	public void rikiuokLaivus() {
 		int stulpelisSkaicius;
@@ -108,45 +117,38 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 		boolean arNeleidoPadeti = true;
 
 		for (Laivas laivas : laivai) {
-			
+
 			double kryptis = Math.random();
 
 			do {
-				
+
 				List<Langelis> laivoKoordinates = new ArrayList<Langelis>();
-				
+
 				try {
 
 					if (kryptis < 0.5) {
-						
-						stulpelisSkaicius = new Random().nextInt(lentosPlotis - laivas.getLaivoIlgis());
-						eilute = new Random().nextInt(lentosIlgis) + 1;
-						
-						for (int i = 0; i < laivas.getLaivoIlgis(); i++) {
+						stulpelisSkaicius = random.nextInt(lentosPlotis - laivas.getLaivoIlgis());
+						eilute = random.nextInt(lentosIlgis) + 1;
 
-							
+						for (int i = 0; i < laivas.getLaivoIlgis(); i++) {
 							String stulpelis = "" + abecele.charAt(stulpelisSkaicius + i);
 
 							laivoKoordinates.add(new lt.vcs.laivumusis.piratai.Langelis(stulpelis, eilute));
 							laivas.setKordinates(laivoKoordinates);
 						}
-					}
+					} else {
+						String stulpelis = "" + abecele.charAt(random.nextInt(lentosPlotis));
+						eilute = random.nextInt(lentosIlgis - laivas.getLaivoIlgis()) + 1;
 
-					else {
-						String stulpelis = "" + abecele.charAt(new Random().nextInt(lentosPlotis));
-						eilute = new Random().nextInt(lentosIlgis - laivas.getLaivoIlgis()) + 1;
 						for (int i = 0; i < laivas.getLaivoIlgis(); i++) {
-
-							
-
 							laivoKoordinates.add(new lt.vcs.laivumusis.piratai.Langelis(stulpelis, eilute + i));
 							laivas.setKordinates(laivoKoordinates);
 						}
 					}
-					
+
 					arNeleidoPadeti = false;
 					zaidimas.pridekLaiva(laivas, zaidejoId);
-					
+
 				} catch (Exception e) {
 					arNeleidoPadeti = true;
 				}
@@ -156,8 +158,8 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 
 	private void sauk() {
 		while (true) {
-			String stulpelis = "" + abecele.charAt(new Random().nextInt(lentosPlotis));
-			int eilute = new Random().nextInt(lentosIlgis) + 1;
+			String stulpelis = "" + abecele.charAt(random.nextInt(lentosPlotis));
+			int eilute = random.nextInt(lentosIlgis) + 1;
 			if (suviai.contains(stulpelis + eilute) == false) {
 				suviai.add(stulpelis + eilute);
 				if (zaidimas.sauk(stulpelis, eilute, this.zaidejoId)) {
@@ -178,9 +180,14 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 			zaidimas.sauk(stulpelis, (eilute - 1), this.zaidejoId);
 		}
 	}
-
-	private void registruokis() {
-		DuomenuBaze duomenuBaze = new DuomenuBaze("C:/Users/Manvydas/Desktop/VCS/Java/LaivuMusis.db");
-		duomenuBaze.registruokZaideja(zaidejoId);
+	
+	public void baikZaidima(String rezultatas) {
+		if (rezultatas == "laimejo") {
+			System.out.println(this.zaidejoId + " Laimejo!!!");
+		} else {
+			System.out.println(this.zaidejoId + " Pralose...");
+		}
+		zaidimas.skaiciuokStatistika();
+		arZaidimasTesiasi = false;
 	}
 }
