@@ -166,7 +166,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	public synchronized boolean sauk(String x, int y, String zaidejoId) {
 
 		// zaidejo ID tas kuris sauna
-		if (zaidejoId == this.zaidejoId1) {
+		if (zaidejoId == this.zaidejoId1 && zaidejoBusenaId1 == Busena.TavoEile) {
 			Langelis sove = this.zaidimoLenta2.getLangeliai().get(x).get(y - 1);
 			sove.sauk();
 			soveKartu1++;
@@ -185,7 +185,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			}
 		}
 
-		if (zaidejoId == this.zaidejoId2) {
+		if (zaidejoId == this.zaidejoId2 && zaidejoBusenaId2 == Busena.TavoEile) {
 			Langelis sove = this.zaidimoLenta1.getLangeliai().get(x).get(y - 1);
 			sove.sauk();
 			soveKartu2++;
