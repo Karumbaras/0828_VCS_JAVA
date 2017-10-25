@@ -57,7 +57,7 @@ public class DuomenuBaze {
 
 	}
 
-	private boolean tikrinkArYraToksZaidejas(String zaidejoId) throws SQLException {
+	private synchronized boolean tikrinkArYraToksZaidejas(String zaidejoId) throws SQLException {
 
 		statement = connection.createStatement();
 		ResultSet result = statement.executeQuery("SELECT * FROM zaidejai WHERE vardas = '" + zaidejoId + "'");
@@ -69,7 +69,7 @@ public class DuomenuBaze {
 
 	}
 
-	private void closeDatabase() {
+	private synchronized void closeDatabase() {
 		try {
 			if (connection != null)
 				connection.close();

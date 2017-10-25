@@ -1,18 +1,22 @@
 package lt.vcs.laivumusis.piratai;
 
+import org.apache.log4j.Logger;
+
 import lt.vcs.laivumusis.common.ZaidimoLenta;
 
 public class LaivuValidatorius {
 
 	Laivas laivas;
 	private boolean arSkaiciaiLygus = true;
-	private boolean arSkaiciaiIsEiles = false;
-	private boolean arRaidesLygios = false;
+	private boolean arSkaiciaiIsEiles = true;;
+	private boolean arRaidesLygios = true;;
 	private boolean arRaidesIsEiles = true;
 	private boolean arLieciasi = false;
 
 	private int lentosIlgis;
 	private int lentosPlotis;
+
+	static Logger log = Logger.getLogger(LaivuValidatorius.class.getName());
 
 	public LaivuValidatorius(Laivas laivas, int lentosIlgis, int lentosPlotis) {
 		this.laivas = laivas;
@@ -21,9 +25,7 @@ public class LaivuValidatorius {
 	}
 
 	public boolean arPerduotosKoordinatesGeros() {
-
-		arTeisingasLaivoIlgis();
-		arPaduotaVienaRaide();
+		log.info("labas vakaras");
 		arSkaiciaiLygus();
 		arSkaiciaiIsEiles();
 		arRaidesLygios();
@@ -55,84 +57,76 @@ public class LaivuValidatorius {
 	}
 
 	private void arSkaiciaiLygus() {
-		
-		if (laivas.laivoIlgis==1) {
+		if (laivas.laivoIlgis == 1) {
 			return;
 		}
-		
-		outerloop: for (int i = 0; i <= laivas.getLaivoKoordinates().size() - 2; i++) {
-			for (int sk = i + 1; sk <= laivas.getLaivoKoordinates().size() - 1; sk++) {
-				if (((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i))
-						.getY() == ((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i + sk))
-								.getY()) {
-					arSkaiciaiLygus = true;
 
-				} else
-					arSkaiciaiLygus = false;
-				break outerloop;
+		for (int i = 0; i < laivas.getLaivoKoordinates().size() - 1; i++) {
+			if (laivas.getLaivoKoordinates().get(i).getY() == laivas.getLaivoKoordinates().get(i + 1).getY()) {
+				continue;
+
+			} else {
+				arSkaiciaiLygus = false;
 			}
+
 		}
 	}
 
 	private void arSkaiciaiIsEiles() {
-		
-		if (laivas.laivoIlgis==1) {
+		if (laivas.laivoIlgis == 1) {
 			return;
 		}
-		
-		outerloop: for (int i = 0; i <= laivas.getLaivoKoordinates().size() - 2; i++) {
-			for (int sk = i + 1; sk <= laivas.getLaivoKoordinates().size() - 1; sk++) {
-				if (Math.abs(((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i)).getY()
-						- ((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i + sk))
-								.getY()) == 1) {
-					arSkaiciaiIsEiles = true;
-				} else
-					arSkaiciaiIsEiles = false;
-				break outerloop;
+
+		for (int i = 0; i < laivas.getLaivoKoordinates().size() - 1; i++) {
+			if (Math.abs(
+					laivas.getLaivoKoordinates().get(i).getY() - laivas.getLaivoKoordinates().get(i + 1).getY()) == 1) {
+				continue;
+
+			} else {
+				arSkaiciaiIsEiles = false;
 			}
+
 		}
 	}
 
 	private void arRaidesLygios() {
-		
-		if (laivas.laivoIlgis==1) {
-			return;
-		}
-		
-		outerloop: for (int i = 0; i <= laivas.getLaivoKoordinates().size() - 2; i++) {
-			for (int sk = i + 1; sk <= laivas.getLaivoKoordinates().size() - 1; sk++) {
-				int a = laivas.getLaivoKoordinates().get(i).getX().charAt(0);
-				int b = laivas.getLaivoKoordinates().get(i + sk).getX().charAt(0);
-				if (a == b) {
-					arRaidesLygios = true;
-				} else
-					arRaidesLygios = false;
-				break outerloop;
+		for (int i = 0; i < laivas.getLaivoKoordinates().size() - 1; i++) {
+			int a = laivas.getLaivoKoordinates().get(i).getX().charAt(0);
+			int b = laivas.getLaivoKoordinates().get(i + 1).getX().charAt(0);
+			if (a == b) {
+				continue;
+
+			} else {
+				arRaidesLygios = false;
 			}
+
 		}
 	}
 
-	private void arRaidesIsEiles() {
-		
-		if (laivas.laivoIlgis==1) {
+	public void arRaidesIsEiles() {
+		if (laivas.laivoIlgis == 1) {
 			return;
 		}
-		
-		outerloop: for (int i = 0; i <= laivas.getLaivoKoordinates().size() - 2; i++) {
-			for (int sk = i + 1; sk <= laivas.getLaivoKoordinates().size() - 1; sk++) {
-				int a = laivas.getLaivoKoordinates().get(i).getX().charAt(0);
-				int b = laivas.getLaivoKoordinates().get(i + sk).getX().charAt(0);
-				if (Math.abs(a - b) == 1) {
-					arRaidesIsEiles = true;
-				} else
-					arRaidesIsEiles = false;
-				break outerloop;
+
+		for (int i = 0; i < laivas.getLaivoKoordinates().size() - 1; i++) {
+			int a = laivas.getLaivoKoordinates().get(i).getX().charAt(0);
+			int b = laivas.getLaivoKoordinates().get(i + 1).getX().charAt(0);
+			if (Math.abs(a - b) == 1) {
+				continue;
+
+			} else {
+				arRaidesIsEiles = false;
 			}
+
 		}
 	}
 
 	private boolean arLaivuFormaGera() {
 
+		if (laivas.laivoIlgis == 1) {
+			return true;
+		}
+		
 		if ((arSkaiciaiLygus == arSkaiciaiIsEiles) || (arRaidesLygios == arRaidesIsEiles)) {
 			System.err.println("Laivas lenktas");
 			return false;
@@ -146,30 +140,35 @@ public class LaivuValidatorius {
 
 	}
 
-	private boolean tikrinkArNeUzLentosRibu(Laivas laivas, int lentosIlgis, int lentosPlotis) {
+	public boolean tikrinkArNeUzLentosRibu(Laivas laivas, int lentosIlgis, int lentosPlotis) {
 
+		boolean arNeUzRibos = true;
 		for (int i = 0; i < laivas.getLaivoIlgis(); i++) {
 
 			if (laivas.getLaivoKoordinates().get(i).getY() < 1
 					|| laivas.getLaivoKoordinates().get(i).getY() > lentosIlgis) {
 				System.err.println("Laivo Y koordinate uz lentos ribu");
-				return true;
+				arNeUzRibos = false;
 			}
 
-			int laivoXKoordinate = laivas.getLaivoKoordinates().get(i).getX().charAt(0) - 64;
-
-			if (laivoXKoordinate < 1 || laivoXKoordinate > 26) {
+			if (laivas.getLaivoKoordinates().get(i).getX().charAt(0) < 1
+					|| laivas.getLaivoKoordinates().get(i).getX().charAt(0) > lentosPlotis + 64) {
 				System.err.println("Laivo X koordinate uz lentos ribu");
+				arNeUzRibos = false;
+			}
+
+			if (!arNeUzRibos) {
 				return false;
 			}
 
 		}
-		return true;
+		return arNeUzRibos;
 	}
 
 	public boolean tikrinkArLieciasi(ZaidimoLenta zaidimoLenta) {
 		for (int i = 0; i < laivas.laivoIlgis; i++) {
-			String raidineKoordinate = ((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i)).getX();
+			String raidineKoordinate = ((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i))
+					.getX();
 			int skaitineKoordinate = ((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i)).getY();
 
 			if (((lt.vcs.laivumusis.piratai.Langelis) zaidimoLenta.getLangeliai().get(raidineKoordinate)
@@ -180,6 +179,7 @@ public class LaivuValidatorius {
 				return arLieciasi;
 			}
 		}
+
 		return arLieciasi;
 	}
 
@@ -188,7 +188,8 @@ public class LaivuValidatorius {
 
 			((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i)).setArGalimaDetiLaiva();
 
-			String raidineKoordinate = ((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i)).getX();
+			String raidineKoordinate = ((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i))
+					.getX();
 			int skaitineKoordinate = ((lt.vcs.laivumusis.piratai.Langelis) laivas.getLaivoKoordinates().get(i)).getY();
 
 			for (int sk = -1; sk <= 1; sk++) {

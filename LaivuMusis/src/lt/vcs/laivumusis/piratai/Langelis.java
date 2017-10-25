@@ -1,6 +1,11 @@
 package lt.vcs.laivumusis.piratai;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
 public class Langelis implements lt.vcs.laivumusis.common.Langelis {
+
+	
 
 	private String x;
 	private int y;
@@ -10,6 +15,8 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 
 	private Laivas laivas;
 	private boolean arGalimaDetiLaiva = true;
+	
+	private Rectangle kvadratas = new Rectangle();
 
 	public Langelis(String x, int y) {
 		this.x = x.toUpperCase();
@@ -22,6 +29,7 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 		if (laivas != null) {
 			arPasautasLangelis = true;
 		}
+		kvadratas.setFill(Color.RED);
 	}
 
 	@Override
@@ -72,5 +80,12 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 	public boolean getArPasautasLangelis() {
 		return this.arPasautasLangelis;
 	}
+	
+	public Rectangle getKvadratas() {
+		return kvadratas;
+	}
+	
+	
+	
 
 }
