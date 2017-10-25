@@ -28,8 +28,8 @@ public class Langelis implements lt.vcs.laivumusis.common.Langelis {
 		sautaKartu++;
 		if (laivas != null) {
 			arPasautasLangelis = true;
-		}
-		kvadratas.setFill(Color.RED);
+			kvadratas.setFill(Color.RED);
+		} else kvadratas.setFill(Color.GRAY);
 	}
 
 	@Override

@@ -1,14 +1,7 @@
 package lt.vcs.laivumusis.piratai;
 
-
-
-import lt.vcs.laivumusis.piratai.duomenubazes.DuomenuBaze;
-
-import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasArnas;
-import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasKestutis;
-
 import lt.vcs.laivumusis.piratai.grafika.Grafika;
-
+import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasArnas;
 import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasLina;
 import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasManvydas;
 
@@ -20,13 +13,10 @@ public class MainLina {
 		Grafika grafika1 = new Grafika();
 		grafika1.zaidimoLenta1 = (ZaidimoLenta) zaidimas.getLentos().get(0);
 		grafika1.zaidimoLenta2 = (ZaidimoLenta) zaidimas.getLentos().get(1);
+		//grafika1.zaidimas = zaidimas;
 
-
-		//Thread zaidejas1 = new Thread(new ZaidejasLina(zaidimas, "Lina"));
-		//Thread zaidejas2 = new Thread(new ZaidejasLina(zaidimas, "Kestutis"));
-
-		Thread zaidejas1 = new Thread(new ZaidejasLina(zaidimas, "Jolanta1"));
-		Thread zaidejas2 = new Thread(new ZaidejasLina(zaidimas, "Paulius1"));
+		Thread zaidejas1 = new Thread(new ZaidejasLina(zaidimas, "Lina"));
+		Thread zaidejas2 = new Thread(new ZaidejasManvydas(zaidimas, "Manvydas"));
 		Thread grafika = new Thread(grafika1);
 		grafika.start();
 
@@ -47,12 +37,6 @@ public class MainLina {
 			e.printStackTrace();
 		}
 		zaidejas2.start();
-		
-		
-		//DuomenuBaze db = new DuomenuBaze("D:/sarunas/Linos/LaivuMusisLina.db");
-		//db.registruokZaideja("Arnas");
-		//db.registruokZaideja("Linute");
-		
-		
+			
 	}
 }

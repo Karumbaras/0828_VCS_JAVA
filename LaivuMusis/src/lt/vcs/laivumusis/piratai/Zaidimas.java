@@ -361,5 +361,14 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		vaizdas2.pieskVaizda();
 		System.out.println();
 	}
+	
+	public String getZaidejoId1() {
+		return this.zaidejoId1;
+	}
+	
+	public String getZaidejoId2() {
+		return this.zaidejoId2;
+	}
+	
 
 }

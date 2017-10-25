@@ -218,8 +218,8 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 	}
 
 	private void registruokis() {
-		//DuomenuBaze duomenuBaze = new DuomenuBaze("D:/sarunas/Linos/LaivuMusisLina.db");
-		//duomenuBaze.registruokZaideja(zaidejoId);
+		DuomenuBaze duomenuBaze = new DuomenuBaze("D:/sarunas/Linos/LaivuMusisLina.db");
+		duomenuBaze.registruokZaideja(zaidejoId);
 	}
 
 }
