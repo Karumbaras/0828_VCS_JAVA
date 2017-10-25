@@ -6,23 +6,27 @@ import java.util.Random;
 
 import lt.vcs.laivumusis.common.Busena;
 import lt.vcs.laivumusis.common.Laivas;
+import lt.vcs.laivumusis.common.LaivuPridejimoKlaida;
 import lt.vcs.laivumusis.common.Langelis;
 import lt.vcs.laivumusis.common.Zaidimas;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
 import lt.vcs.laivumusis.piratai.Vaizdas;
+import lt.vcs.laivumusis.piratai.duomenubazes.DuomenuBaze;
 import sun.security.action.GetLongAction;
+import org.apache.log4j.Logger;
 
 public class ZaidejasOdeta implements lt.vcs.laivumusis.common.Zaidejas {
 
 	private Zaidimas zaidimas;
 	private String zaidejoId;
 	private Langelis paskutinisTikslusSuvis = new lt.vcs.laivumusis.piratai.Langelis("A", 0);
-	boolean zaidimoTikrinimoSalyga = true;
 
 	private ZaidimoLenta zaidimoLenta;
 	private List<Laivas> laivuListas = new ArrayList();
 
-	private String abecele = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private String abecele ="";
+	private int gautosLentosPlotis;
+	private int gautosLentosIlgis;
 
 	private List<String> sautuKoordinaciuListas = new ArrayList<String>();
 
@@ -39,123 +43,161 @@ public class ZaidejasOdeta implements lt.vcs.laivumusis.common.Zaidejas {
 	@Override
 	public void run() {
 
-		zaidimas.registruokZaideja(this.zaidejoId);
-		System.out.println(
-				"Sveiki, Jus prisiregistravote i zaidima. Jusu zaidejo ID yra: " + this.zaidejoId + "Pradedame!");
+		boolean zaidimoTikrinimoSalyga = true;
+		
 		try {
 			while (zaidimoTikrinimoSalyga) {
-
-				Thread.sleep(50);
-				Busena zaidimoBusena = zaidimas.tikrinkBusena(zaidejoId);
-				System.out.println("Zaidejo " + zaidejoId + " busena: " + zaidimoBusena);
-				Thread.sleep(50);
-
-				if (zaidimoBusena == Busena.DalinamesZemelapius) {
+				
+				switch(zaidimas.tikrinkBusena(zaidejoId)) {
+				
+				case Registracija:
+					registruokis();	
+					zaidimas.registruokZaideja(this.zaidejoId);
+					System.out.println(
+							"Sveiki, Jus prisiregistravote i zaidima. Jusu zaidejo ID yra: " + this.zaidejoId + "Pradedame!");
+					Thread.sleep(10);
+				break;
+					
+				case DalinamesZemelapius:
 					this.zaidimoLenta = zaidimas.duokZaidimoLenta(zaidejoId);
-					Thread.sleep(50);
+					
+					for(String z : zaidimoLenta.getLangeliai().keySet()) {
+						this.abecele = this.abecele + z;
 				}
+					
+					this.gautosLentosPlotis = zaidimoLenta.getLangeliai().keySet().size();
+					this.gautosLentosIlgis = zaidimoLenta.getLangeliai().get("" + abecele.charAt(0)).size();
+					
+					Thread.sleep(100);
+					break;
 
-				if (zaidimoBusena == Busena.DalinemesLaivus) {
+				case DalinemesLaivus:
 					this.laivuListas = zaidimas.duokLaivus(zaidejoId);
-					Thread.sleep(50);
-				}
-
-				if (zaidimoBusena == Busena.RikiuojamLaivus) {
-					Thread.sleep(50);
+					Thread.sleep(100);
+					break;
+				
+				case RikiuojamLaivus:
+					
 					for (int k = 0; k < this.laivuListas.size(); k++) {
+						
+						try {
+						
 						Laivas laivelis = this.laivuListas.get(k);
+						int laivelioIlgis = this.laivuListas.get(k).getLaivoIlgis();
 						int horizontaliaiArVertikaliai = new Random().nextInt(2);
-						int pozicijaX = new Random().nextInt(zaidimoLenta.getLangeliai().keySet().size());	
-						int pozicijaY = new Random()
-								.nextInt(zaidimoLenta.getLangeliai().get("" + abecele.charAt(0)).size()) + 1;
+						//int pozicijaX = new Random().nextInt(gautosLentosPlotis - laivelis.getLaivoIlgis());	
+						//int pozicijaY = new Random()
+								//.nextInt(gautosLentosIlgis + 1 - laivelis.getLaivoIlgis());
+						
 						List<Langelis> vienoLaivoLangeliai = new ArrayList<Langelis>();
 
 						// horizontaliai reiksme: 0;
 						if (horizontaliaiArVertikaliai == 0) {
-							for (int i = pozicijaX; i < pozicijaX + laivelis.getLaivoIlgis(); i++) {
+							int pozicijaX = new Random().nextInt(gautosLentosPlotis - laivelioIlgis);
+							int pozicijaY = new Random()
+									.nextInt(gautosLentosIlgis) + 1;
+							for (int i = 0; i < laivelioIlgis; i++) {
 								String x = "" + abecele.charAt(pozicijaX + i);
-								Langelis langelis = new lt.vcs.laivumusis.piratai.Langelis(x, pozicijaY);
-								vienoLaivoLangeliai.add(langelis);
+								Langelis langelisHorizontaliai = new lt.vcs.laivumusis.piratai.Langelis(x, pozicijaY);
+								//System.out.println("Dedamas langelis: " + x + " "+ pozicijaY + zaidejoId);
+								vienoLaivoLangeliai.add(langelisHorizontaliai);
 							}
 
 							// vertikaliai reiksme: 1;
 						} else {
-							for (int i = pozicijaY; i < pozicijaY + laivelis.getLaivoIlgis(); i++) {
-								String x = "" + abecele.charAt(pozicijaX);
-								Langelis langelis = new lt.vcs.laivumusis.piratai.Langelis(x, i);
-								vienoLaivoLangeliai.add(langelis);
+							String x = "" + abecele.charAt(new Random().nextInt(gautosLentosPlotis));
+							int pozicijaYVertikaliai = new Random().nextInt(gautosLentosIlgis - laivelis.getLaivoIlgis())+1;
+							for (int i = 0; i < laivelioIlgis; i++) {
+								int dedamaY = pozicijaYVertikaliai +i;
+								Langelis langelisVertikaliai = new lt.vcs.laivumusis.piratai.Langelis(x, dedamaY);
+								//System.out.println("Dedamas langelis: " + x + " " + dedamaY + zaidejoId);
+								vienoLaivoLangeliai.add(langelisVertikaliai);
 							}
 						}
-
-						laivelis.setKordinates(vienoLaivoLangeliai);
-						try {
+						
+						this.laivuListas.get(k).setKordinates(vienoLaivoLangeliai);
+						//laivelis.setKordinates(vienoLaivoLangeliai);
 							zaidimas.pridekLaiva(laivelis, this.zaidejoId);
-							System.out.println("Laivas nr. : " + k + " sukurtas");
-						} catch (Exception e) {
+							System.out.println("Laivas nr. : " + k + " sukurtas" + "zaidejo: " + zaidejoId);
+						} catch (LaivuPridejimoKlaida e) {
 							k--;
 						}
-					}
+					//Thread.sleep(1000);
 				}
-				if (zaidimoBusena == Busena.TavoEile) {
+				
+				case TavoEile:
 
-					//if (this.paskutinisTikslusSuvis.getY() == 0) {
+					Thread.sleep(100);
+					
+					if (this.paskutinisTikslusSuvis.getY() == -1) {
 
 						String xKoordinateSaunu = ""
-								+ abecele.charAt(new Random().nextInt(zaidimoLenta.getLangeliai().keySet().size()));
+								+ abecele.charAt(new Random().nextInt(gautosLentosPlotis));
 						int ySovimui = new Random()
 								.nextInt(zaidimoLenta.getLangeliai().get("" + abecele.charAt(0)).size()) + 1;
 						int yKoordinateSaunu = ySovimui;
 						Sovimas(xKoordinateSaunu, yKoordinateSaunu);
 						
-					/*} else {
+					} else {
 						String xPaskutinisPataikytas = "" + this.paskutinisTikslusSuvis.getX();
-						int yPaskutinisPataikytas = this.paskutinisTikslusSuvis.getY() + 1;
-						if(yPaskutinisPataikytas <= zaidimoLenta.getLangeliai().get("" + abecele.charAt(0)).size()) {
-							Sovimas(xPaskutinisPataikytas, yPaskutinisPataikytas);
+						int yPaskutinisPataikytas = this.paskutinisTikslusSuvis.getY();
+						String xKoordinateSaunuRandom = ""
+								+ abecele.charAt(new Random().nextInt(gautosLentosPlotis));
+						if((yPaskutinisPataikytas +1) < gautosLentosIlgis) {
+							Sovimas(xPaskutinisPataikytas, (yPaskutinisPataikytas + 2));
+						}else if((yPaskutinisPataikytas +1) == gautosLentosIlgis) {
+							Sovimas(xKoordinateSaunuRandom, yPaskutinisPataikytas);
 						}else {
-							Sovimas(xPaskutinisPataikytas, yPaskutinisPataikytas - 1);
+							Sovimas(xPaskutinisPataikytas, (yPaskutinisPataikytas - 1));
 						}
-					}*/
-
-				}
-
-				if (zaidimoBusena == Busena.PriesininkoEile) {
-				}
-
-				if (zaidimoBusena == Busena.TuLaimejai) {
-					System.out.println("Sveikiname, zaidima laimejo zaidejas: " + zaidejoId);
-					zaidimoTikrinimoSalyga = false;
-					zaidimas.skaiciuokStatistika();
+					}
+					
 					break;
-				}
-
-				if (zaidimoBusena == Busena.PriesasLaimejo) {
-					System.out.println("Deja, zaidejas " + zaidejoId + " pralose. Bandykite zaisti dar karta");
-					zaidimoTikrinimoSalyga = false;
+		
+				case PriesininkoEile:
+					break;
+					
+				case TuLaimejai:
+					System.out.println("Sveikiname, zaidima laimejo zaidejas: " + zaidejoId);
 					zaidimas.skaiciuokStatistika();
+					zaidimoTikrinimoSalyga = false;
+					break;
+
+				case PriesasLaimejo:
+					System.out.println("Deja, zaidejas " + zaidejoId + " pralose. Bandykite zaisti dar karta");
+					zaidimas.skaiciuokStatistika();
+					zaidimoTikrinimoSalyga = false;
 					break;
 				}
 			}
 
-		} catch (
-
-		InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+		}catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	}
 	
-	private synchronized void Sovimas(String xKoordinateSaunu, int yKoordinateSaunu) {
+	private void Sovimas(String xKoordinateSaunu, int yKoordinateSaunu) {
 		String abiKoordinates = xKoordinateSaunu + yKoordinateSaunu;
 		if (sautuKoordinaciuListas.contains(abiKoordinates) == false) {
 			sautuKoordinaciuListas.add(abiKoordinates);
-			if (zaidimas.sauk(xKoordinateSaunu, yKoordinateSaunu, zaidejoId)) {
-				//this.paskutinisTikslusSuvis = new lt.vcs.laivumusis.piratai.Langelis(xKoordinateSaunu,
-				//		yKoordinateSaunu);
+			if (zaidimas.sauk(xKoordinateSaunu, yKoordinateSaunu, this.zaidejoId)) {
+				this.paskutinisTikslusSuvis = new lt.vcs.laivumusis.piratai.Langelis(xKoordinateSaunu,
+						yKoordinateSaunu);
+				
 			} else {
-				//this.paskutinisTikslusSuvis = new lt.vcs.laivumusis.piratai.Langelis("A", 0);
+				this.paskutinisTikslusSuvis = new lt.vcs.laivumusis.piratai.Langelis("A", -1);
 			}
 		}
 	}
+	
+	private void registruokis() {
+		DuomenuBaze duomenuBazeOdetos = new DuomenuBaze("C:/Users/Ooo/Downloads/LaivuMusis.db");
+		duomenuBazeOdetos.registruokZaideja(zaidejoId);
+	
+	}
 
 }
+
+
