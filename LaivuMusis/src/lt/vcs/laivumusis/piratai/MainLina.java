@@ -11,15 +11,12 @@ public class MainLina {
 		//Zaidimas zaidimas = new Zaidimas(10,10,laivai);
 		Zaidimas zaidimas = new Zaidimas();
 		Grafika grafika1 = new Grafika();
-		grafika1.zaidimoLenta1 = (ZaidimoLenta) zaidimas.getLentos().get(0);
-		grafika1.zaidimoLenta2 = (ZaidimoLenta) zaidimas.getLentos().get(1);
+		Grafika.zaidimoLenta1 = (ZaidimoLenta) zaidimas.getLentos().get(0);
+		Grafika.zaidimoLenta2 = (ZaidimoLenta) zaidimas.getLentos().get(1);
 		//grafika1.zaidimas = zaidimas;
 		
-		ZaidejasLina zaid1 = new ZaidejasLina(zaidimas, "Lina");
-		ZaidejasManvydas zaid2 = new ZaidejasManvydas(zaidimas, "Manvydas");
-
-		Thread zaidejas1 = new Thread(zaid1);
-		Thread zaidejas2 = new Thread(zaid2);
+		Thread zaidejas1 = new Thread(new ZaidejasLina(zaidimas, "Lina"));
+		Thread zaidejas2 = new Thread(new ZaidejasManvydas(zaidimas, "Manvydas"));
 		//grafika1.zaidejoID1 = "Lina";
 		//grafika1.zaidejoID2 = "Manvydas";
 		Thread grafika = new Thread(grafika1);

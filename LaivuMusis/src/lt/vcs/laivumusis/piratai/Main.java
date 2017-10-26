@@ -1,23 +1,14 @@
 package lt.vcs.laivumusis.piratai;
 
 import lt.vcs.laivumusis.piratai.zaidejas.Zaidejas;
+import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasLina;
+import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasManvydas;
 
 public class Main {
 
 	public static void main(String[] args) {
 		Zaidimas zaidimas = new Zaidimas();
-		Zaidejas zaid = new Zaidejas(zaidimas);
-		
-		
-		//String zaidejoID = zaid.getZaidimas().registruokZaideja();
-		//System.out.println(zaid.getZaidimas().registruokZaideja());
-		
-		
-		
-
-		ZaidimoLenta a = new ZaidimoLenta(10, 10);
-		Vaizdas vaizdas = new Vaizdas(a);
-		vaizdas.pieskVaizda();
+		Zaidimas.paleiskZaidima(new ZaidejasLina(zaidimas, "Lina"), new ZaidejasManvydas(zaidimas, "Manvydas!!!"),new Zaidimas());
 
 	}
 
