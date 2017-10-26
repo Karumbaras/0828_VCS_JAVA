@@ -9,13 +9,13 @@ import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasLina;
 
 public class pijausMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
-		lt.vcs.laivumusis.piratai.Zaidimas zaidimas = new lt.vcs.laivumusis.piratai.Zaidimas(); // pijausZaidejas
-																								// zaidejas = new
+		//lt.vcs.laivumusis.piratai.Zaidimas zaidimas = new lt.vcs.laivumusis.piratai.Zaidimas(); // pijausZaidejas
+		Zaidimas zaidimas = new Zaidimas(1);																					// zaidejas = new
 
 		Thread x = new Thread(new pijausZaidejas(zaidimas, "Pijus"));
-		Thread y = new Thread(new ZaidejasLina(zaidimas, "Lina"));
+		Thread y = new Thread(new pijausZaidejas(zaidimas, "Lina"));
 
 		x.start();
 		try {
