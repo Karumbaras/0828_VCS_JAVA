@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -20,8 +21,8 @@ public class Grafika extends Application implements Runnable {
 
 	public static ZaidimoLenta zaidimoLenta1;
 	public static ZaidimoLenta zaidimoLenta2;
-	public static String zaidejoID1;
-	public static String zaidejoID2;
+	public static Label zaidejoID1;
+	public static Label zaidejoID2;
 
 
 	@Override
@@ -33,23 +34,19 @@ public class Grafika extends Application implements Runnable {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Piratu laivas");
+		zaidejoID1 = new Label("Registracija");
+		zaidejoID2 = new Label("Registracija");
 
 		// Pagrindinis Grid'as
 		GridPane gridPane = new GridPane();
 		gridPane.setHgap(10);
 		gridPane.setVgap(5);
+	
+		this.zaidejoID1.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+		this.zaidejoID2.setFont(Font.font("Arial", FontWeight.BOLD, 15));
 
-		// Text zaidejoId1 = new Text(zaidimas.getZaidejoId1());
-		// Text zaidejoId2 = new Text(zaidimas.getZaidejoId2());
-
-		// Zaideju ID
-		Text zaidejoId1 = new Text("Zaidejas 1");
-		zaidejoId1.setFont(Font.font("Arial", FontWeight.BOLD, 15));
-		Text zaidejoId2 = new Text("Zaidejas 2");
-		zaidejoId2.setFont(Font.font("Arial", FontWeight.BOLD, 15));
-
-		gridPane.add(zaidejoId1, 1, 1, this.zaidimoLenta1.getPlotis(), 1);
-		gridPane.add(zaidejoId2, 2, 1, this.zaidimoLenta2.getPlotis(), 1);
+		gridPane.add(this.zaidejoID1, 1, 1, this.zaidimoLenta1.getPlotis(), 1);
+		gridPane.add(this.zaidejoID2, 2, 1, this.zaidimoLenta2.getPlotis(), 1);
 
 		// Zaidimo lentu grid'ai
 		GridPane gridPane1 = new GridPane();
@@ -62,7 +59,7 @@ public class Grafika extends Application implements Runnable {
 
 		gridPane.add(gridPane1, 1, 4);
 		gridPane.add(gridPane2, 2, 4);
-
+		
 		// Idedu langelius, nustatau dydzius ir priskiriu pradine spalva
 		// Langeliai talpinami pagal koordinates
 
