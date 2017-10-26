@@ -180,7 +180,16 @@ public class pijausZaidejas implements Zaidejas {
 	}
 
 	public void zaidejauSauk() {
-		zaidimas.sauk(generuokX(), generuokY(), zaidejasId);
+		//zaidimas.sauk(generuokX(), generuokY(), zaidejasId);
+		while(true) {
+		String stulpelis = generuokX();
+		int eilute = generuokY();
+		if (!pataikytasSuvisListas.contains(stulpelis + eilute)) {
+			  pataikytasSuvisListas.add(stulpelis + eilute); 
+			 zaidimas.sauk(stulpelis, eilute, this.zaidejasId);
+			 break;
+			}
+		}
 		/*
 		 * boolean pataikymas = false; int ilgisLent =
 		 * zaidejoZaidimoLenta.getLangeliai().values().size(); int plotisLent =
