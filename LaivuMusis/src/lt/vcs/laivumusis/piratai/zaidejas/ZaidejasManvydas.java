@@ -217,6 +217,7 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 		
 		String stulpelisVirs = "" + (char) (stulpelis.charAt(0) + 1);
 		String stulpelisApac = "" + (char) (stulpelis.charAt(0) + 1);
+				
 		suviai.add(stulpelisVirs + eilute + 1);
 		suviai.add(stulpelisApac + (eilute - 1));
 		suviai.add(stulpelisVirs + (eilute - 1));
