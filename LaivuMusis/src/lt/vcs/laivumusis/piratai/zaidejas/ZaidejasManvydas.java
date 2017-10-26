@@ -94,8 +94,8 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 	}
 
 	private void registruokis() {
-		//DuomenuBaze duomenuBaze = new DuomenuBaze("C:/Users/Manvydas/Desktop/VCS/Java/LaivuMusis.db");
-		//duomenuBaze.registruokZaideja(zaidejoId);
+		DuomenuBaze duomenuBaze = new DuomenuBaze("C:/Users/Manvydas/Desktop/VCS/Java/LaivuMusis.db");
+		duomenuBaze.registruokZaideja(zaidejoId);
 	}
 
 	private void pasiimkLenta() {
@@ -163,6 +163,9 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 			if (suviai.contains(stulpelis + eilute) == false) {
 				suviai.add(stulpelis + eilute);
 				if (zaidimas.sauk(stulpelis, eilute, this.zaidejoId)) {
+					
+					nesaukIstrizai(stulpelis, eilute);
+					tikrinkArNusautas(stulpelis, eilute);
 					ieskokLaivo(stulpelis, eilute);
 				}
 
@@ -192,20 +195,37 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 	 * } }
 	 */
 
-	private boolean tikrinkArNusautas(String stulpelis, int eilute) {
+	private void tikrinkArNusautas(String stulpelis, int eilute) {
 		
-		char stulp = (char) (stulpelis.charAt(0) + 1);
+		String stulpelisVirs = "" + (char) (stulpelis.charAt(0) + 1);
+		String stulpelisApac = "" + (char) (stulpelis.charAt(0) + 1);
 		
 		if ((suviai.contains(stulpelis + (eilute + 1)) && eilute + 1 < lentosIlgis)
 				&& (suviai.contains(stulpelis + (eilute - 1)) && eilute - 1 > lentosIlgis)
-				
-
+				&& (suviai.contains(stulpelisVirs + eilute) && stulpelis.charAt(0) + 1 - 64 < lentosIlgis)
+				&& (suviai.contains(stulpelisVirs + eilute) && stulpelis.charAt(0) - 1 - 64 > lentosIlgis)
 		) {
-			return true;
+			suviai.add(stulpelisVirs + eilute + 1);
+			suviai.add(stulpelisApac + (eilute - 1));
+			suviai.add(stulpelisVirs + (eilute - 1));
+			suviai.add(stulpelisApac + (eilute - 1));
+			
 		}
-		return false;
 	}
 
+	private void nesaukIstrizai(String stulpelis, int eilute) {
+		
+		String stulpelisVirs = "" + (char) (stulpelis.charAt(0) + 1);
+		String stulpelisApac = "" + (char) (stulpelis.charAt(0) + 1);
+				
+		suviai.add(stulpelisVirs + (eilute + 1));
+		suviai.add(stulpelisApac + (eilute + 1));
+		suviai.add(stulpelisVirs + (eilute - 1));
+		suviai.add(stulpelisApac + (eilute - 1));
+		
+		
+	}
+	
 	private void ieskokLaivo(String stulpelis, int eilute) throws InterruptedException {
 		if (!suviai.contains(stulpelis + (eilute + 1)) && eilute + 1 < lentosIlgis) {
 			suviai.add(stulpelis + (eilute + 1));

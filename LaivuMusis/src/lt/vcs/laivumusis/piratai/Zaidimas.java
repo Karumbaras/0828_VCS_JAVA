@@ -202,6 +202,13 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 				if (arLaimejo(laivai2)) {
 					zaidejoBusenaId1 = Busena.TuLaimejai;
 					zaidejoBusenaId2 = Busena.PriesasLaimejo;
+					
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							Grafika.finalas.setText("Laimejo "+zaidejoId1+"!! Sveikinu!");
+						}
+					});
 				}
 				pieskLentas();
 				taiklusSuviai1++;
@@ -222,6 +229,13 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 				if (arLaimejo(laivai1)) {
 					zaidejoBusenaId2 = Busena.TuLaimejai;
 					zaidejoBusenaId1 = Busena.PriesasLaimejo;
+					
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							Grafika.finalas.setText("Laimejo "+zaidejoId2+"!! Sveikinu!");
+						}
+					});
 				}
 				pieskLentas();
 				taiklusSuviai2++;

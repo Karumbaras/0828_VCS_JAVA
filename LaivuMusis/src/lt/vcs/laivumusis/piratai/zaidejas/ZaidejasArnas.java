@@ -73,7 +73,7 @@ public class ZaidejasArnas implements lt.vcs.laivumusis.common.Zaidejas {
 
 					break;
 				case PriesininkoEile:
-					Thread.sleep(500);
+					Thread.sleep(10);
 					break;
 
 				case TavoEile:
