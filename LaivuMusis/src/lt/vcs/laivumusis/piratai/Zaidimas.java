@@ -10,8 +10,11 @@ import lt.vcs.laivumusis.common.Busena;
 import lt.vcs.laivumusis.common.Laivas;
 import lt.vcs.laivumusis.common.LaivuPridejimoKlaida;
 import lt.vcs.laivumusis.common.Langelis;
+import lt.vcs.laivumusis.common.Zaidejas;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
 import lt.vcs.laivumusis.piratai.grafika.Grafika;
+import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasLina;
+import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasManvydas;
 
 public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	// Zaidejas
@@ -388,12 +391,37 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		System.out.println();
 	}
 	
-	public String getZaidejoId1() {
-		return this.zaidejoId1;
-	}
-	
-	public String getZaidejoId2() {
-		return this.zaidejoId2;
+
+	public static void paleiskZaidima(Zaidejas zaidejas1, Zaidejas zaidejas2, Zaidimas zaidimas) {
+		//Zaidimas zaidimas = new Zaidimas();
+		Grafika grafika1 = new Grafika();
+		Grafika.zaidimoLenta1 = (lt.vcs.laivumusis.piratai.ZaidimoLenta) zaidimas.getLentos().get(0);
+		Grafika.zaidimoLenta2 = (lt.vcs.laivumusis.piratai.ZaidimoLenta) zaidimas.getLentos().get(1);
+		
+		Thread zaid1 = new Thread(zaidejas1);
+		Thread zaid2 = new Thread(zaidejas2);
+		
+		Thread grafika = new Thread(grafika1);
+		grafika.start();
+
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		zaid1.start();
+		
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		zaid2.start();
+			
 	}
 
 }
