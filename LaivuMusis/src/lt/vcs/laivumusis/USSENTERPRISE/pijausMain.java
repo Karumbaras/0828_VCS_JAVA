@@ -11,23 +11,20 @@ public class pijausMain {
 
 	public static void main(String[] args) {
 
-	//	lt.vcs.laivumusis.piratai.Zaidimas zaidimas = new lt.vcs.laivumusis.piratai.Zaidimas(); // pijausZaidejas zaidejas = new
-		Zaidimas zaidimas1;
+		lt.vcs.laivumusis.piratai.Zaidimas zaidimas = new lt.vcs.laivumusis.piratai.Zaidimas(); // pijausZaidejas
+																								// zaidejas = new
+
+		Thread x = new Thread(new pijausZaidejas(zaidimas, "Pijus"));
+		Thread y = new Thread(new ZaidejasLina(zaidimas, "Lina"));
+
+		x.start();
 		try {
-			zaidimas1 = new Zaidimas(1);
-			Thread x = new Thread(new pijausZaidejas(zaidimas1, "Pijus"));
-			Thread y = new Thread(new ZaidejasLina(zaidimas1, "Lina"));
-			
-			x.start();
-			y.start();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			Thread.sleep(1000);
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		
+		y.start();
+
 	}
 
 }

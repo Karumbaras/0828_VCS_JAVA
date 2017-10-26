@@ -19,14 +19,13 @@ import lt.vcs.laivumusis.common.Zaidimas;
 
 public class pijausZaidejas implements Zaidejas {
 
-
 	Scanner laivoScaneris = new Scanner(System.in);
 	private String xMasyvas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private Zaidimas zaidimas;
 	private String zaidejasId;
 	private List<Laivas> zaidejoLaivuListas;
 	private lt.vcs.laivumusis.common.ZaidimoLenta zaidejoZaidimoLenta;
-	
+	private List<String> pataikytasSuvisListas;
 	int laivuskaicius = 0;
 
 	public pijausZaidejas(Zaidimas zaidimas, String zaidejoid) {
@@ -44,7 +43,8 @@ public class pijausZaidejas implements Zaidejas {
 				case Registracija:
 					this.zaidimas.registruokZaideja(this.zaidejasId);
 					while (true) {
-						if (this.zaidimas.registruokZaideja(this.zaidejasId));
+						if (this.zaidimas.registruokZaideja(this.zaidejasId))
+							;
 						Thread.sleep(1000);
 						break;
 					}
@@ -64,22 +64,20 @@ public class pijausZaidejas implements Zaidejas {
 					break;
 				case RikiuojamLaivus:
 					zaidejauPridekLaivus();
-					
 
 					System.out.println(laivuskaicius);
 					Thread.sleep(1000);
 					break;
 				case TavoEile:
 					try {
-					zaidejauSauk();
+						zaidejauSauk();
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
-					
-					
+
 					break;
 				case PriesininkoEile:
-					
+
 					break;
 				case TuLaimejai:
 					System.out.println(zaidejasId + " laimejo!!!");
@@ -96,12 +94,12 @@ public class pijausZaidejas implements Zaidejas {
 			}
 
 		} catch (Exception ex) {
-			
+
 		}
 	}
 
-	public synchronized List<Langelis> generuojamLaivoKordintates(Laivas laivas, boolean arLaivasvertikalus, String laivasVertikalus,
-			int laivasHorizantalus) {
+	public synchronized List<Langelis> generuojamLaivoKordintates(Laivas laivas, boolean arLaivasvertikalus,
+			String laivasVertikalus, int laivasHorizantalus) {
 		List<Langelis> laivoLangeliai = new ArrayList<Langelis>();
 		// String []aa=(String [])zaidejoZaidimoLenta.getLangeliai().keySet().toArray();
 		int laivoIlgis = laivas.getLaivoIlgis();
@@ -111,15 +109,13 @@ public class pijausZaidejas implements Zaidejas {
 		if (arLaivasvertikalus == true) {
 			if (Ykordinate <= 10 - laivoIlgis) {
 				for (int i = 0; i < laivoIlgis; i++) {
-					laivoLangeliai
-							.add(new lt.vcs.laivumusis.piratai.Langelis(laivasVertikalus, Ykordinate++));
+					laivoLangeliai.add(new lt.vcs.laivumusis.piratai.Langelis(laivasVertikalus, Ykordinate++));
 				}
 				return laivoLangeliai;
 			} else {
 				Ykordinate = Ykordinate - laivoIlgis;
 				for (int i = 0; i < laivoIlgis; i++) {
-					laivoLangeliai
-							.add(new lt.vcs.laivumusis.piratai.Langelis(laivasVertikalus, Ykordinate++));
+					laivoLangeliai.add(new lt.vcs.laivumusis.piratai.Langelis(laivasVertikalus, Ykordinate++));
 
 				}
 				return laivoLangeliai;
@@ -129,16 +125,16 @@ public class pijausZaidejas implements Zaidejas {
 
 			if (stringovieta <= 10 - laivoIlgis) {
 				for (int i = 0; i < laivoIlgis; i++) {
-					laivoLangeliai.add(new lt.vcs.laivumusis.piratai.Langelis(
-							"" + xMasyvas.charAt(stringovieta + 1), laivasHorizantalus));
+					laivoLangeliai.add(new lt.vcs.laivumusis.piratai.Langelis("" + xMasyvas.charAt(stringovieta + 1),
+							laivasHorizantalus));
 					stringovieta++;
 				}
 				return laivoLangeliai;
 			} else {
 				stringovieta = stringovieta - laivoIlgis;
 				for (int i = 0; i < laivoIlgis; i++) {
-					laivoLangeliai.add(new lt.vcs.laivumusis.piratai.Langelis(
-							"" + xMasyvas.charAt(stringovieta + 1), laivasHorizantalus));
+					laivoLangeliai.add(new lt.vcs.laivumusis.piratai.Langelis("" + xMasyvas.charAt(stringovieta + 1),
+							laivasHorizantalus));
 					stringovieta++;
 				}
 				return laivoLangeliai;
@@ -182,10 +178,47 @@ public class pijausZaidejas implements Zaidejas {
 
 	}
 
-	
-
 	public void zaidejauSauk() {
-		zaidimas.sauk(generuokX(), generuokY(), zaidejasId);
+
+		boolean pataikymas = false;
+		int ilgisLent = zaidejoZaidimoLenta.getLangeliai().values().size();
+		int plotisLent = zaidejoZaidimoLenta.getLangeliai().keySet().size();
+		while (true) {
+			String stulpelis = generuokX();
+			int eilute = generuokY();
+			int pradinis = eilute;
+
+			if (!pataikytasSuvisListas.contains(stulpelis + eilute)) {
+				pataikytasSuvisListas.add(stulpelis + eilute);
+				pataikymas = zaidimas.sauk(stulpelis, eilute, this.zaidejasId);
+				while (pataikymas) {
+					if (eilute < ilgisLent) {
+						eilute = eilute + 1;
+						if (!pataikytasSuvisListas.contains(stulpelis + eilute)) {
+							pataikytasSuvisListas.add(stulpelis + eilute);
+							pataikymas = zaidimas.sauk(stulpelis, eilute, this.zaidejasId);
+							if (pataikymas)
+								continue;
+							else
+								break;
+						} else {
+							eilute = eilute - 1;
+							if (!pataikytasSuvisListas.contains(stulpelis + eilute)) {
+								pataikytasSuvisListas.add(stulpelis + eilute);
+								pataikymas = zaidimas.sauk(stulpelis, eilute, this.zaidejasId);
+								if (pataikymas)
+									continue;
+								else
+									break;
+							}
+						}
+					}
+
+				}
+
+			}
+			break;
+		}
 	}
 
 	private String generuokX() {
