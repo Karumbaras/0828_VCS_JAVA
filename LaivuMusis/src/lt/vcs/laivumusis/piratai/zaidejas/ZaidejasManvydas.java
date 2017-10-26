@@ -194,7 +194,7 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 
 	private boolean tikrinkArNusautas(String stulpelis, int eilute) {
 		
-		int stulp = stulpelis.charAt(0);
+		char stulp = (char) (stulpelis.charAt(0) + 1);
 		
 		if ((suviai.contains(stulpelis + (eilute + 1)) && eilute + 1 < lentosIlgis)
 				&& (suviai.contains(stulpelis + (eilute - 1)) && eilute - 1 > lentosIlgis)
