@@ -147,13 +147,13 @@ public class LaivuValidatorius {
 
 			if (laivas.getLaivoKoordinates().get(i).getY() < 1
 					|| laivas.getLaivoKoordinates().get(i).getY() > lentosIlgis) {
-				System.err.println("Laivo Y koordinate uz lentos ribu");
+				log.error("Laivo Y koordinate uz lentos ribu");
 				arNeUzRibos = false;
 			}
 
 			if (laivas.getLaivoKoordinates().get(i).getX().charAt(0) < 1
 					|| laivas.getLaivoKoordinates().get(i).getX().charAt(0) > lentosPlotis + 64) {
-				System.err.println("Laivo X koordinate uz lentos ribu");
+				log.error("Laivo X koordinate uz lentos ribu");
 				arNeUzRibos = false;
 			}
 
