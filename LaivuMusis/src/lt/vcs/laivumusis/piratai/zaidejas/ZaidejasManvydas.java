@@ -94,8 +94,8 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 	}
 	
 	private void registruokis() {
-		DuomenuBaze duomenuBaze = new DuomenuBaze("C:/Users/Manvydas/Desktop/VCS/Java/LaivuMusis.db");
-		duomenuBaze.registruokZaideja(zaidejoId);
+		//DuomenuBaze duomenuBaze = new DuomenuBaze("C:/Users/Manvydas/Desktop/VCS/Java/LaivuMusis.db");
+		//duomenuBaze.registruokZaideja(zaidejoId);
 	}
 	
 	public void pasiimkLenta() {
