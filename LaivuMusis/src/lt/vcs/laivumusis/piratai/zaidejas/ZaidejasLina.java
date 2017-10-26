@@ -158,6 +158,7 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 				this.nusautas = stulpelis + eilute;
 				this.galimiSuviai = new HashMap<String, Integer>();
 				sukurkGalimybiuSarasa(stulpelis, eilute);
+				ismeskIstrizaines(stulpelis, eilute);
 			} else {
 				galimiSuviai.remove(stulpelis);
 			}
@@ -172,6 +173,7 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 					if (pataike) {
 						this.nusautas = stulpelis + eilute;
 						sukurkGalimybiuSarasa(stulpelis, eilute);
+						ismeskIstrizaines(stulpelis, eilute);
 					}
 					break;
 				}
@@ -215,6 +217,32 @@ public class ZaidejasLina implements lt.vcs.laivumusis.common.Zaidejas {
 			galimiSuviai.remove(""+trinti.charAt(i));
 		}
 		
+	}
+	
+	private void ismeskIstrizaines(String stulpelis, int eilute) {
+
+		int stulpelioVieta = abecele.indexOf(stulpelis);
+		if (stulpelioVieta < abecele.length() - 1 && eilute < lentosIlgis) {
+			String stulpelis1 = "" + abecele.charAt(stulpelioVieta + 1);
+			this.suviai.add(stulpelis1 + (eilute+1));
+		}
+		
+		if (stulpelioVieta < abecele.length() - 1 && eilute > 1) {
+			String stulpelis1 = "" + abecele.charAt(stulpelioVieta + 1);
+			this.suviai.add(stulpelis1 + (eilute-1));
+		}
+
+		if (stulpelioVieta > 0 && eilute < lentosIlgis) {
+			String stulpelis1 = "" + abecele.charAt(stulpelioVieta - 1);
+			this.suviai.add(stulpelis1 + (eilute+1));
+		}
+		
+		if (stulpelioVieta >0 && eilute > 1) {
+			String stulpelis1 = "" + abecele.charAt(stulpelioVieta - 1);
+			this.suviai.add(stulpelis1 + (eilute-1));
+		}
+
+
 	}
 
 	private void registruokis() {

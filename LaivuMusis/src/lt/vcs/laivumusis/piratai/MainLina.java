@@ -1,5 +1,6 @@
 package lt.vcs.laivumusis.piratai;
 
+import lt.vcs.laivumusis.USSENTERPRISE.zaidejas.pijausZaidejas;
 import lt.vcs.laivumusis.piratai.grafika.Grafika;
 import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasArnas;
 import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasLina;
@@ -16,7 +17,7 @@ public class MainLina {
 		//grafika1.zaidimas = zaidimas;
 		
 		Thread zaidejas1 = new Thread(new ZaidejasLina(zaidimas, "Lina"));
-		Thread zaidejas2 = new Thread(new ZaidejasManvydas(zaidimas, "Manvydas"));
+		Thread zaidejas2 = new Thread(new pijausZaidejas(zaidimas, "Pijus"));
 		//grafika1.zaidejoID1 = "Lina";
 		//grafika1.zaidejoID2 = "Manvydas";
 		Thread grafika = new Thread(grafika1);
