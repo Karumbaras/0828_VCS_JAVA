@@ -23,7 +23,7 @@ public class Grafika extends Application implements Runnable {
 	public static ZaidimoLenta zaidimoLenta2;
 	public static Label zaidejoID1;
 	public static Label zaidejoID2;
-
+	public static Label finalas;
 
 	@Override
 	public void run() {
@@ -36,6 +36,7 @@ public class Grafika extends Application implements Runnable {
 		primaryStage.setTitle("Piratu laivas");
 		zaidejoID1 = new Label("Registracija");
 		zaidejoID2 = new Label("Registracija");
+		finalas = new Label("Zaidziam...");
 
 		// Pagrindinis Grid'as
 		GridPane gridPane = new GridPane();
@@ -44,9 +45,11 @@ public class Grafika extends Application implements Runnable {
 	
 		this.zaidejoID1.setFont(Font.font("Arial", FontWeight.BOLD, 15));
 		this.zaidejoID2.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+		this.finalas.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
 		gridPane.add(this.zaidejoID1, 1, 1, this.zaidimoLenta1.getPlotis(), 1);
 		gridPane.add(this.zaidejoID2, 2, 1, this.zaidimoLenta2.getPlotis(), 1);
+		gridPane.add(this.finalas, 1, 5, this.zaidimoLenta1.getPlotis(), 1);
 
 		// Zaidimo lentu grid'ai
 		GridPane gridPane1 = new GridPane();

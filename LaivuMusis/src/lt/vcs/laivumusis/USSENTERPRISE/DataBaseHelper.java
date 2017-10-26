@@ -53,7 +53,7 @@ public class DataBaseHelper {
 		Connection dbconnection = null;
 		Class.forName("org.sqlite.JDBC");
 		
-		dbconnection = DriverManager.getConnection("jdbc:sqlite:LaivuMusis.db");
+		dbconnection = DriverManager.getConnection("jdbc:sqlite:C/Users/User/Desktop/Programavimas/Java mokymai/Git/0828_VCS_JAVA/LaivuMusis/LaivuMusis.db");
 		return dbconnection;
 
 	}
