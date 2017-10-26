@@ -9,6 +9,7 @@ import lt.vcs.laivumusis.common.Laivas;
 import lt.vcs.laivumusis.common.Langelis;
 import lt.vcs.laivumusis.common.Zaidimas;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
+import lt.vcs.laivumusis.piratai.duomenubazes.DuomenuBaze;
 
 public class ZaidejasKestutis implements lt.vcs.laivumusis.common.Zaidejas{
 
@@ -28,6 +29,7 @@ public class ZaidejasKestutis implements lt.vcs.laivumusis.common.Zaidejas{
 	
 	@Override
 	public void run() {
+		//registruokis();
 		zaidimas.registruokZaideja(this.zaidejoId);
 		System.out.println(this.zaidejoId);
 		
@@ -111,5 +113,10 @@ public class ZaidejasKestutis implements lt.vcs.laivumusis.common.Zaidejas{
 	public Zaidimas getZaidimas() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private void registruokis() {
+		DuomenuBaze duomenuBaze = new DuomenuBaze("D:/sqllite/LaivuMusisKestutis.db");
+		duomenuBaze.registruokZaideja(zaidejoId);
 	}
 }
