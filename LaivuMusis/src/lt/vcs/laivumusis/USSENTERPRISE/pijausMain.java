@@ -9,22 +9,25 @@ import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasLina;
 
 public class pijausMain {
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+	public static void main(String[] args) {
 
 	//	lt.vcs.laivumusis.piratai.Zaidimas zaidimas = new lt.vcs.laivumusis.piratai.Zaidimas(); // pijausZaidejas zaidejas = new
-		Zaidimas zaidimas1 = new Zaidimas(1);
-		Thread x = new Thread(new pijausZaidejas(zaidimas1, "Pijus"));
-		Thread y = new Thread(new ZaidejasLina(zaidimas1, "Lina"));
-		
-		x.start();
-		
-		
+		Zaidimas zaidimas1;
 		try {
-			Thread.sleep(2000);
-		} catch (Exception e) {
-			// TODO: handle exception
+			zaidimas1 = new Zaidimas(1);
+			Thread x = new Thread(new pijausZaidejas(zaidimas1, "Pijus"));
+			Thread y = new Thread(new ZaidejasLina(zaidimas1, "Lina"));
+			
+			x.start();
+			y.start();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		y.start();
+		
 	}
 
 }

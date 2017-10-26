@@ -35,7 +35,7 @@ public class pijausZaidejas implements Zaidejas {
 	}
 
 	@Override
-	public void run() {// sutvarkyti nauja isvis galbut Siwtch iskelti i metoda pagalvot kaip veikt
+	public void run() {
 		System.out.println(zaidejasId);
 		try {
 			boolean random = true;
@@ -64,7 +64,7 @@ public class pijausZaidejas implements Zaidejas {
 					break;
 				case RikiuojamLaivus:
 					zaidejauPridekLaivus();
-					// pridekLaiva();
+					
 
 					System.out.println(laivuskaicius);
 					Thread.sleep(1000);
@@ -76,7 +76,7 @@ public class pijausZaidejas implements Zaidejas {
 						// TODO: handle exception
 					}
 					
-					//zaidimas.sauk("A", 1, zaidejasId);
+					
 					break;
 				case PriesininkoEile:
 					
@@ -99,9 +99,7 @@ public class pijausZaidejas implements Zaidejas {
 			
 		}
 	}
-	// public void generuokRandomLaivoKordinates
 
-	// generuojam kordinates
 	public synchronized List<Langelis> generuojamLaivoKordintates(Laivas laivas, boolean arLaivasvertikalus, String laivasVertikalus,
 			int laivasHorizantalus) {
 		List<Langelis> laivoLangeliai = new ArrayList<Langelis>();
@@ -208,10 +206,6 @@ public class pijausZaidejas implements Zaidejas {
 	public Zaidimas getZaidimas() {
 
 		return zaidimas;
-	}
-
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-
 	}
 
 }
