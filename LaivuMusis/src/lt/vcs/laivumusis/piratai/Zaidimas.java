@@ -170,6 +170,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			Langelis sove = this.zaidimoLenta2.getLangeliai().get(x).get(y - 1);
 			sove.sauk();
 			soveKartu1++;
+			
 			if (saukPagalba(sove, laivai2)) {
 				if (arLaimejo(laivai2)) {
 					zaidejoBusenaId1 = Busena.TuLaimejai;
@@ -189,6 +190,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			Langelis sove = this.zaidimoLenta1.getLangeliai().get(x).get(y - 1);
 			sove.sauk();
 			soveKartu2++;
+			
 			if (saukPagalba(sove, laivai1)) {
 				if (arLaimejo(laivai1)) {
 					zaidejoBusenaId2 = Busena.TuLaimejai;

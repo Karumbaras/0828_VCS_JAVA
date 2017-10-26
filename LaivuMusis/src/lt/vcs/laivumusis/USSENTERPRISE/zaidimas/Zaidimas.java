@@ -188,10 +188,10 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			throw new LaivuPridejimoKlaida("Laivui nepriskirtos kordinates!");
 		this.laivas = laivas;
 		
-		boolean arlaivasiseiles = arPerduotosKoordinatesGeros();
+		/*boolean arlaivasiseiles = arPerduotosKoordinatesGeros();
 		if(arlaivasiseiles != true ) {
 			throw new LaivuPridejimoKlaida("Laivas kreivas");
-		}
+		}*/
 
 		boolean arLaivasGaliButPridetas = true;
 		Laivas Laivukas = laivas;
@@ -602,105 +602,5 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			return false;
 	}
 	
-	//////////////////////////////////////////////////////////////////////////
-	private boolean arSkaiciaiLygus = true;
-	private boolean arSkaiciaiIsEiles = true;
-	private boolean arRaidesLygios = true;
-	private boolean arRaidesIsEiles = true;
-	public boolean arPerduotosKoordinatesGeros() {
 	
-		arSkaiciaiLygus();
-		arSkaiciaiIsEiles();
-		arRaidesLygios();
-		arRaidesIsEiles();
-
-		if (arLaivuFormaGera()) {
-			return true;
-		}
-		return false;
-	}
-
-	private void arSkaiciaiLygus() {
-		if (laivas.getLaivoIlgis() == 1) {
-			return;
-		}
-
-		for (int i = 0; i < laivas.getLaivoKoordinates().size() - 1; i++) {
-			if (laivas.getLaivoKoordinates().get(i).getY() == laivas.getLaivoKoordinates().get(i + 1).getY()) {
-				continue;
-
-			} else {
-				arSkaiciaiLygus = false;
-			}
-
-		}
-	}
-
-	private void arSkaiciaiIsEiles() {
-		if (laivas.getLaivoIlgis() == 1) {
-			return;
-		}
-
-		for (int i = 0; i < laivas.getLaivoKoordinates().size() - 1; i++) {
-			if (Math.abs(
-					laivas.getLaivoKoordinates().get(i).getY() - laivas.getLaivoKoordinates().get(i + 1).getY()) == 1) {
-				continue;
-
-			} else {
-				arSkaiciaiIsEiles = false;
-			}
-
-		}
-	}
-
-	private void arRaidesLygios() {
-		for (int i = 0; i < laivas.getLaivoKoordinates().size() - 1; i++) {
-			int a = laivas.getLaivoKoordinates().get(i).getX().charAt(0);
-			int b = laivas.getLaivoKoordinates().get(i + 1).getX().charAt(0);
-			if (a == b) {
-				continue;
-
-			} else {
-				arRaidesLygios = false;
-			}
-
-		}
-	}
-
-	public void arRaidesIsEiles() {
-		if (laivas.getLaivoIlgis() == 1) {
-			return;
-		}
-
-		for (int i = 0; i < laivas.getLaivoKoordinates().size() - 1; i++) {
-			int a = laivas.getLaivoKoordinates().get(i).getX().charAt(0);
-			int b = laivas.getLaivoKoordinates().get(i + 1).getX().charAt(0);
-			if (Math.abs(a - b) == 1) {
-				continue;
-
-			} else {
-				arRaidesIsEiles = false;
-			}
-
-		}
-	}
-	
-	private boolean arLaivuFormaGera() {
-
-		if (laivas.getLaivoIlgis() == 1) {
-			return true;
-		}
-		
-		if ((arSkaiciaiLygus == arSkaiciaiIsEiles) || (arRaidesLygios == arRaidesIsEiles)) {
-			System.err.println("Laivas lenktas");
-			return false;
-		}
-
-		if ((arSkaiciaiLygus == arRaidesLygios) || (arSkaiciaiIsEiles == arRaidesIsEiles)) {
-			System.err.println("Laivas lenktas 2");
-			return false;
-		}
-		return true;
-
-	}
 }
