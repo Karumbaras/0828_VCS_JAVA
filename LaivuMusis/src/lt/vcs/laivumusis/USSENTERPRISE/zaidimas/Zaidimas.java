@@ -47,7 +47,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	private int padetaLaivuId2;
 
 	// Vaizdas
-	private Vaizdas pirmoZaidejoVaizdas = null; /// ??????????????????
+	private Vaizdas pirmoZaidejoVaizdas = null; 
 	private Vaizdas antrojoZaidejoVaizdas = null;
 
 	// Vaizdas pirmoZaidejoVaizdas = new Vaizdas(lenta1.zaidimoLentele);
@@ -68,16 +68,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	public void run() {
 	}
 
-	// ///
-	/*
-	 * public Zaidimas() { laivai1.add(laivasVienas); laivai1.add(laivasDu);
-	 * laivai1.add(laivasTrys); laivai1.add(LaivasKeturi); laivai1.add(LaivasPenki);
-	 * 
-	 * laivai2.add(laivasVienas); laivai2.add(laivasDu); laivai2.add(laivasTrys);
-	 * laivai2.add(LaivasKeturi); laivai2.add(LaivasPenki);
-	 * 
-	 * }
-	 */
+	
 	public Zaidimas() {
 	}
 
@@ -101,7 +92,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		this.laivuKiekis = this.laivai1.size();
 	}
 
-	// TODO perdaryti kad daugiau laivu paimtu, nes db po viena.
+
 	private synchronized List<Laivas> sukurkLaivuSarasa() {
 		List<Laivas> laivuSarasas = new ArrayList<Laivas>();
 		laivuSarasas.add(laivasVienas);
@@ -121,12 +112,12 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 	@Override
 	public void skaiciuokStatistika() {
-		// TODO is db paimti ir irasyti
+		
 
 	}
 
 	@Override
-	public synchronized Busena tikrinkBusena(String zaidejoId) {// patikrink kieno eile
+	public synchronized Busena tikrinkBusena(String zaidejoId) {
 		if (busenos == Busena.TavoEile || busenos == Busena.PriesininkoEile) {
 			if (zaidejoId == zaidejoId1) {
 				return zaidejas1_B;
@@ -177,8 +168,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 
 	}
 
-	// po kiekvieno zaidejo ejimo pieseme nauja vaizda
-	// truksta vieno tikrinam ar laivai dedami gerai
+	
 	@Override
 	public synchronized void pridekLaiva(Laivas laivas, String zaidejoId) throws LaivuPridejimoKlaida {
 		if (zaidejoId != zaidejoId1 || zaidejoId != zaidejoId2)
@@ -188,10 +178,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			throw new LaivuPridejimoKlaida("Laivui nepriskirtos kordinates!");
 		this.laivas = laivas;
 		
-		boolean arlaivasiseiles = arPerduotosKoordinatesGeros();
-		if(arlaivasiseiles != true ) {
-			throw new LaivuPridejimoKlaida("Laivas kreivas");
-		}
+		
 
 		boolean arLaivasGaliButPridetas = true;
 		Laivas Laivukas = laivas;
@@ -300,13 +287,10 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	public synchronized ZaidimoLenta duokZaidimoLenta(String zaidejoId) {// klaida
 		ZaidimoLenta lentosKopija = new lt.vcs.laivumusis.USSENTERPRISE.zaidimoLenta.ZaidimoLenta("int lentosIlgis = zaidejoZaidimoLenta.getLangeliai().size();");
 
-		// if (zaidejoId != zaidejoId1 || zaidejoId != zaidejoId2) {
-		// System.out.println("Nera tokio zaidejo lenta");
-		// return lentosKopija;
-		// }
+		
 
 		if (zaidejoId == zaidejoId2) {
-			// lentosKopija = lenta2;
+		
 			duotiLentaZaid_2 = true;
 			lentosKopija = lenta1;
 		}
@@ -602,105 +586,5 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 			return false;
 	}
 	
-	//////////////////////////////////////////////////////////////////////////
-	private boolean arSkaiciaiLygus = true;
-	private boolean arSkaiciaiIsEiles = true;
-	private boolean arRaidesLygios = true;
-	private boolean arRaidesIsEiles = true;
-	public boolean arPerduotosKoordinatesGeros() {
 	
-		arSkaiciaiLygus();
-		arSkaiciaiIsEiles();
-		arRaidesLygios();
-		arRaidesIsEiles();
-
-		if (arLaivuFormaGera()) {
-			return true;
-		}
-		return false;
-	}
-
-	private void arSkaiciaiLygus() {
-		if (laivas.getLaivoIlgis() == 1) {
-			return;
-		}
-
-		for (int i = 0; i < laivas.getLaivoKoordinates().size() - 1; i++) {
-			if (laivas.getLaivoKoordinates().get(i).getY() == laivas.getLaivoKoordinates().get(i + 1).getY()) {
-				continue;
-
-			} else {
-				arSkaiciaiLygus = false;
-			}
-
-		}
-	}
-
-	private void arSkaiciaiIsEiles() {
-		if (laivas.getLaivoIlgis() == 1) {
-			return;
-		}
-
-		for (int i = 0; i < laivas.getLaivoKoordinates().size() - 1; i++) {
-			if (Math.abs(
-					laivas.getLaivoKoordinates().get(i).getY() - laivas.getLaivoKoordinates().get(i + 1).getY()) == 1) {
-				continue;
-
-			} else {
-				arSkaiciaiIsEiles = false;
-			}
-
-		}
-	}
-
-	private void arRaidesLygios() {
-		for (int i = 0; i < laivas.getLaivoKoordinates().size() - 1; i++) {
-			int a = laivas.getLaivoKoordinates().get(i).getX().charAt(0);
-			int b = laivas.getLaivoKoordinates().get(i + 1).getX().charAt(0);
-			if (a == b) {
-				continue;
-
-			} else {
-				arRaidesLygios = false;
-			}
-
-		}
-	}
-
-	public void arRaidesIsEiles() {
-		if (laivas.getLaivoIlgis() == 1) {
-			return;
-		}
-
-		for (int i = 0; i < laivas.getLaivoKoordinates().size() - 1; i++) {
-			int a = laivas.getLaivoKoordinates().get(i).getX().charAt(0);
-			int b = laivas.getLaivoKoordinates().get(i + 1).getX().charAt(0);
-			if (Math.abs(a - b) == 1) {
-				continue;
-
-			} else {
-				arRaidesIsEiles = false;
-			}
-
-		}
-	}
-	
-	private boolean arLaivuFormaGera() {
-
-		if (laivas.getLaivoIlgis() == 1) {
-			return true;
-		}
-		
-		if ((arSkaiciaiLygus == arSkaiciaiIsEiles) || (arRaidesLygios == arRaidesIsEiles)) {
-			System.err.println("Laivas lenktas");
-			return false;
-		}
-
-		if ((arSkaiciaiLygus == arRaidesLygios) || (arSkaiciaiIsEiles == arRaidesIsEiles)) {
-			System.err.println("Laivas lenktas 2");
-			return false;
-		}
-		return true;
-
-	}
 }
