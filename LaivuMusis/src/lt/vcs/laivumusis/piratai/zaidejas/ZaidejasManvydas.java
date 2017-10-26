@@ -18,11 +18,11 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 	private ZaidimoLenta zaidimoLenta;
 	private int lentosIlgis;
 	private int lentosPlotis;
-	
+
 	private boolean arZaidimasTesiasi = true;
-	
+
 	private String abecele = "";
-	
+
 	Random random = new Random();
 
 	private List<Laivas> laivai = new ArrayList<Laivas>();
@@ -35,18 +35,18 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 
 	@Override
 	public void run() {
-		boolean arUzregistravo = true;
-		
+		boolean arUzregistravo = false;
+
 		try {
 			while (arZaidimasTesiasi) {
 				switch (zaidimas.tikrinkBusena(zaidejoId)) {
 
 				case Registracija:
-					while (arUzregistravo) {
+					while (!arUzregistravo) {
 						registruokis();
 						Thread.sleep(10);
 						if (zaidimas.registruokZaideja(this.zaidejoId)) {
-							arUzregistravo = false;
+							arUzregistravo = true;
 						}
 					}
 					break;
@@ -92,13 +92,13 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 	public Zaidimas getZaidimas() {
 		return this.zaidimas;
 	}
-	
+
 	private void registruokis() {
-		DuomenuBaze duomenuBaze = new DuomenuBaze("C:/Users/Manvydas/Desktop/VCS/Java/LaivuMusis.db");
-		duomenuBaze.registruokZaideja(zaidejoId);
+		//DuomenuBaze duomenuBaze = new DuomenuBaze("C:/Users/Manvydas/Desktop/VCS/Java/LaivuMusis.db");
+		//duomenuBaze.registruokZaideja(zaidejoId);
 	}
-	
-	public void pasiimkLenta() {
+
+	private void pasiimkLenta() {
 		this.zaidimoLenta = zaidimas.duokZaidimoLenta(zaidejoId);
 		for (String k : zaidimoLenta.getLangeliai().keySet()) {
 			this.abecele = this.abecele + k;
@@ -106,12 +106,12 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 		this.lentosPlotis = zaidimoLenta.getLangeliai().keySet().size();
 		this.lentosIlgis = zaidimoLenta.getLangeliai().get("" + abecele.charAt(0)).size();
 	}
-	
-	public void pasiimkLaivus() {
+
+	private void pasiimkLaivus() {
 		this.laivai = zaidimas.duokLaivus(zaidejoId);
 	}
 
-	public void rikiuokLaivus() {
+	private void rikiuokLaivus() {
 		int stulpelisSkaicius;
 		int eilute;
 		boolean arNeleidoPadeti = true;
@@ -156,7 +156,7 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 		}
 	}
 
-	private void sauk() {
+	private void sauk() throws InterruptedException {
 		while (true) {
 			String stulpelis = "" + abecele.charAt(random.nextInt(lentosPlotis));
 			int eilute = random.nextInt(lentosIlgis) + 1;
@@ -171,17 +171,54 @@ public class ZaidejasManvydas implements lt.vcs.laivumusis.common.Zaidejas {
 		}
 	}
 
-	private void ieskokLaivo(String stulpelis, int eilute) {
+	/*
+	 * private void sauk() {
+	 * 
+	 * while (true) {
+	 * 
+	 * String stulpelis = "" + abecele.charAt(random.nextInt(lentosPlotis)); int
+	 * eilute = random.nextInt(lentosIlgis) + 1;
+	 * 
+	 * if (!suviai.contains(stulpelis + eilute)) { suviai.add(stulpelis + eilute);
+	 * if (zaidimas.sauk(stulpelis, eilute, this.zaidejoId)) {
+	 * 
+	 * boolean arLaivasNusautas = false;
+	 * 
+	 * while (!arLaivasNusautas) { if (tikrinkArNusautas(stulpelis, eilute)) {
+	 * arLaivasNusautas = true; } }
+	 * 
+	 * ieskokLaivo(stulpelis, eilute); } } break;
+	 * 
+	 * } }
+	 */
+
+	private boolean tikrinkArNusautas(String stulpelis, int eilute) {
+		
+		char stulp = (char) (stulpelis.charAt(0) + 1);
+		
+		if ((suviai.contains(stulpelis + (eilute + 1)) && eilute + 1 < lentosIlgis)
+				&& (suviai.contains(stulpelis + (eilute - 1)) && eilute - 1 > lentosIlgis)
+				
+
+		) {
+			return true;
+		}
+		return false;
+	}
+
+	private void ieskokLaivo(String stulpelis, int eilute) throws InterruptedException {
 		if (!suviai.contains(stulpelis + (eilute + 1)) && eilute + 1 < lentosIlgis) {
 			suviai.add(stulpelis + (eilute + 1));
+			Thread.sleep(200);
 			zaidimas.sauk(stulpelis, (eilute + 1), this.zaidejoId);
 		} else if (!suviai.contains(stulpelis + (eilute - 1)) && eilute - 1 > lentosIlgis) {
 			suviai.add(stulpelis + (eilute - 1));
+			Thread.sleep(200);
 			zaidimas.sauk(stulpelis, (eilute - 1), this.zaidejoId);
 		}
 	}
-	
-	public void baikZaidima(String rezultatas) {
+
+	private void baikZaidima(String rezultatas) {
 		if (rezultatas == "laimejo") {
 			System.out.println(this.zaidejoId + " Laimejo!!!");
 		} else {

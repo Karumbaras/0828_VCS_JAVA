@@ -2,11 +2,16 @@ package lt.vcs.laivumusis.piratai;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import lt.vcs.laivumusis.common.Busena;
 import lt.vcs.laivumusis.common.Laivas;
 import lt.vcs.laivumusis.common.LaivuPridejimoKlaida;
 import lt.vcs.laivumusis.common.Langelis;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
+import lt.vcs.laivumusis.piratai.grafika.Grafika;
 
 public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	// Zaidejas
@@ -45,6 +50,7 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	// Vaizdas
 	private Vaizdas vaizdas1;
 	private Vaizdas vaizdas2;
+
 
 	@Override
 	public void run() {
@@ -148,12 +154,30 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 		if (zaidejoId1 != null) {
 			this.zaidejoId2 = zaidejoId;
 			zaidejuSkaicius++;
+			
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					Grafika.zaidejoID2.setText(zaidejoId2);
+				}
+			});
+			
+			
 			zaidimoBusena = Busena.DalinamesZemelapius;
 			System.out.println("Uzregistruotas 2 zaidejas!");
 			return true;
 		} else {
 			zaidejuSkaicius++;
 			this.zaidejoId1 = zaidejoId;
+			
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					Grafika.zaidejoID1.setText(zaidejoId1);
+				}
+			});
+			
+			
 			System.out.println("Uzregistruotas 1 zaidejas!");
 		}
 
@@ -371,6 +395,5 @@ public class Zaidimas implements lt.vcs.laivumusis.common.Zaidimas {
 	public String getZaidejoId2() {
 		return this.zaidejoId2;
 	}
-	
 
 }
