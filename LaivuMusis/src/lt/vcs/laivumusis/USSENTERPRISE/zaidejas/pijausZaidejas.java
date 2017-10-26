@@ -16,6 +16,7 @@ import lt.vcs.laivumusis.common.Laivas;
 import lt.vcs.laivumusis.common.Langelis;
 import lt.vcs.laivumusis.common.Zaidejas;
 import lt.vcs.laivumusis.common.Zaidimas;
+import lt.vcs.laivumusis.piratai.zaidejas.ZaidejasKestutis;
 
 public class pijausZaidejas implements Zaidejas {
 
@@ -179,46 +180,34 @@ public class pijausZaidejas implements Zaidejas {
 	}
 
 	public void zaidejauSauk() {
+		zaidimas.sauk(generuokX(), generuokY(), zaidejasId);
+		/*
+		 * boolean pataikymas = false; int ilgisLent =
+		 * zaidejoZaidimoLenta.getLangeliai().values().size(); int plotisLent =
+		 * zaidejoZaidimoLenta.getLangeliai().keySet().size();
+		 * 
+		 * String stulpelis = generuokX(); int eilute = generuokY(); int pradinis =
+		 * eilute;
+		 * 
+		 * if (!pataikytasSuvisListas.contains(stulpelis + eilute)) {
+		 * pataikytasSuvisListas.add(stulpelis + eilute); pataikymas =
+		 * zaidimas.sauk(stulpelis, eilute, this.zaidejasId); while (pataikymas) { if
+		 * (eilute < ilgisLent) { eilute = eilute + 1; if
+		 * (!pataikytasSuvisListas.contains(stulpelis + eilute)) {
+		 * pataikytasSuvisListas.add(stulpelis + eilute); pataikymas =
+		 * zaidimas.sauk(stulpelis, eilute, this.zaidejasId); if (pataikymas) continue;
+		 * else break; } else { eilute = eilute - 1; if
+		 * (!pataikytasSuvisListas.contains(stulpelis + eilute)) {
+		 * pataikytasSuvisListas.add(stulpelis + eilute); pataikymas =
+		 * zaidimas.sauk(stulpelis, eilute, this.zaidejasId);
+		 * 
+		 * } } }
+		 * 
+		 * }
+		 * 
+		 * }
+		 */
 
-		boolean pataikymas = false;
-		int ilgisLent = zaidejoZaidimoLenta.getLangeliai().values().size();
-		int plotisLent = zaidejoZaidimoLenta.getLangeliai().keySet().size();
-		while (true) {
-			String stulpelis = generuokX();
-			int eilute = generuokY();
-			int pradinis = eilute;
-
-			if (!pataikytasSuvisListas.contains(stulpelis + eilute)) {
-				pataikytasSuvisListas.add(stulpelis + eilute);
-				pataikymas = zaidimas.sauk(stulpelis, eilute, this.zaidejasId);
-				while (pataikymas) {
-					if (eilute < ilgisLent) {
-						eilute = eilute + 1;
-						if (!pataikytasSuvisListas.contains(stulpelis + eilute)) {
-							pataikytasSuvisListas.add(stulpelis + eilute);
-							pataikymas = zaidimas.sauk(stulpelis, eilute, this.zaidejasId);
-							if (pataikymas)
-								continue;
-							else
-								break;
-						} else {
-							eilute = eilute - 1;
-							if (!pataikytasSuvisListas.contains(stulpelis + eilute)) {
-								pataikytasSuvisListas.add(stulpelis + eilute);
-								pataikymas = zaidimas.sauk(stulpelis, eilute, this.zaidejasId);
-								if (pataikymas)
-									continue;
-								else
-									break;
-							}
-						}
-					}
-
-				}
-
-			}
-			break;
-		}
 	}
 
 	private String generuokX() {
