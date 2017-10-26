@@ -5,23 +5,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 import lt.vcs.laivumusis.common.Busena;
 import lt.vcs.laivumusis.common.Laivas;
 import lt.vcs.laivumusis.common.LaivuPridejimoKlaida;
 import lt.vcs.laivumusis.common.Langelis;
 import lt.vcs.laivumusis.common.Zaidimas;
 import lt.vcs.laivumusis.common.ZaidimoLenta;
+import lt.vcs.laivumusis.piratai.LaivuValidatorius;
 import lt.vcs.laivumusis.piratai.duomenubazes.DuomenuBaze;
 
 public class ZaidejasArnas implements lt.vcs.laivumusis.common.Zaidejas {
+	
+	static Logger log = Logger.getLogger(ZaidejasArnas.class.getName());
 
 	private Zaidimas zaidimas;
 
 	private String zaidejoId;
 
-	List<Laivas> laivai = new ArrayList<Laivas>();
-	ZaidimoLenta zaidimoLenta;
-	List<String> pasautiLangeliai = new ArrayList<String>();
+	private ZaidimoLenta zaidimoLenta;
+	private List<String> pasautiLangeliai = new ArrayList<String>();
+
+	private List<Laivas> laivai = new ArrayList<Laivas>();
 
 	public ZaidejasArnas(Zaidimas zaidimas, String zaidejoId) {
 		this.zaidimas = zaidimas;
@@ -38,20 +44,20 @@ public class ZaidejasArnas implements lt.vcs.laivumusis.common.Zaidejas {
 
 				switch (zaidimas.tikrinkBusena(zaidejoId)) {
 				case Registracija:
-					if(arPrisiregistravo) {
-					registruokis();
-					zaidimas.registruokZaideja(zaidejoId);
-					Thread.sleep(1000);
-					arPrisiregistravo = false;
+					if (arPrisiregistravo) {
+						registruokis();
+						zaidimas.registruokZaideja(zaidejoId);
+						Thread.sleep(500);
+						arPrisiregistravo = false;
 					}
 					break;
 				case DalinamesZemelapius:
 					zaidimoLenta = zaidimas.duokZaidimoLenta(zaidejoId);
-					Thread.sleep(1000);
+					Thread.sleep(500);
 					break;
 				case DalinemesLaivus:
 					laivai = zaidimas.duokLaivus(zaidejoId);
-					Thread.sleep(1000);
+					Thread.sleep(500);
 					break;
 				case RikiuojamLaivus:
 					for (int i = 0; i < laivai.size(); i++) {
@@ -60,7 +66,7 @@ public class ZaidejasArnas implements lt.vcs.laivumusis.common.Zaidejas {
 							laivai.get(i).setKordinates(galvokKoordinates(laivai.get(i)));
 							zaidimas.pridekLaiva(laivai.get(i), zaidejoId);
 						} catch (LaivuPridejimoKlaida e) {
-							
+							log.error("Nepavyko prideti laivo", e);
 							i--;
 						}
 					}
@@ -88,8 +94,7 @@ public class ZaidejasArnas implements lt.vcs.laivumusis.common.Zaidejas {
 				}
 			}
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			
+			log.error("InterruptedException", e);
 		}
 	}
 
@@ -100,14 +105,39 @@ public class ZaidejasArnas implements lt.vcs.laivumusis.common.Zaidejas {
 
 	private void sauk() {
 		boolean arILangeliSauta = false;
+
 		while (!arILangeliSauta) {
-			String x = "" + (char) (new Random().nextInt(zaidimoLenta.getLangeliai().keySet().size()) + 65);
+
+			int x = (new Random().nextInt(zaidimoLenta.getLangeliai().keySet().size()) + 65);
 			int y = new Random().nextInt(zaidimoLenta.getLangeliai().get("A").size()) + 1;
 
-			if (!pasautiLangeliai.contains(x + y)) {
-				pasautiLangeliai.add(x + y);
-				zaidimas.sauk(x, y, zaidejoId);
+			if (!pasautiLangeliai.contains("" + (char) x + y)) {
+				pasautiLangeliai.add("" + (char) x + y);
+
+				if (zaidimas.sauk("" + (char) x, y, zaidejoId)) {
+					darykKadNesautuIstrizai(x, y);
+
+				}
 				arILangeliSauta = true;
+
+			}
+		}
+	}
+
+	private void darykKadNesautuIstrizai(int x, int y) {
+		for (int sk = -1; sk <= 1; sk++) {
+			for (int sk2 = -1; sk2 <= 1; sk2++) {
+				if (sk == 0 || sk2 == 0) {
+					continue;
+				}
+				if (((x + sk) >= 65) && (x + sk) <= zaidimoLenta.getLangeliai().size() + 64) {
+
+					if (((y + sk2) >= 1) && ((y + sk2) <= zaidimoLenta.getLangeliai().get("" + (char) x).size())) {
+
+						pasautiLangeliai.add("" + (char) (x + sk) + (y + sk2));
+
+					}
+				}
 			}
 		}
 	}
